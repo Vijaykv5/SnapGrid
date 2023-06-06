@@ -84,11 +84,11 @@ const MainSection = () => {
             })
         }
     </div>
-    <div className='button bg-violet-500 text-white w-fit rounded-md flex justify-center text-center '>
-        { page >1 &&<button onClick={()=>setPage(page-1)} className=''> Previous</button>}
-        {page < totalPages &&  <button  onClick={()=>setPage(page+1)} className=' p-1 px-2  '>Next</button>}
-        
-    </div>
+    <div className='button  ml-[600] mb-8'>
+    {page > 1 && <button onClick={() => setPage(page - 1)} className=' p-1 px-2 bg-violet-500 text-white w-fit rounded-md'>Previous</button>}
+    {page < totalPages && <button onClick={() => setPage(page + 1)} className='p-1 px-2 mx-6  bg-violet-500 text-white w-fit rounded-md' >Next</button>}
+</div>
+
     </>
   )
 }
