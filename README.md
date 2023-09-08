@@ -1,6 +1,6 @@
 # Image Searcher 📷🌍
 
-Simple Image searching project created using popular [ReactJS library]('https://react.dev'). 
+Simple Image searching project created using popular [ReactJS library](https://www.react.dev). 
 
 ## Preview
 
