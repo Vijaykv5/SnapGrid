@@ -4,7 +4,7 @@
 
 ## Preview
 
-<img src='./preview.gif' width='75%' height='auto' alt='image searcher' />
+<img src='https://s11.gifyu.com/images/S426U.gif' width='75%' height='auto' alt='image searcher' />
 
 ## Installation 🛠️
 
