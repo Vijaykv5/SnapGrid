@@ -53,14 +53,14 @@ const MainSection = () => {
   return (
     <>
     
-    <div className='text-violet-500 text-center font-bold text-5xl   justify-center  my-28 ' >Image Search</div>
+    <div className='text-violet-500 text-center font-bold text-5xl my-8 md:my-28 ' >Image Search</div>
    
-    <div className='text-center -my-16'>
+    <div className='text-center md:-my-16  -my-4'>
     <form onSubmit={handleClick}>
-    <input className='w-96 h-9 border-spacing-1 border-violet-500 hover:border-violet-500 bg-gray-100 rounded-md p-2  ' placeholder=' Try Something Search here ...' ref={searchInput}/>
+    <input className='w-96 h-9 border border-violet-500 hover:border-violet-500 bg-gray-100 rounded-md p-2' placeholder=' Try Something Search here ...' ref={searchInput}/>
     </form>
     </div>
-    <div className=' my-20 mx-[490]'>
+    <div className='my-8 md:my-20 mx-auto md:max-w-screen-lg flex flex-wrap justify-center'>
         <button onClick={()=>handleSelection('Nature')} className='text-white bg-violet-500 p-1 px-2 rounded-md '>Nature</button>
         <button  onClick={()=>handleSelection('Shoes')} className='text-white bg-violet-500 p-1 px-2 rounded-md ml-3     '>Shoes</button>
 
@@ -73,18 +73,18 @@ const MainSection = () => {
         
     </div>
     
-    <div className='grid grid-cols-4 p-5 gap-4'>
+    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-5'>
         {
             
            images.map(image=>{
                 return(
                     
-                    <img key={image?.id} src={image?.urls?.small} className='w-80 h-72 rounded-md  hover:-translate-y-3 hover:scale-90 duration-200  shadow-2xl hover:shadow-md'/>
+                    <img key={image?.id} src={image?.urls?.small} className='w-full md:w-80 h-72 rounded-md transform hover:scale-105 duration-200 shadow-lg hover:shadow-md'/>
                 )
             })
         }
     </div>
-    <div className='button  ml-[600] mb-8'>
+    <div className='flex justify-center mt-8'>
     {page > 1 && <button onClick={() => setPage(page - 1)} className=' p-1 px-2 bg-violet-500 text-white w-fit rounded-md'>Previous</button>}
     {page < totalPages && <button onClick={() => setPage(page + 1)} className='p-1 px-2 mx-6  bg-violet-500 text-white w-fit rounded-md' >Next</button>}
 </div>
