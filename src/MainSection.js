@@ -61,8 +61,10 @@ const MainSection = () => {
   return (
     <>
 
-    <div className='text-violet-500 text-center font-bold text-5xl my-8 md:my-28 ' >Image Search</div>
-
+<div className='flex flex-col justify-center items-center'>
+        <img src='https://i.ibb.co/gSSxMS4/Image-1-removebg-preview.png' alt='logo' className='w-[120px]'/>
+        <div className='text-violet-500 text-center font-bold text-5xl my-8 md:mb-28 ' >Image Search</div>
+    </div>
     <div className='text-center md:-my-16  -my-4'>
     <form onSubmit={handleClick}>
     <input className='w-96 h-9 border border-violet-500 hover:border-violet-500 bg-gray-100 rounded-md p-2' placeholder=' Try Something Search here ...' ref={searchInput}/>
