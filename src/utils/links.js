@@ -38,5 +38,25 @@ export const links = [
         url: "https://images.unsplash.com/photo-1479142506502-19b3a3b7ff33?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
         title: "History",
         description: "<p>Journey through the annals of time. This category delves into the rich tapestry of human history, showcasing pivotal moments, iconic figures, and the fascinating stories that have shaped our world.<p>"
-    }
+    },
+    {
+        url: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2020&q=80",
+        title: "Travel",
+        description: "<p>Travel allows us to explore the world's wonders and experience new cultures. It's a journey of discovery, from iconic landmarks to hidden gems. Pack your bags and set out on an adventure to create memories that will last a lifetime.<p>"
+    },
+    {
+        url: "https://images.unsplash.com/photo-1493514789931-586cb221d7a7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
+        title: "Busines",
+        description: "<p>In the world of business, innovation and entrepreneurship drive progress. Whether you're a startup founder or a seasoned executive, the business landscape offers challenges and opportunities. Success comes to those who adapt, innovate, and lead.<p>"
+    },
+    {
+        url: "https://images.unsplash.com/photo-1491841550275-ad7854e35ca6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
+        title: "People",
+        description: "<p>People are the heart of our world, with diverse stories, experiences, and perspectives. From everyday heroes to global leaders, individuals shape our societies. Together, we strive for equality, understanding, and a brighter future.<p>"
+    },
+    {
+        url: "https://images.unsplash.com/photo-1528357136257-0c25517acfea?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+        title: "Religion",
+        description: "<p>Religion provides spiritual guidance and a sense of purpose for billions around the globe. It's a source of strength, faith, and community. Through rituals, teachings, and beliefs, people find meaning in their lives and a connection to the divine.<p>"
+    },
 ]
