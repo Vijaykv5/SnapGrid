@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState , Link } from 'react'
 import dotenv from 'dotenv';
-
+import { links }  from './utils/links';
 
 const API_URL= 'https://api.unsplash.com/search/photos';
 const Image_count=28;
@@ -9,12 +9,11 @@ dotenv.config();
 
 const MainSection = () => {
     const searchInput=useRef(null);
-
     const [images,setImages]=useState([]);
     const [page,setPage]=useState(1)
-    const[totalPages,setTotalPages]=useState(0)
-
-
+    const [totalPages,setTotalPages]=useState(0)
+    const [bannerImage, setBannerImage] = useState(null);
+    const [linkInfo, setlinkInfo] = useState({});
 
 
     const fetchImages =async()=>{
@@ -36,9 +35,17 @@ const MainSection = () => {
         setPage(1);
     }
     const handleSelection=(selection)=>{
-        searchInput.current.value=selection;
-        (images!=null?fetchImages():<div className='font-bold text-black'>Error</div>);
-        setPage(1);
+        const selectedLink = links.find((link) => link.title === selection);
+        console.log(selectedLink);
+        if (selectedLink) {
+            searchInput.current.value = selection;
+            fetchImages();
+            setPage(1);
+            setBannerImage(selectedLink.url);
+            setlinkInfo(selectedLink);
+        } else {
+            setBannerImage(null);
+        }
     }
 
 
@@ -60,7 +67,7 @@ const MainSection = () => {
     <input className='w-96 h-9 border border-violet-500 hover:border-violet-500 bg-gray-100 rounded-md p-2' placeholder=' Try Something Search here ...' ref={searchInput}/>
     </form>
     </div>
-    <div className='my-8 md:my-20 mx-auto md:max-w-screen-lg flex flex-wrap justify-center'>
+    <div className='my-8 md:mt-20 mb-5 mx-auto md:max-w-screen-lg flex flex-wrap justify-center'>
         <button onClick={()=>handleSelection('Nature')} className='text-white bg-violet-500 p-1 px-2 rounded-md '>Nature</button>
         <button  onClick={()=>handleSelection('Shoes')} className='text-white bg-violet-500 p-1 px-2 rounded-md ml-3     '>Shoes</button>
 
@@ -72,6 +79,20 @@ const MainSection = () => {
 
 
     </div>
+    <div className='relative h-128'>
+        {bannerImage && (
+            <img
+            src={bannerImage}
+            alt='Banner'
+            className='w-full h-full object-cover'
+            />
+        )}
+        <div className='absolute top-10 left-0 p-4 text-white max-w-2xl'>
+            <h1 className='top-15 font-bold text-left pt-20 px-20 text-5xl'>{linkInfo.title}</h1>
+            <div className='px-20 font-light text-slate-200 pt-5' dangerouslySetInnerHTML={{__html: linkInfo.description}} />
+        </div>
+    </div>
+
 
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-5'>
         {
