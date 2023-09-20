@@ -13,7 +13,7 @@ const MainSection = () => {
     const [images,setImages]=useState([]);
     const [page,setPage]=useState(1)
     const[totalPages,setTotalPages]=useState(0)
-    
+
 
 
 
@@ -32,29 +32,29 @@ const MainSection = () => {
     const handleClick=(e)=>{
         e.preventDefault();
         // console.log(searchInput.current.value);
-        (images!=null?fetchImages():<div className='font-bold text-black'>Error</div>);   
-        setPage(1);    
+        (images!=null?fetchImages():<div className='font-bold text-black'>Error</div>);
+        setPage(1);
     }
     const handleSelection=(selection)=>{
         searchInput.current.value=selection;
-        (images!=null?fetchImages():<div className='font-bold text-black'>Error</div>); 
+        (images!=null?fetchImages():<div className='font-bold text-black'>Error</div>);
         setPage(1);
     }
 
-    
+
 
 
     useEffect(()=>{
         fetchImages();
     },[page]);
 
-  
+
 
   return (
     <>
-    
+
     <div className='text-violet-500 text-center font-bold text-5xl my-8 md:my-28 ' >Image Search</div>
-   
+
     <div className='text-center md:-my-16  -my-4'>
     <form onSubmit={handleClick}>
     <input className='w-96 h-9 border border-violet-500 hover:border-violet-500 bg-gray-100 rounded-md p-2' placeholder=' Try Something Search here ...' ref={searchInput}/>
@@ -70,16 +70,16 @@ const MainSection = () => {
 
 
 
-        
+
     </div>
-    
+
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-5'>
         {
-            
+
            images.map(image=>{
                 return(
-                    
-                    <img key={image?.id} src={image?.urls?.small} className='w-full md:w-80 h-72 rounded-md transform hover:scale-105 duration-200 shadow-lg hover:shadow-md'/>
+
+                    <img key={image?.id} src={image?.urls?.small} className='w-full md:w-80 h-72 rounded-md transform hover:scale-105 duration-200 shadow-lg hover:shadow-md object-cover'/>
                 )
             })
         }
