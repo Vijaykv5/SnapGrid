@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState , Link } from 'react'
 import dotenv from 'dotenv';
 import { links }  from './utils/links';
+import SelectionMenu from './components/menu/SelectionMenu';
 
 const API_URL= 'https://api.unsplash.com/search/photos';
 const Image_count=28;
@@ -67,17 +68,8 @@ const MainSection = () => {
     <input className='w-96 h-9 border border-violet-500 hover:border-violet-500 bg-gray-100 rounded-md p-2' placeholder=' Try Something Search here ...' ref={searchInput}/>
     </form>
     </div>
-    <div className='my-8 md:mt-20 mb-5 mx-auto md:max-w-screen-lg flex flex-wrap justify-center'>
-        <button onClick={()=>handleSelection('Nature')} className='text-white bg-violet-500 p-1 px-2 rounded-md '>Nature</button>
-        <button  onClick={()=>handleSelection('Shoes')} className='text-white bg-violet-500 p-1 px-2 rounded-md ml-3     '>Shoes</button>
-
-        <button  onClick={()=>handleSelection('Camera')} className='text-white bg-violet-500 p-1 px-2 rounded-md ml-3'>Camera</button>
-        <button  onClick={()=>handleSelection('Birds')} className='text-white bg-violet-500 p-1  px-2 rounded-md ml-3'>Birds</button>
-        <button  onClick={()=>handleSelection('Phones')} className='text-white bg-violet-500 p-1 px-2 rounded-md ml-3'>Phones</button>
-
-
-
-
+    <div className='my-8 md:mt-20 mb-5 mx-auto md:max-w-screen-lg'>
+        <SelectionMenu links={links} handleSelection={handleSelection} />
     </div>
     <div className='relative h-128'>
         {bannerImage && (
