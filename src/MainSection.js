@@ -83,8 +83,8 @@ const MainSection = () => {
             />
         )}
         <div className='absolute top-10 left-0 p-4 text-white max-w-2xl'>
-            <h1 className='top-15 font-bold text-left pt-20 px-20 text-5xl'>{linkInfo.title}</h1>
-            <div className='px-20 font-light text-slate-200 pt-5' dangerouslySetInnerHTML={{__html: linkInfo.description}} />
+            <h1 className='top-15 font-bold text-left pt-20 px-20 text-5xl'>{linkInfo?.title}</h1>
+            <div className='px-20 font-light text-slate-200 pt-5' dangerouslySetInnerHTML={{__html: linkInfo?.description}} />
         </div>
     </div>
 
