@@ -1,0 +1,3 @@
+issue_template:
+  # Name of the issue template file (without the .md extension)
+ fix: .github/ISSUE_TEMPLATE/fix.md
