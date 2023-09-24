@@ -63,6 +63,7 @@ const MainSection = () => {
 
 <div className='flex flex-col justify-center items-center'>
         <img src='https://i.ibb.co/gSSxMS4/Image-1-removebg-preview.png' alt='logo' className='w-[120px]'/>
+        <a class="fixed top-10 right-10" href="https://github.com/Vijaykv5/Image-Searcher" target="_blank"><i class="fa fa-github fa-2x text-violet-500"></i></a>
         <div className='text-violet-500 text-center font-bold text-5xl my-8 md:mb-28 ' >Image Search</div>
     </div>
     <div className='text-center md:-my-16  -my-4'>
