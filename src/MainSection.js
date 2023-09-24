@@ -19,7 +19,7 @@ const MainSection = () => {
 
     const fetchImages =async()=>{
         try{
-            const data=await fetch(`${API_URL}?query=${searchInput.current.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.PARCEL_API_KEY}`);
+            const data=await fetch(`${API_URL}?query=${searchInput.current.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`);
             const json = await data.json();
             setImages(json?.results)
             setTotalPages(json?.total_pages)

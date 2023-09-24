@@ -21,7 +21,7 @@ To get started with the Image Searcher project, follow these steps:
 ``` 
 2. Navigate to the project directory:
 ```bash
- cd vijaykv-image-searcher
+ cd Image-Searcher
 ``` 
 3. Install the project dependencies:
 ```bash
