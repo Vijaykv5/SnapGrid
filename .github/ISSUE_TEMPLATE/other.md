@@ -1,14 +1,14 @@
 ---
-name: FIX
-about: Describe the FIX Needed.
-title: ''
+name: Other
+about: Use this for any other issues. Please do NOT create blank issues
+title: '[OTHER] <Add your title here>'
 labels: []
 assignees: []
 ---
 
 **Description**
 
-Please describe the FIX in detail.
+Please add your question in detail.
 
 **Expected Behavior**
 

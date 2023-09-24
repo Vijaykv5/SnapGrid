@@ -1,3 +1,6 @@
 issue_template:
-  # Name of the issue template file (without the .md extension)
- fix: .github/ISSUE_TEMPLATE/fix.md
+ 
+ feature: .github/ISSUE_TEMPLATE/feature.md
+ documentation: .github/ISSUE_TEMPLATE/documentation.md
+ bug: .github/ISSUE_TEMPLATE/bug.md
+ other: .github/ISSUE_TEMPLATE/other.md
