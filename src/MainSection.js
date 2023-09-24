@@ -2,8 +2,6 @@ import React, { useEffect, useRef, useState , Link } from 'react'
 import dotenv from 'dotenv';
 import { links }  from './utils/links';
 import SelectionMenu from './components/menu/SelectionMenu';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 const API_URL= 'https://api.unsplash.com/search/photos';
 const Image_count=28;
@@ -58,24 +56,6 @@ const MainSection = () => {
         fetchImages();
     },[page]);
 
-    const [likedImages, setLikedImages] = useState([]);
-    const [animationTrigger, setAnimationTrigger] = useState(null);
-
-    const handleLike = (imageId) => {
-        if (likedImages.includes(imageId)) {
-          // If already liked, remove from likedImages array
-          setLikedImages(likedImages.filter((id) => id !== imageId));
-        } else {
-          // If not liked, add to likedImages array and trigger animation
-          setLikedImages([...likedImages, imageId]);
-          setAnimationTrigger(imageId);
-    
-          // Clear animation trigger after a short delay (e.g., 1 second)
-          setTimeout(() => {
-            setAnimationTrigger(null);
-          }, 1000);
-        }
-      };
 
 
   return (
@@ -110,32 +90,16 @@ const MainSection = () => {
 
 
     <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-5'>
-      {images.map((image) => (
-        <div key={image?.id} className="relative">
-          <img
-            src={image?.urls?.small}
-            className='w-full md:w-80 h-72 rounded-md transform hover:scale-105 duration-200 shadow-lg hover:shadow-md object-cover'
-            alt={image?.alt_description}
-          />
-          <button
-            onClick={() => handleLike(image?.id)}
-            className={`absolute top-2 right-2 p-1 px-2 bg-violet-500 text-white rounded-md ${
-              likedImages.includes(image?.id) ? 'bg-red-500' : ''
-            }`}
-          >
-            <FontAwesomeIcon
-              icon={faHeart}
-              className={`heart-icon ${
-                animationTrigger === image?.id ? 'pop' : ''
-              }`}
-            />
-          </button>
-        </div>
-      ))}
+        {
+
+           images.map(image=>{
+                return(
+
+                    <img key={image?.id} src={image?.urls?.small} className='w-full md:w-80 h-72 rounded-md transform hover:scale-105 duration-200 shadow-lg hover:shadow-md object-cover'/>
+                )
+            })
+        }
     </div>
-
-
-
     <div className='flex justify-center mt-8'>
     {page > 1 && <button onClick={() => setPage(page - 1)} className=' p-1 px-2 bg-violet-500 text-white w-fit rounded-md'>Previous</button>}
     {page < totalPages && <button onClick={() => setPage(page + 1)} className='p-1 px-2 mx-6  bg-violet-500 text-white w-fit rounded-md' >Next</button>}
