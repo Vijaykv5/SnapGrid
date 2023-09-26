@@ -1,14 +1,14 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import MainSection from './MainSection'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import MainSection from "./MainSection";
 
-const App=()=> {
+const App = () => {
   return (
     <>
-    <MainSection/>
+      <MainSection />
     </>
-  )
-}
+  );
+};
 
-const root =ReactDOM.createRoot(document.getElementById("root"));
-root.render(<App/>)
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(<App />);
