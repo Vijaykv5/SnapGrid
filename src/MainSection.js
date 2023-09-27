@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, Link } from "react";
 import dotenv from "dotenv";
 import { links } from "./utils/links";
 import SelectionMenu from "./components/menu/SelectionMenu";
+import BackToTopButton from "./components/menu/BackToTopButton";
 
 const API_URL = "https://api.unsplash.com/search/photos";
 const Image_count = 28;
@@ -57,6 +58,7 @@ const MainSection = () => {
 
   return (
     <>
+      
       <div className="flex flex-col justify-center items-center">
         <img
           src="https://i.ibb.co/gSSxMS4/Image-1-removebg-preview.png"
@@ -134,8 +136,10 @@ const MainSection = () => {
           </button>
         )}
       </div>
+      <BackToTopButton />
     </>
   );
 };
 
 export default MainSection;
+
