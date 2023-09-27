@@ -38,11 +38,10 @@ const MainSection = () => {
     );
     setPage(1);
   };
-  const handleSelection = (selection) => {
-    const selectedLink = links.find((link) => link.title === selection);
-    console.log(selectedLink);
+  const handleSelection = (selectionIndex) => {
+    const selectedLink = links[selectionIndex]
     if (selectedLink) {
-      searchInput.current.value = selection;
+      searchInput.current.value = selectedLink.title;
       fetchImages();
       setPage(1);
       setBannerImage(selectedLink.url);
