@@ -107,7 +107,7 @@ const MainSection = () => {
       <div className="my-8 md:mt-20 mb-5 mx-auto md:max-w-screen-lg">
         <SelectionMenu links={links} handleSelection={handleSelection} />
       </div>
-      <div className="relative h-128">
+      <div className="relative">
         {bannerImage && (
           <img
             src={bannerImage}
