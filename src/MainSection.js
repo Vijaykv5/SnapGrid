@@ -19,7 +19,7 @@ const MainSection = () => {
   const fetchImages = async () => {
     try {
       const data = await fetch(
-        `${API_URL}?query=${searchInput.current.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`,
+        `${API_URL}?query=${searchInput.current.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`
       );
       const json = await data.json();
       setImages(json?.results);
@@ -40,7 +40,7 @@ const MainSection = () => {
     setPage(1);
   };
   const handleSelection = (selectionIndex) => {
-    const selectedLink = links[selectionIndex]
+    const selectedLink = links[selectionIndex];
     if (selectedLink) {
       searchInput.current.value = selectedLink.title;
       fetchImages();
@@ -52,13 +52,32 @@ const MainSection = () => {
     }
   };
 
+  const handleDownload = (imageURL, index) => {
+    fetch(imageURL, {
+      method: "GET",
+      headers: {},
+    })
+      .then((response) => response.blob())
+      .then((blob) => {
+        const url = window.URL.createObjectURL(new Blob([blob]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", `image-${index + 1}.png`); // change the second attribute will change the name image
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link); // Clean up the DOM after the downloading the image
+      })
+      .catch((err) => {
+        console.log("Error downloading image:", err);
+      });
+  };
+
   useEffect(() => {
     fetchImages();
   }, [page]);
 
   return (
     <>
-      
       <div className="flex flex-col justify-center items-center">
         <img
           src="https://i.ibb.co/gSSxMS4/Image-1-removebg-preview.png"
@@ -107,17 +126,32 @@ const MainSection = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-5">
-        {images.map((image) => {
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5">
+        {images.map((image, index) => {
           return (
-            <img
+            <div
+              className="relative flex items-center justify-center group"
               key={image?.id}
-              src={image?.urls?.small}
-              className="w-full md:w-80 h-72 rounded-md transform hover:scale-105 duration-200 shadow-lg hover:shadow-md object-cover"
-            />
+            >
+              <img
+                id={`img-${index}`}
+                src={image?.urls?.small}
+                className="w-full md:w-80 h-72 rounded-md transform group-hover:brightness-50 group-hover:scale-105 duration-300 ease-in-out shadow-lg group-hover:shadow-md object-cover"
+                alt={`${image?.title}`}
+              />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 duration-300 ease-in-out">
+                <button
+                  className="bg-white text-black px-4 py-2 rounded"
+                  onClick={() => handleDownload(image?.urls?.small, index)}
+                >
+                  Download
+                </button>
+              </div>
+            </div>
           );
         })}
       </div>
+
       <div className="flex justify-center mt-8">
         {page > 1 && (
           <button
@@ -142,4 +176,3 @@ const MainSection = () => {
 };
 
 export default MainSection;
-
