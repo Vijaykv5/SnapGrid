@@ -1,6 +1,8 @@
 # Image Searcher
 
-![Image Searcher](https://i.ibb.co/gSSxMS4/Image-1-removebg-preview.png)
+<p align="center">
+  <img src="https://i.ibb.co/gSSxMS4/Image-1-removebg-preview.png" width="300"/>
+</p>
 
 **Image Searcher** is a web application built with React JS that allows users to search for images using the Unsplash API. It provides a user-friendly interface for searching and exploring a vast collection of high-quality images.
 
