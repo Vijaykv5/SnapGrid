@@ -32,18 +32,11 @@ const MainSection = () => {
   const handleClick = (e) => {
     e.preventDefault();
     // console.log(searchInput.current.value);
-    const titleArray = links.map((obj) => 
-    obj.title
-  )
-  if (titleArray.indexOf(searchInput.current.value) === -1)
-  {
-    setBannerImage(null)
-  }
-    images != null ? (
-      fetchImages()
-    ) : (
-      <div className="font-bold text-black">Error</div>
-    );
+    const titleArray = links.map((obj) => obj.title);
+    if (titleArray.indexOf(searchInput.current.value) === -1) {
+      setBannerImage(null);
+    }
+    images != null ? fetchImages() : <div className="font-bold text-black">Error</div>;
     setPage(1);
   };
   const handleSelection = (selectionIndex) => {
@@ -134,7 +127,7 @@ const MainSection = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5">
-        {images.map((image, index) => {
+        {images?.map((image, index) => {
           return (
             <div
               className="relative flex items-center justify-center group"
@@ -180,6 +173,6 @@ const MainSection = () => {
       <BackToTopButton />
     </>
   );
-};
+  };
 
-export default MainSection;
+  export default MainSection;
