@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState, Link } from "react";
 import dotenv from "dotenv";
 import { links } from "./utils/links";
 import SelectionMenu from "./components/menu/SelectionMenu";
+import ImageCard from "./components/ImageCard/ImageCard";
 
 const API_URL = "https://api.unsplash.com/search/photos";
 const Image_count = 28;
@@ -65,11 +66,11 @@ const MainSection = () => {
           className="w-[120px]"
         />
         <a
-          class="fixed top-10 right-10"
+          className="fixed top-10 right-10"
           href="https://github.com/Vijaykv5/Image-Searcher"
           target="_blank"
         >
-          <i class="fa fa-github fa-2x text-violet-500"></i>
+          <i className="fa fa-github fa-2x text-violet-500"></i>
         </a>
         <div className="text-violet-500 text-center font-bold text-5xl my-8 md:mb-28 ">
           Image Search
@@ -109,10 +110,10 @@ const MainSection = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-5">
         {images.map((image) => {
           return (
-            <img
+            <ImageCard
               key={image?.id}
-              src={image?.urls?.small}
-              className="w-full md:w-80 h-72 rounded-md transform hover:scale-105 duration-200 shadow-lg hover:shadow-md object-cover"
+              url={image?.urls?.small}
+              download={image?.urls?.full}
             />
           );
         })}
