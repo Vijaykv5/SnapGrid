@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState, Link } from "react";
 import dotenv from "dotenv";
 import { links } from "./utils/links";
 import SelectionMenu from "./components/menu/SelectionMenu";
-import ImageCard from "./components/ImageCard/ImageCard";
 import BackToTopButton from "./components/menu/BackToTopButton";
 
 const API_URL = "https://api.unsplash.com/search/photos";
@@ -93,11 +92,11 @@ const MainSection = () => {
           className="w-[120px]"
         />
         <a
-          className="fixed top-10 right-10"
+          class="fixed top-10 right-10"
           href="https://github.com/Vijaykv5/Image-Searcher"
           target="_blank"
         >
-          <i className="fa fa-github fa-2x text-violet-500"></i>
+          <i class="fa fa-github fa-2x text-violet-500"></i>
         </a>
         <div className="text-violet-500 text-center font-bold text-5xl my-8 md:mb-28 ">
           Image Search
@@ -137,11 +136,25 @@ const MainSection = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5">
         {images.map((image, index) => {
           return (
-            <ImageCard
+            <div
+              className="relative flex items-center justify-center group"
               key={image?.id}
-              url={image?.urls?.small}
-              download={image?.urls?.full}
-            />
+            >
+              <img
+                id={`img-${index}`}
+                src={image?.urls?.small}
+                className="w-full md:w-80 h-72 rounded-md transform group-hover:brightness-50 group-hover:scale-105 duration-300 ease-in-out shadow-lg group-hover:shadow-md object-cover"
+                alt={`${image?.title}`}
+              />
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 duration-300 ease-in-out">
+                <button
+                  className="bg-white text-black px-4 py-2 rounded"
+                  onClick={() => handleDownload(image?.urls?.small, index)}
+                >
+                  Download
+                </button>
+              </div>
+            </div>
           );
         })}
       </div>
