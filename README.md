@@ -2,7 +2,7 @@
 
 ![Image Searcher](https://i.ibb.co/gSSxMS4/Image-1-removebg-preview.png)
 
-**Image Searcher** is a web application built with React JS that allows users to search for images using the Unsplash API. It provides a user-friendly interface for searching and exploring a vast collection of high-quality images.
+**Image Searcher** is a web application built with Next.JS that allows users to search for images using the Unsplash API. It provides a user-friendly interface for searching and exploring a vast collection of high-quality images.
 
 - Search for images using keywords.
 - View image results with details such as author, description, and download link.
@@ -33,10 +33,10 @@ To get started with the Image Searcher project, follow these steps:
  npm install
 ```
 
-4. Create a .env file in the project root directory and add your Unsplash API access key:
+4. Create a .env.local file in the project root directory and add your Unsplash API access key:
 
 ```bash
- echo "REACT_APP_UNSPLASH_API_KEY=your-unsplash-api-key" > .env
+ echo "REACT_APP_UNSPLASH_API_KEY=your-unsplash-api-key" > .env.local
 ```
 
 Make sure to replace `your-unsplash-api-key` with your actual API access key obtained from the Unsplash Developer Dashboard.
@@ -44,7 +44,7 @@ Make sure to replace `your-unsplash-api-key` with your actual API access key obt
 5. Start the development server:
 
 ```bash
- npm start
+ npm run dev
 ```
 
 ## Contributing 🚀 (Hacktoberfest)
