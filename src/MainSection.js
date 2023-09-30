@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { links } from "./utils/links";
 import SelectionMenu from "./components/menu/SelectionMenu";
 import ImageCard from "./components/ImageCard/ImageCard";
+import BackToTopButton from "./components/menu/BackToTopButton";
 
 const API_URL = "https://api.unsplash.com/search/photos";
 const Image_count = 28;
@@ -19,7 +20,7 @@ const MainSection = () => {
   const fetchImages = async () => {
     try {
       const data = await fetch(
-        `${API_URL}?query=${searchInput.current.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`,
+        `${API_URL}?query=${searchInput.current.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`
       );
       const json = await data.json();
       setImages(json?.results);
@@ -32,6 +33,13 @@ const MainSection = () => {
   const handleClick = (e) => {
     e.preventDefault();
     // console.log(searchInput.current.value);
+    const titleArray = links.map((obj) => 
+    obj.title
+  )
+  if (titleArray.indexOf(searchInput.current.value) === -1)
+  {
+    setBannerImage(null)
+  }
     images != null ? (
       fetchImages()
     ) : (
@@ -39,11 +47,10 @@ const MainSection = () => {
     );
     setPage(1);
   };
-  const handleSelection = (selection) => {
-    const selectedLink = links.find((link) => link.title === selection);
-    console.log(selectedLink);
+  const handleSelection = (selectionIndex) => {
+    const selectedLink = links[selectionIndex];
     if (selectedLink) {
-      searchInput.current.value = selection;
+      searchInput.current.value = selectedLink.title;
       fetchImages();
       setPage(1);
       setBannerImage(selectedLink.url);
@@ -51,6 +58,26 @@ const MainSection = () => {
     } else {
       setBannerImage(null);
     }
+  };
+
+  const handleDownload = (imageURL, index) => {
+    fetch(imageURL, {
+      method: "GET",
+      headers: {},
+    })
+      .then((response) => response.blob())
+      .then((blob) => {
+        const url = window.URL.createObjectURL(new Blob([blob]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", `image-${index + 1}.png`); // change the second attribute will change the name image
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link); // Clean up the DOM after the downloading the image
+      })
+      .catch((err) => {
+        console.log("Error downloading image:", err);
+      });
   };
 
   useEffect(() => {
@@ -88,7 +115,7 @@ const MainSection = () => {
       <div className="my-8 md:mt-20 mb-5 mx-auto md:max-w-screen-lg">
         <SelectionMenu links={links} handleSelection={handleSelection} />
       </div>
-      <div className="relative h-128">
+      <div className="relative">
         {bannerImage && (
           <img
             src={bannerImage}
@@ -107,8 +134,8 @@ const MainSection = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-5">
-        {images.map((image) => {
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5">
+        {images.map((image, index) => {
           return (
             <ImageCard
               key={image?.id}
@@ -118,6 +145,7 @@ const MainSection = () => {
           );
         })}
       </div>
+
       <div className="flex justify-center mt-8">
         {page > 1 && (
           <button
@@ -136,6 +164,7 @@ const MainSection = () => {
           </button>
         )}
       </div>
+      <BackToTopButton />
     </>
   );
 };
