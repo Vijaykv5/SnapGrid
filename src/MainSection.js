@@ -32,6 +32,13 @@ const MainSection = () => {
   const handleClick = (e) => {
     e.preventDefault();
     // console.log(searchInput.current.value);
+    const titleArray = links.map((obj) => 
+    obj.title
+  )
+  if (titleArray.indexOf(searchInput.current.value) === -1)
+  {
+    setBannerImage(null)
+  }
     images != null ? (
       fetchImages()
     ) : (
