@@ -4,6 +4,7 @@ import { links } from "./utils/links";
 import SelectionMenu from "./components/menu/SelectionMenu";
 import BackToTopButton from "./components/menu/BackToTopButton";
 import ImageCard from "./components/menu/ImageCard/ImageCard";
+import ShimmerLoading from "./components/ShimmerLoading/ShimmerLoading";
 
 const API_URL = "https://api.unsplash.com/search/photos";
 const Image_count = 28;
@@ -16,15 +17,18 @@ const MainSection = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [bannerImage, setBannerImage] = useState(null);
   const [linkInfo, setlinkInfo] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchImages = async () => {
     try {
+      setIsLoading(true);
       const data = await fetch(
         `${API_URL}?query=${searchInput.current.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`,
       );
       const json = await data.json();
       setImages(json?.results);
       setTotalPages(json?.total_pages);
+      setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -57,26 +61,6 @@ const MainSection = () => {
     }
   };
 
-  const handleDownload = (imageURL, index) => {
-    fetch(imageURL, {
-      method: "GET",
-      headers: {},
-    })
-      .then((response) => response.blob())
-      .then((blob) => {
-        const url = window.URL.createObjectURL(new Blob([blob]));
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute("download", `image-${index + 1}.png`); // change the second attribute will change the name image
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link); // Clean up the DOM after the downloading the image
-      })
-      .catch((err) => {
-        console.log("Error downloading image:", err);
-      });
-  };
-
   useEffect(() => {
     fetchImages();
   }, [page]);
@@ -96,7 +80,7 @@ const MainSection = () => {
         >
           <i class="fa fa-github fa-2x text-violet-500"></i>
         </a>
-        <div className="text-violet-500 text-center font-bold text-5xl my-8 md:mb-28 ">
+        <div className="text-violet-500 text-center font-bold text-5xl my-8 md:mb-28">
           Image Search
         </div>
       </div>
@@ -112,36 +96,43 @@ const MainSection = () => {
       <div className="my-8 md:mt-20 mb-5 mx-auto md:max-w-screen-lg">
         <SelectionMenu links={links} handleSelection={handleSelection} />
       </div>
-      <div className="relative">
-        {bannerImage && (
-          <img
-            src={bannerImage}
-            alt="Banner"
-            className="w-full h-full object-cover"
-          />
-        )}
-        <div className="absolute top-10 left-0 p-4 text-white max-w-2xl">
-          <h1 className="top-15 font-bold text-left pt-20 px-20 text-5xl">
-            {linkInfo?.title}
-          </h1>
-          <div
-            className="px-20 font-light text-slate-200 pt-5"
-            dangerouslySetInnerHTML={{ __html: linkInfo?.description }}
-          />
-        </div>
-      </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5">
-        {images &&images.map((image, index) => {
-          return (
-            <ImageCard
-              key={image?.id}
-              url={image?.urls?.small}
-              download={image?.urls?.full}
-            />
-          );
-        })}
-      </div>
+      {isLoading && !bannerImage ? (
+        <ShimmerLoading />
+      ) : (
+        <div>
+          {bannerImage && (
+            <div className="relative">
+              <div
+                className="bg-cover bg-center h-96"
+                style={{ backgroundImage: `url(${bannerImage})` }}
+              ></div>
+              <div className="absolute top-0 left-0 p-4 text-white max-w-2xl">
+                <h1 className="top-15 font-bold text-left pt-20 px-20 text-5xl">
+                  {linkInfo?.title}
+                </h1>
+                <div
+                  className="px-20 font-light text-slate-200 pt-5"
+                  dangerouslySetInnerHTML={{ __html: linkInfo?.description }}
+                />
+              </div>
+            </div>
+          )}
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5 mt-5">
+            {images &&
+              images.map((image, index) => {
+                return (
+                  <ImageCard
+                    key={image?.id}
+                    url={image?.urls?.small}
+                    download={image?.urls?.full}
+                  />
+                );
+              })}
+          </div>
+        </div>
+      )}
 
       <div className="flex justify-center mt-8">
         {page > 1 && (
