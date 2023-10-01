@@ -18,6 +18,7 @@ const MainSection = () => {
   const [bannerImage, setBannerImage] = useState(null);
   const [linkInfo, setlinkInfo] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+  const [searchPerformed, setSearchPerformed] = useState(false);
 
   const fetchImages = async () => {
     try {
@@ -56,6 +57,7 @@ const MainSection = () => {
       setPage(1);
       setBannerImage(selectedLink.url);
       setlinkInfo(selectedLink);
+      setSearchPerformed(true);
     } else {
       setBannerImage(null);
     }
@@ -97,7 +99,7 @@ const MainSection = () => {
         <SelectionMenu links={links} handleSelection={handleSelection} />
       </div>
 
-      {isLoading && !bannerImage ? (
+      {isLoading && !bannerImage && searchPerformed ? (
         <ShimmerLoading />
       ) : (
         <div>
