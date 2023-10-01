@@ -26,7 +26,7 @@ function BackToTopButton() {
   return (
     <div>
             {backToTopButton && (
-                <button onClick={scrollUp} className ="fixed bottom-12 right-12 w-12 h-12 text-5xl text-white bg-violet-500 rounded-xl outline-dotted" >
+                <button onClick={scrollUp} className ="fixed bottom-12 right-12 w-12 h-12 text-5xl text-white bg-violet-500 rounded-xl shadow-lg" >
                 <FontAwesomeIcon icon={faChevronUp} size="2xs" />
                 </button>
             )}
