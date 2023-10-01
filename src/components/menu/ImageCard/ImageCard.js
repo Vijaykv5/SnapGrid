@@ -34,7 +34,7 @@ const ImageCard = ({ url, download }) => {
   };
 
   return (
-    <div className="relative group w-full md:w-80 h-72 rounded-md overflow-hidden shadow-lg hover:shadow-md transform transition-transform hover:scale-105">
+    <div className="relative group w-full  h-72 rounded-md overflow-hidden shadow-lg hover:shadow-md transform transition-transform hover:scale-105">
       <img
         src={url}
         alt="Image"

@@ -4,6 +4,7 @@ import { links } from "./utils/links";
 import SelectionMenu from "./components/menu/SelectionMenu";
 import BackToTopButton from "./components/menu/BackToTopButton";
 import ImageCard from "./components/menu/ImageCard/ImageCard";
+import DragAndDrop from "./components/menu/DragAndDrop";
 
 const API_URL = "https://api.unsplash.com/search/photos";
 const Image_count = 28;
@@ -16,18 +17,36 @@ const MainSection = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [bannerImage, setBannerImage] = useState(null);
   const [linkInfo, setlinkInfo] = useState({});
+  const [activeTab, setActiveTab] = useState('Keywords'); 
+
 
   const fetchImages = async () => {
     try {
       const data = await fetch(
         `${API_URL}?query=${searchInput.current.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`,
       );
+      console.log(`${API_URL}?query=${searchInput.current.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`);
       const json = await data.json();
       setImages(json?.results);
       setTotalPages(json?.total_pages);
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const updateSearchInputRef = async (newValue) => {
+    try {
+      const data = await fetch(
+        `${API_URL}?query=${newValue}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`,
+      );
+      const json = await data.json();
+      setImages(json?.results);
+      setTotalPages(json?.total_pages);
+      setBannerImage(null);
+    } catch (error) {
+      console.log(error);
+    }
+    
   };
 
   const handleClick = (e) => {
@@ -94,22 +113,53 @@ const MainSection = () => {
           href="https://github.com/Vijaykv5/Image-Searcher"
           target="_blank"
         >
-          <i class="fa fa-github fa-2x text-violet-500"></i>
+          <i className="fa fa-github fa-2x text-violet-500"></i>
         </a>
         <div className="text-violet-500 text-center font-bold text-5xl my-8 md:mb-28 ">
           Image Search
         </div>
       </div>
-      <div className="text-center md:-my-16  -my-4">
-        <form onSubmit={handleClick}>
-          <input
-            className="w-96 h-9 border border-violet-500 hover:border-violet-500 bg-gray-100 rounded-md p-2"
-            placeholder=" Try Something Search here ..."
-            ref={searchInput}
-          />
-        </form>
+      <div className="text-center md:-my-16 -my-4">
+        <div className="flex text-lg justify-center space-x-8">
+
+          <button
+            className={`${
+              activeTab === 'Keywords' ? 'border-b-2 border-violet-500 text-gray-500' : 'border-b-2 border-transparent text-gray-500'
+            } font-medium px-4 py-1 `}
+            onClick={() => setActiveTab('Keywords')}
+          >
+            Keywords
+          </button>
+
+          <button
+            className={`${
+              activeTab === 'Drag & Drop' ? 'border-b-2 border-violet-500 text-gray-500' : 'border-b-2 border-transparent text-gray-500'
+            } font-medium px-4 py-1 `}
+            onClick={() => setActiveTab('Drag & Drop')}
+          >
+            Drag & Drop
+          </button>
+        </div>
+
+        <div className="mt-2">
+          {activeTab === 'Keywords' && (
+            <form onSubmit={handleClick}>
+              <input
+                className="w-96 h-9 border border-violet-500 hover:border-violet-500 bg-gray-100 rounded-md p-2"
+                placeholder="Try Something Search here ..."
+                ref={searchInput}
+              />
+            </form>
+          )}
+
+          {activeTab === 'Drag & Drop' && (
+            <div className="flex items-center justify-center mb-20">
+              <DragAndDrop updateSearchInputRef={updateSearchInputRef} />
+            </div>
+          )}
+        </div>
       </div>
-      <div className="my-8 md:mt-20 mb-5 mx-auto md:max-w-screen-lg">
+      <div className={`my-8 md:mt-20 mb-5 mx-auto md:max-w-screen-lg text-center ${activeTab === 'Keywords' ? '' : 'hidden'}`}>
         <SelectionMenu links={links} handleSelection={handleSelection} />
       </div>
       <div className="relative">
@@ -131,7 +181,7 @@ const MainSection = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 p-5 w-full">
         {images.map((image, index) => {
           return (
             <ImageCard
