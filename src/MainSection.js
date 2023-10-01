@@ -1,3 +1,4 @@
+
 import React, { useEffect, useRef, useState, Link } from "react";
 import dotenv from "dotenv";
 import { links } from "./utils/links";
@@ -20,7 +21,7 @@ const MainSection = () => {
   const fetchImages = async () => {
     try {
       const data = await fetch(
-        `${API_URL}?query=${searchInput.current.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`,
+        `${API_URL}?query=${searchInput.current.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`
       );
       const json = await data.json();
       setImages(json?.results);
@@ -33,10 +34,6 @@ const MainSection = () => {
   const handleClick = (e) => {
     e.preventDefault();
     // console.log(searchInput.current.value);
-    const titleArray = links.map((obj) => obj.title);
-    if (titleArray.indexOf(searchInput.current.value) === -1) {
-      setBannerImage(null);
-    }
     images != null ? (
       fetchImages()
     ) : (
@@ -90,7 +87,7 @@ const MainSection = () => {
           className="w-[120px]"
         />
         <a
-          className="fixed top-10 right-10"
+          class="fixed top-10 right-10"
           href="https://github.com/Vijaykv5/Image-Searcher"
           target="_blank"
         >
@@ -103,7 +100,7 @@ const MainSection = () => {
       <div className="text-center md:-my-16  -my-4">
         <form onSubmit={handleClick}>
           <input
-            className="w-96 h-9 border border-violet-500 hover:border-violet-500 bg-gray-100 rounded-md p-2"
+            className="sm:w-96 w-full h-9 border border-violet-500 hover:border-violet-500 bg-gray-100 rounded-md p-2"
             placeholder=" Try Something Search here ..."
             ref={searchInput}
           />
@@ -112,7 +109,7 @@ const MainSection = () => {
       <div className="my-8 md:mt-20 mb-5 mx-auto md:max-w-screen-lg">
         <SelectionMenu links={links} handleSelection={handleSelection} />
       </div>
-      <div className="relative">
+      <div className="relative w-full xl:h-full h-128">
         {bannerImage && (
           <img
             src={bannerImage}
@@ -120,12 +117,12 @@ const MainSection = () => {
             className="w-full h-full object-cover"
           />
         )}
-        <div className="absolute top-10 left-0 p-4 text-white max-w-2xl">
-          <h1 className="top-15 font-bold text-left pt-20 px-20 text-5xl">
+        <div className="absolute top-10 left-0 p-10 text-white max-w-2xl">
+          <h1 className="top-15 font-bold text-left text-5xl">
             {linkInfo?.title}
           </h1>
           <div
-            className="px-20 font-light text-slate-200 pt-5"
+            className=" font-light text-slate-200 pt-5"
             dangerouslySetInnerHTML={{ __html: linkInfo?.description }}
           />
         </div>

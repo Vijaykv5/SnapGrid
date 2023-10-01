@@ -2,7 +2,7 @@ import React from "react";
 
 const SelectionMenu = ({ links, handleSelection }) => {
   return (
-    <div className="flex justify-center overflow-x-scroll md:overflow-x-hidden menu-container">
+    <div className="flex overflow-x-scroll">
       {links.map((value, index) => (
         <button
           key={value.title}
