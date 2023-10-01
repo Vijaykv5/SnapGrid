@@ -4,9 +4,6 @@ import { links } from "./utils/links";
 import SelectionMenu from "./components/menu/SelectionMenu";
 import BackToTopButton from "./components/menu/BackToTopButton";
 import ImageCard from "./components/menu/ImageCard/ImageCard";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass} from '@fortawesome/free-solid-svg-icons';
-
 
 const API_URL = "https://api.unsplash.com/search/photos";
 const Image_count = 28;
@@ -113,7 +110,6 @@ const MainSection = () => {
       <div className="text-center md:-my-16  -my-4">
         <form onSubmit={handleClick}>
           <input
-            <FontAwesomeIcon icon={faMagnifyingGlass} style={{color: "#8b5cf6",paddingRight: "1rem"}} />
             className="w-96 h-9 border border-violet-500 hover:border-violet-500 bg-gray-100 rounded-md p-2"
             placeholder=" Try Something Search here ..."
             ref={searchInput}
