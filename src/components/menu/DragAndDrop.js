@@ -63,7 +63,7 @@ function DragAndDrop({ updateSearchInputRef }) {
 
   const handleUpload = () => {
     if (draggedImage) {
-      setIsLoading(true); // Set loading state while uploading
+      setIsLoading(true); 
   
       const PAT = process.env.REACT_APP_CLARIFAI_PAT;
       const USER_ID = process.env.REACT_APP_CLARIFAI_USER_ID;
@@ -96,7 +96,6 @@ function DragAndDrop({ updateSearchInputRef }) {
         body: raw
       };
   
-      // Make the Clarifai API request
       fetch(`https://api.clarifai.com/v2/models/${MODEL_ID}/versions/${MODEL_VERSION_ID}/outputs`, requestOptions)
         .then(response => {
           if (!response.ok) {
@@ -105,10 +104,9 @@ function DragAndDrop({ updateSearchInputRef }) {
           return response.json();
         })
         .then(result => {
-          // Extract the names of the first four concepts and combine them into a string
           const firstFourConcepts = result.outputs[0].data.concepts.slice(0, 2).map(concept => concept.name).join(' ');
           console.log(firstFourConcepts)
-          // Pass the combined string to the updateSearchInputRef function
+
           updateSearchInputRef(firstFourConcepts);
           
           console.log(result);
@@ -117,7 +115,7 @@ function DragAndDrop({ updateSearchInputRef }) {
           console.error('Error:', error);
         })
         .finally(() => {
-          setIsLoading(false); // Reset loading state
+          setIsLoading(false);
         });
     }
   };
