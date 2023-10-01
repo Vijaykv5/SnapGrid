@@ -80,6 +80,13 @@ const MainSection = () => {
       });
   };
 
+  const navigationHandler = (page) => {
+    setPage(page);
+    document.querySelector("#image_1").scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
   useEffect(() => {
     fetchImages();
   }, [page]);
@@ -136,10 +143,11 @@ const MainSection = () => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5">
-        {images &&images.map((image, index) => {
+        {images && images.map((image, index) => {
           return (
             <ImageCard
               key={image?.id}
+              id={image && `image_${index + 1}`}
               url={image?.urls?.small}
               download={image?.urls?.full}
             />
@@ -150,7 +158,7 @@ const MainSection = () => {
       <div className="flex justify-center mt-8">
         {page > 1 && (
           <button
-            onClick={() => setPage(page - 1)}
+            onClick={() => navigationHandler(page - 1)}
             className=" p-1 px-2 bg-violet-500 text-white w-fit rounded-md"
           >
             Previous
@@ -158,7 +166,7 @@ const MainSection = () => {
         )}
         {page < totalPages && (
           <button
-            onClick={() => setPage(page + 1)}
+            onClick={() => navigationHandler(page + 1)}
             className="p-1 px-2 mx-6  bg-violet-500 text-white w-fit rounded-md"
           >
             Next
