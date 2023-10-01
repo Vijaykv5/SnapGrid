@@ -53,6 +53,16 @@ Contributions are welcome! If you'd like to contribute to the project, Please re
 
 ## Thank you for contributing to our project!
 
- Your contributions are valuable, and we appreciate your effort in making our project better. `<br>`
+ Your contributions are valuable, and we appreciate your effort in making our project better. 
+ 
+ <br>
 
  **If you like the project, please feel free to give it a ⭐️**
+
+## Contributors
+
+Meet the talented individuals who have contributed to Image Searcher:
+
+<a href="https://github.com/Vijaykv5/Image-Searcher/graphs/contributors">
+ <img src="https://contrib.rocks/image?repo=Vijaykv5/Image-Searcher" />
+</a>
