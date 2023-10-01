@@ -1,4 +1,4 @@
-const ImageCard = ({ url, download }) => {
+const ImageCard = ({ url, download, id }) => {
   // Function to Download Image
   const downloadImage = async () => {
     try {
@@ -37,6 +37,7 @@ const ImageCard = ({ url, download }) => {
     <div className="relative group w-full md:w-80 h-72 rounded-md overflow-hidden shadow-lg hover:shadow-md transform transition-transform hover:scale-105">
       <img
         src={url}
+        id={id}
         alt="Image"
         className="w-full h-full object-cover transform hover:scale-105 duration-200"
       />

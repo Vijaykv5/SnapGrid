@@ -63,6 +63,13 @@ const MainSection = () => {
     }
   };
 
+  const navigationHandler = (page) => {
+    setPage(page);
+    document.querySelector("#image_1").scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
   useEffect(() => {
     fetchImages();
   }, [page]);
@@ -139,7 +146,7 @@ const MainSection = () => {
       <div className="flex justify-center mt-8">
         {page > 1 && (
           <button
-            onClick={() => setPage(page - 1)}
+            onClick={() => navigationHandler(page - 1)}
             className=" p-1 px-2 bg-violet-500 text-white w-fit rounded-md"
           >
             Previous
@@ -147,7 +154,7 @@ const MainSection = () => {
         )}
         {page < totalPages && (
           <button
-            onClick={() => setPage(page + 1)}
+            onClick={() => navigationHandler(page + 1)}
             className="p-1 px-2 mx-6  bg-violet-500 text-white w-fit rounded-md"
           >
             Next
