@@ -96,16 +96,16 @@ const MainSection = () => {
         >
           <i class="fa fa-github fa-2x text-violet-500"></i>
         </a>
-        <div className="text-violet-500 text-center font-bold text-5xl my-8 md:mb-28 ">
+        <div className="text-violet-500 text-center font-bold md:text-5xl text-3xl my-8 md:mb-28 ">
           Image Search
         </div>
       </div>
       <div className="text-center md:-my-16  -my-4">
-        <form onSubmit={handleClick}>
+        <form onSubmit={handleClick} className="m-6">
           <input
-            className="w-96 h-9 border border-violet-500 hover:border-violet-500 bg-gray-100 rounded-md p-2"
+            className="w-full md:w-96 h-9 border border-violet-500 hover:border-violet-500 bg-gray-100 rounded-md p-3  "
             placeholder=" Try Something Search here ..."
-            ref={searchInput}
+            ref={searchInput} 
           />
         </form>
       </div>
