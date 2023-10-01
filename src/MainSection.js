@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import { links } from "./utils/links";
 import SelectionMenu from "./components/menu/SelectionMenu";
 import BackToTopButton from "./components/menu/BackToTopButton";
+import ImageCard from "./components/menu/ImageCard/ImageCard";
 
 const API_URL = "https://api.unsplash.com/search/photos";
 const Image_count = 28;
@@ -19,7 +20,7 @@ const MainSection = () => {
   const fetchImages = async () => {
     try {
       const data = await fetch(
-        `${API_URL}?query=${searchInput.current.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`
+        `${API_URL}?query=${searchInput.current.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`,
       );
       const json = await data.json();
       setImages(json?.results);
@@ -32,13 +33,10 @@ const MainSection = () => {
   const handleClick = (e) => {
     e.preventDefault();
     // console.log(searchInput.current.value);
-    const titleArray = links.map((obj) => 
-    obj.title
-  )
-  if (titleArray.indexOf(searchInput.current.value) === -1)
-  {
-    setBannerImage(null)
-  }
+    const titleArray = links.map((obj) => obj.title);
+    if (titleArray.indexOf(searchInput.current.value) === -1) {
+      setBannerImage(null);
+    }
     images != null ? (
       fetchImages()
     ) : (
@@ -92,7 +90,7 @@ const MainSection = () => {
           className="w-[120px]"
         />
         <a
-          class="fixed top-10 right-10"
+          className="fixed top-10 right-10"
           href="https://github.com/Vijaykv5/Image-Searcher"
           target="_blank"
         >
@@ -136,25 +134,11 @@ const MainSection = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5">
         {images &&images.map((image, index) => {
           return (
-            <div
-              className="relative flex items-center justify-center group"
+            <ImageCard
               key={image?.id}
-            >
-              <img
-                id={`img-${index}`}
-                src={image?.urls?.small}
-                className="w-full md:w-80 h-72 rounded-md transform group-hover:brightness-50 group-hover:scale-105 duration-300 ease-in-out shadow-lg group-hover:shadow-md object-cover"
-                alt={`${image?.title}`}
-              />
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 duration-300 ease-in-out">
-                <button
-                  className="bg-white text-black px-4 py-2 rounded"
-                  onClick={() => handleDownload(image?.urls?.small, index)}
-                >
-                  Download
-                </button>
-              </div>
-            </div>
+              url={image?.urls?.small}
+              download={image?.urls?.full}
+            />
           );
         })}
       </div>
