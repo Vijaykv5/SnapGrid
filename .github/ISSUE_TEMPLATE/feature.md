@@ -1,7 +1,7 @@
 ---
 name: 💡General Feature Request
-about: Have a new idea/feature for Image-Searcher? Please suggest!
-title: '[FEATURE] <description>'
+about: Have a new idea/feature for SnapGrid? Please suggest!
+title: "[FEATURE] <description>"
 labels: []
 assignees: []
 ---
