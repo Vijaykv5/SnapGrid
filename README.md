@@ -9,7 +9,7 @@
 - Infinite scrolling for seamless browsing of image results.
 - Responsive design for a great user experience on both desktop and mobile devices.
 
-### [Live Link](https://vijaykv-image-searcher.netlify.app/)
+### [Live Link](https://snapgrid.netlify.app/)
 
 ## Getting Started
 
