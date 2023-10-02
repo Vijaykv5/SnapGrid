@@ -18,7 +18,7 @@ To get started with the SnapGrid project, follow these steps:
 1. Clone the repository to your local machine:
 
 ```bash
- git clone https://github.com/Vijaykv5/Image-Searcher.git
+ git clone https://github.com/Vijaykv5/SnapGrid.git
 ```
 
 2. Navigate to the project directory:
@@ -63,6 +63,6 @@ Your contributions are valuable, and we appreciate your effort in making our pro
 
 Meet the talented individuals who have contributed to SnapGrid:
 
-<a href="https://github.com/Vijaykv5/Image-Searcher/graphs/contributors">
- <img src="https://contrib.rocks/image?repo=Vijaykv5/Image-Searcher" />
+<a href="https://github.com/Vijaykv5/SnapGrid/graphs/contributors">
+ <img src="https://contrib.rocks/image?repo=Vijaykv5/SnapGrid" />
 </a>
