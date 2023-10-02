@@ -24,7 +24,7 @@ To get started with the SnapGrid project, follow these steps:
 2. Navigate to the project directory:
 
 ```bash
- cd vijaykv-image-searcher
+ cd SnapGrid
 ```
 
 3. Install the project dependencies:
