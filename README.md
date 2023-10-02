@@ -1,8 +1,8 @@
-# Image Searcher
+# SnapGrid
 
-![Image Searcher](https://i.ibb.co/gSSxMS4/Image-1-removebg-preview.png)
+![SnapGrid](https://i.ibb.co/gSSxMS4/Image-1-removebg-preview.png)
 
-**Image Searcher** is a web application built with React JS that allows users to search for images using the Unsplash API. It provides a user-friendly interface for searching and exploring a vast collection of high-quality images.
+**SnapGrid** is a web application built with React JS that allows users to search for images using the Unsplash API. It provides a user-friendly interface for searching and exploring a vast collection of high-quality images.
 
 - Search for images using keywords.
 - View image results with details such as author, description, and download link.
@@ -13,18 +13,18 @@
 
 ## Getting Started
 
-To get started with the Image Searcher project, follow these steps:
+To get started with the SnapGrid project, follow these steps:
 
 1. Clone the repository to your local machine:
 
 ```bash
- git clone https://github.com/Vijaykv5/Image-Searcher.git 
+ git clone https://github.com/Vijaykv5/SnapGrid.git
 ```
 
 2. Navigate to the project directory:
 
 ```bash
- cd vijaykv-image-searcher
+ cd SnapGrid
 ```
 
 3. Install the project dependencies:
@@ -53,16 +53,16 @@ Contributions are welcome! If you'd like to contribute to the project, Please re
 
 ## Thank you for contributing to our project!
 
- Your contributions are valuable, and we appreciate your effort in making our project better. 
- 
+Your contributions are valuable, and we appreciate your effort in making our project better.
+
  <br>
 
- **If you like the project, please feel free to give it a ⭐️**
+**If you like the project, please feel free to give it a ⭐️**
 
 ## Contributors
 
-Meet the talented individuals who have contributed to Image Searcher:
+Meet the talented individuals who have contributed to SnapGrid:
 
-<a href="https://github.com/Vijaykv5/Image-Searcher/graphs/contributors">
- <img src="https://contrib.rocks/image?repo=Vijaykv5/Image-Searcher" />
+<a href="https://github.com/Vijaykv5/SnapGrid/graphs/contributors">
+ <img src="https://contrib.rocks/image?repo=Vijaykv5/SnapGrid" />
 </a>
