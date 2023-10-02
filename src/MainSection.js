@@ -104,7 +104,7 @@ const MainSection = () => {
           <i class="fa fa-github fa-2x text-violet-500"></i>
         </a>
         <div className="text-violet-500 text-center font-bold text-5xl my-8 md:mb-28 ">
-          Image Search
+          SnapGrid
         </div>
       </div>
       <div className="text-center md:-my-16  -my-4">
