@@ -46,6 +46,13 @@ Make sure to replace `your-unsplash-api-key` with your actual API access key obt
 ```bash
  npm start
 ```
+## Obtaining your Unsplash API Key 🔑
+1. **Register as a Developer on Unsplash using [this link](https://unsplash.com/join)**
+
+2. **Obtain Unsplash API Keys**
+
+You can refer [this guide](https://www.educative.io/answers/how-to-get-unsplash-api-keys
+) for detailed instructions on obtaining your Unsplash API keys.
 
 ## Contributing 🚀 (Hacktoberfest)
 
