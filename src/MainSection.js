@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState, Link } from "react";
 import dotenv from "dotenv";
 import { links } from "./utils/links";
@@ -86,7 +85,7 @@ const MainSection = () => {
   }, [page]);
 
   return (
-    <div className="dark:bg-black dark:h-screen " >
+    <div className="dark:bg-black dark:h-screen ">
       <Header />
       <div className="flex flex-col justify-center items-center">
         <img
@@ -94,13 +93,6 @@ const MainSection = () => {
           alt="logo"
           className="w-[120px]"
         />
-        <a
-          class="fixed top-10 right-10"
-          href="https://github.com/Vijaykv5/Image-Searcher"
-          target="_blank"
-        >
-          <i class="fa fa-github fa-2x text-violet-500"></i>
-        </a>
         <div className="text-violet-500 dark:bg-black text-center font-bold text-5xl py-16 md:text-7xl w-full ">
           Snap Grid
         </div>
@@ -108,7 +100,7 @@ const MainSection = () => {
       <div className="text-center m-0">
         <form className=" dark:bg-black m-0 py-8" onSubmit={handleClick}>
           <input
-            className="md:w-96 sm:w-50 h-15 border dark:bg-black dark:text-white border-violet-500 hover:border-violet-500 bg-gray-100 rounded-xl p-2 px-4  "
+            className="md:w-96 w-full h-15 border dark:bg-black dark:text-white border-violet-500 hover:border-violet-500 bg-gray-100 rounded-xl p-2 px-4  "
             placeholder=" Try Something Search here ..."
             ref={searchInput}
           />
@@ -119,37 +111,30 @@ const MainSection = () => {
           <SelectionMenu links={links} handleSelection={handleSelection} />
         </div>
       </div>
-      <div className="flex justify-between  dark:bg-black pr-5">
+      <div className="flex justify-between  dark:bg-black">
         {bannerImage && (
           <>
-            <div className="top-10 left-0 p-4 dark:text-white max-w-2xl">
-              <h1 className="top-15 font-bold text-left pt-20 px-20 text-5xl">
-                {linkInfo?.title}
-              </h1>
-              <div
-                className="px-20 font-light dark:text-slate-200 pt-5"
-                dangerouslySetInnerHTML={{ __html: linkInfo?.description }}
+            <div className="flex justify-between flex-col md:flex-row">
+              <div className="top-10 left-0 p-4 dark:text-white max-w-2xl">
+                <h1 className="font-bold text-left pt-20 px-20 text-5xl">
+                  {linkInfo?.title}
+                </h1>
+                <div
+                  className="px-20 font-light dark:text-slate-200 pt-5"
+                  dangerouslySetInnerHTML={{ __html: linkInfo?.description }}
+                />
+              </div>
+              <img
+                src={bannerImage}
+                alt="Banner"
+                className="md:w-3/6 h-90 shadow-md rounded-lg w-full h-full "
               />
             </div>
-            <img
-              src={bannerImage}
-              alt="Banner"
-              className="w-3/6 h-90 shadow-md rounded-lg "
-            />
           </>
         )}
-        <div className="absolute top-10 left-0 p-10 text-white max-w-2xl">
-          <h1 className="top-15 font-bold text-left text-5xl">
-            {linkInfo?.title}
-          </h1>
-          <div
-            className=" font-light text-slate-200 pt-5"
-            dangerouslySetInnerHTML={{ __html: linkInfo?.description }}
-          />
-        </div>
       </div>
 
-      <div className=" dark:bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5">
+      <div className=" dark:bg-black flex justify-between flex-wrap gap-10 pt-10 p-5">
         {images &&
           images.map((image, index) => {
             return (
