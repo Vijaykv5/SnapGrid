@@ -120,23 +120,26 @@ const MainSection = () => {
         <SelectionMenu links={links} handleSelection={handleSelection} />
       </div>
       <div className="relative">
-        {bannerImage && (
-          <img
-            src={bannerImage}
-            alt="Banner"
-            className="w-full h-full object-cover"
-          />
-        )}
-        <div className="absolute top-10 left-0 p-4 text-white max-w-2xl">
-          <h1 className="top-15 font-bold text-left pt-20 px-20 text-5xl">
-            {linkInfo?.title}
-          </h1>
-          <div
-            className="px-20 font-light text-slate-200 pt-5"
-            dangerouslySetInnerHTML={{ __html: linkInfo?.description }}
-          />
-        </div>
+  {bannerImage && (
+    <>
+      <img
+        src={bannerImage}
+        alt="Banner"
+        className="w-full h-full object-cover"
+      />
+      <div className="absolute top-10 left-0 p-4 text-white max-w-2xl">
+        <h1 className="top-15 font-bold text-left pt-20 px-20 text-5xl">
+          {linkInfo?.title}
+        </h1>
+        <div
+          className="px-20 font-light text-slate-200 pt-5"
+          dangerouslySetInnerHTML={{ __html: linkInfo?.description }}
+        />
       </div>
+    </>
+  )}
+</div>
+
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5">
         {images && images.map((image, index) => {
