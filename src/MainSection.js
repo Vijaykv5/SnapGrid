@@ -100,7 +100,7 @@ const MainSection = () => {
         <form className=" dark:bg-black m-0 py-8" onSubmit={handleClick}>
           <input
             className="md:w-96 sm:w-50 h-15 border dark:bg-black dark:text-white border-violet-500 hover:border-violet-500 bg-gray-100 rounded-xl p-2 px-4  "
-            placeholder=" Try Something Search here ..."
+            placeholder="Search here ..."
             ref={searchInput}
           />
         </form>
