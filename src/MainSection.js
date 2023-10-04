@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState, Link } from "react";
 import dotenv from "dotenv";
+import { useDispatch, useSelector } from 'react-redux';
+import { insertElement } from './utils/action';
+<link rel="stylesheet" href="index.css"></link>
 import { links } from "./utils/links";
 import SelectionMenu from "./components/menu/SelectionMenu";
 import BackToTopButton from "./components/menu/BackToTopButton";
@@ -69,6 +72,18 @@ const MainSection = () => {
       behavior: "smooth",
     });
   };
+
+  const dispatch = useDispatch();
+  // const savedData = useSelector((state) => state.savedData);
+  const elements = useSelector((state) => state.elements);
+  const like = (id) => {
+    // Replace 'someData' with the data you want to save
+    const newElement = id;
+    dispatch(insertElement(newElement));
+  };
+
+  
+
 
   useEffect(() => {
     fetchImages();
@@ -152,6 +167,14 @@ const MainSection = () => {
           </button>
         )}
       </div>
+        <h2>LIKED PHOTOS</h2>
+      <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 p-5'>
+        {elements.map((element, index) => (
+
+
+          <img key={index} src={element} className='w-full md:w-80 h-72 rounded-md transform hover:scale-105 duration-200 shadow-lg hover:shadow-md object-cover' />
+         ))}
+     </div>
       <BackToTopButton />
     </div>
   );
