@@ -1,3 +1,6 @@
+import { useDispatch, useSelector } from 'react-redux';
+// import { insertElement } from './src/utils/action';
+import { insertElement } from '../../../utils/action.js';
 const ImageCard = ({ url, download, id }) => {
   // Function to Download Image
   const downloadImage = async () => {
@@ -27,6 +30,14 @@ const ImageCard = ({ url, download, id }) => {
     return randomNumber.toString();
   };
 
+  const dispatch = useDispatch();
+  const elements = useSelector((state) => state.elements);
+  const like = (url) => {
+    // Replace 'someData' with the data you want to save
+    const newElement = url;
+    dispatch(insertElement(newElement));
+  };
+
   // Function for generating download string
   const generateDownloadString = () => {
     const randomNumber = generateRandomNumber();
@@ -48,8 +59,10 @@ const ImageCard = ({ url, download, id }) => {
             downloadImage();
           }}
         >
+          
           <i class="fa fa-download fa-beat-fade fa-lg"></i>
         </button>
+        <button className="text-white bg-violet-500 p-1 px-2 rounded-md ml-3" onClick={() => { like(url) }}>LIKE</button>
       </div>
     </div>
   );

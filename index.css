@@ -1,9 +1,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
 .card {
     width: 300 px;
     background-color: #f7f7f7;

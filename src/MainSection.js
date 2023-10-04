@@ -27,7 +27,7 @@ const MainSection = () => {
     try {
       setIsLoading(true);
       const data = await fetch(
-        `${API_URL}?query=${searchInput.current.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`,
+        `${API_URL}?query=${searchInput.current.value}&page=${page}&per_page=${Image_count}&client_id=${'Q0rd3GyW2Ps2N8RjcrVyuNO0riZpxUKaZeBI4mNTz7g'}`,
       );
       const json = await data.json();
       setImages(json?.results);
@@ -74,12 +74,11 @@ const MainSection = () => {
   };
 
   const dispatch = useDispatch();
-  // const savedData = useSelector((state) => state.savedData);
   const elements = useSelector((state) => state.elements);
   const like = (id) => {
-    // Replace 'someData' with the data you want to save
     const newElement = id;
     dispatch(insertElement(newElement));
+    // console.log(id);
   };
 
   
@@ -138,11 +137,15 @@ const MainSection = () => {
             {images &&
               images.map((image, index) => {
                 return (
+                  <>
                   <ImageCard
                     key={image?.id}
                     url={image?.urls?.small}
                     download={image?.urls?.full}
+                  
                   />
+                  
+                  </>
                 );
               })}
           </div>
