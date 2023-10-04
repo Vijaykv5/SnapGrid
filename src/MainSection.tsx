@@ -30,7 +30,6 @@ const MainSection = () => {
       );
       const json = await data.json();
       setImages(json?.results);
-      setTotalPages(json?.total_pages);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
