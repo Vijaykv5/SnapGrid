@@ -1,6 +1,14 @@
 import React from 'react';
 
-const SelectionMenu = ({ links, handleSelection }) => {
+interface SelectionMenuProps {
+  links: { title: string }[];
+  handleSelection: (index: number) => void;
+}
+
+const SelectionMenu: React.FC<SelectionMenuProps> = ({
+  links,
+  handleSelection,
+}) => {
   return (
     <div className='flex justify-center overflow-x-scroll md:overflow-x-hidden menu-container'>
       {links.map((value, index) => (
