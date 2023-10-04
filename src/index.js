@@ -1,6 +1,7 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import MainSection from "./MainSection";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+
+import MainSection from './MainSection';
 
 const App = () => {
   return (
@@ -10,5 +11,5 @@ const App = () => {
   );
 };
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);

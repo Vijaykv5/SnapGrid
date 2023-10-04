@@ -1,29 +1,29 @@
-import React from "react";
-import React, { useEffect, useRef, useState, Link } from "react";
-import { MdDarkMode, MdOutlineLightMode } from "react-icons/md";
+import React, { Link, useEffect, useRef, useState } from 'react';
+import { MdDarkMode, MdOutlineLightMode } from 'react-icons/md';
+
 const DarkModeButton = () => {
   //=======================================================
   // ================DARK MODE BEGINS======================
   const [theme, setTheme] = useState(null);
 
   useEffect(() => {
-    if (window.matchMedia("(prefers-color-scheme: light)").matches) {
-      setTheme("dark");
+    if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+      setTheme('dark');
     } else {
-      setTheme("light");
+      setTheme('light');
     }
   }, []);
 
   useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
     } else {
-      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.remove('dark');
     }
   }, [theme]);
 
   const handleThemeSwitch = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    setTheme(theme === 'dark' ? 'light' : 'dark');
   };
   // =================DARK MODE ENDS========================
   //========================================================
@@ -32,12 +32,12 @@ const DarkModeButton = () => {
     <>
       <button
         onClick={handleThemeSwitch}
-        className=" shadow-black text-white bg-violet-500 rounded-3xl dark:text-black h-12 w-auto my-auto px-2 py-0"
+        className=' shadow-black text-white bg-violet-500 rounded-3xl dark:text-black h-12 w-auto my-auto px-2 py-0'
       >
-        {theme == "dark" ? (
-          <MdOutlineLightMode size={"2rem"} />
+        {theme == 'dark' ? (
+          <MdOutlineLightMode size={'2rem'} />
         ) : (
-          <MdDarkMode size={"2rem"} />
+          <MdDarkMode size={'2rem'} />
         )}
       </button>
     </>

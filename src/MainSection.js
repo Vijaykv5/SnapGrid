@@ -1,12 +1,14 @@
-import React, { useEffect, useRef, useState, Link } from "react";
-import dotenv from "dotenv";
-import { links } from "./utils/links";
-import SelectionMenu from "./components/menu/SelectionMenu";
-import BackToTopButton from "./components/menu/BackToTopButton";
-import ImageCard from "./components/menu/ImageCard/ImageCard";
-import Header from "./components/menu/Header";
-import ShimmerLoading from "./components/ShimmerLoading/ShimmerLoading";
-const API_URL = "https://api.unsplash.com/search/photos";
+import dotenv from 'dotenv';
+import React, { Link, useEffect, useRef, useState } from 'react';
+
+import ShimmerLoading from './components/ShimmerLoading/ShimmerLoading';
+import BackToTopButton from './components/menu/BackToTopButton';
+import Header from './components/menu/Header';
+import ImageCard from './components/menu/ImageCard/ImageCard';
+import SelectionMenu from './components/menu/SelectionMenu';
+import { links } from './utils/links';
+
+const API_URL = 'https://api.unsplash.com/search/photos';
 const Image_count = 28;
 dotenv.config();
 
@@ -24,7 +26,7 @@ const MainSection = () => {
     try {
       setIsLoading(true);
       const data = await fetch(
-        `${API_URL}?query=${searchInput.current.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`,
+        `${API_URL}?query=${searchInput.current.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`
       );
       const json = await data.json();
       setImages(json?.results);
@@ -45,7 +47,7 @@ const MainSection = () => {
     images != null ? (
       fetchImages()
     ) : (
-      <div className="font-bold text-black">Error</div>
+      <div className='font-bold text-black'>Error</div>
     );
     setPage(1);
   };
@@ -65,8 +67,8 @@ const MainSection = () => {
 
   const navigationHandler = (page) => {
     setPage(page);
-    document.querySelector("#image_1").scrollIntoView({
-      behavior: "smooth",
+    document.querySelector('#image_1').scrollIntoView({
+      behavior: 'smooth',
     });
   };
 
@@ -75,24 +77,24 @@ const MainSection = () => {
   }, [page]);
 
   return (
-    <div className="dark:bg-black dark:h-screen ">
+    <div className='dark:bg-black dark:h-screen '>
       <Header />
-      <div className="flex flex-col justify-center items-center">
-        <div className="text-violet-500 dark:bg-black text-center font-bold text-5xl py-16 md:text-7xl w-full ">
+      <div className='flex flex-col justify-center items-center'>
+        <div className='text-violet-500 dark:bg-black text-center font-bold text-5xl py-16 md:text-7xl w-full '>
           Snap Grid
         </div>
       </div>
-      <div className="text-center m-0">
-        <form className=" dark:bg-black m-0 py-8" onSubmit={handleClick}>
+      <div className='text-center m-0'>
+        <form className=' dark:bg-black m-0 py-8' onSubmit={handleClick}>
           <input
-            className="md:w-96 sm:w-50 h-15 border dark:bg-black dark:text-white border-violet-500 hover:border-violet-500 bg-gray-100 rounded-xl p-2 px-4  "
-            placeholder="Search here ..."
+            className='md:w-96 sm:w-50 h-15 border dark:bg-black dark:text-white border-violet-500 hover:border-violet-500 bg-gray-100 rounded-xl p-2 px-4  '
+            placeholder='Search here ...'
             ref={searchInput}
           />
         </form>
       </div>
-      <div className="dark:bg-black m-0">
-        <div className=" dark:bg-black py-5 m-0 mx-auto md:max-w-screen-lg">
+      <div className='dark:bg-black m-0'>
+        <div className=' dark:bg-black py-5 m-0 mx-auto md:max-w-screen-lg'>
           <SelectionMenu links={links} handleSelection={handleSelection} />
         </div>
       </div>
@@ -101,25 +103,25 @@ const MainSection = () => {
       ) : (
         <div>
           {bannerImage && (
-            <div className="flex justify-between dark:bg-black pr-5">
-                <div className="top-10 left-0 p-4 dark:text-white max-w-2xl">
-                  <h1 className="top-15 font-bold text-left pt-20 px-20 text-5xl">
-                    {linkInfo?.title}
-                  </h1>
-                  <div
-                    className="px-20 font-light dark:text-slate-200 pt-5"
-                    dangerouslySetInnerHTML={{ __html: linkInfo?.description }}
-                  />
-                </div>
-                <img
-                  src={bannerImage}
-                  alt="Banner"
-                  className="w-3/6 h-90 shadow-md rounded-lg "
+            <div className='flex justify-between dark:bg-black pr-5'>
+              <div className='top-10 left-0 p-4 dark:text-white max-w-2xl'>
+                <h1 className='top-15 font-bold text-left pt-20 px-20 text-5xl'>
+                  {linkInfo?.title}
+                </h1>
+                <div
+                  className='px-20 font-light dark:text-slate-200 pt-5'
+                  dangerouslySetInnerHTML={{ __html: linkInfo?.description }}
                 />
+              </div>
+              <img
+                src={bannerImage}
+                alt='Banner'
+                className='w-3/6 h-90 shadow-md rounded-lg '
+              />
             </div>
           )}
 
-          <div className=" dark:bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5">
+          <div className=' dark:bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5'>
             {images &&
               images.map((image, index) => {
                 return (
@@ -134,11 +136,11 @@ const MainSection = () => {
         </div>
       )}
 
-      <div className="flex justify-center dark:bg-black py-4 ">
+      <div className='flex justify-center dark:bg-black py-4 '>
         {page > 1 && (
           <button
             onClick={() => setPage(page - 1)}
-            className=" p-1 px-2 bg-violet-500 text-white w-fit rounded-md"
+            className=' p-1 px-2 bg-violet-500 text-white w-fit rounded-md'
           >
             Previous
           </button>
@@ -146,7 +148,7 @@ const MainSection = () => {
         {page < totalPages && (
           <button
             onClick={() => setPage(page + 1)}
-            className="p-1 px-2 mx-6 bg-violet-500 text-white w-fit rounded-md"
+            className='p-1 px-2 mx-6 bg-violet-500 text-white w-fit rounded-md'
           >
             Next
           </button>
@@ -158,4 +160,3 @@ const MainSection = () => {
 };
 
 export default MainSection;
-
