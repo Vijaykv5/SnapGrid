@@ -1,8 +1,8 @@
-import React, { Link, useEffect, useRef, useState } from 'react';
+import React from 'react';
 
 import DarkModeButton from './DarkModeButton';
 
-const Header = () => {
+const Header: React.FC = () => {
   return (
     <div className='dark:z-10 dark:shadow-gray-500 dark:shadow-sm dark:bg-slate-950 shadow-md px-10 h-13 justify-between dark:text-white flex w-full '>
       <img
