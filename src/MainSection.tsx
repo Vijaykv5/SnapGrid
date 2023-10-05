@@ -1,5 +1,6 @@
 import dotenv from 'dotenv';
 import React, { useEffect, useRef, useState } from 'react';
+
 import NoImagesFound from './components/NoImagesFound/NoImagesFound';
 import ShimmerLoading from './components/ShimmerLoading/ShimmerLoading';
 import BackToTopButton from './components/menu/BackToTopButton';
@@ -9,13 +10,12 @@ import SelectionMenu from './components/menu/SelectionMenu';
 import { links } from './utils/links';
 
 const API_URL = 'https://api.unsplash.com/search/photos';
-const Image_count = 28;
 dotenv.config();
 
 const MainSection = () => {
   const searchInput = useRef<any>(null);
   const [images, setImages] = useState<any[]>([]);
-  const [page, setPage] = useState<number>(1);
+  const [imageCount, setImageCount] = useState<number>(28);
   const [totalPages, setTotalPages] = useState<number>(0);
   const [bannerImage, setBannerImage] = useState<string | null>(null);
   const [linkInfo, setlinkInfo] = useState<any>({});
@@ -26,7 +26,7 @@ const MainSection = () => {
     try {
       setIsLoading(true);
       const data = await fetch(
-        `${API_URL}?query=${searchInput.current?.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`
+        `${API_URL}?query=${searchInput.current.value}&per_page=${imageCount}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`
       );
       const json = await data.json();
       setImages(json?.results);
@@ -48,14 +48,12 @@ const MainSection = () => {
     ) : (
       <div className='font-bold text-black'>Error</div>
     );
-    setPage(1);
   };
   const handleSelection = (selectionIndex: number) => {
     const selectedLink = links[selectionIndex];
     if (selectedLink) {
       searchInput.current.value = selectedLink.title;
       fetchImages();
-      setPage(1);
       setBannerImage(selectedLink.url);
       setlinkInfo(selectedLink);
       setSearchPerformed(true);
@@ -64,16 +62,27 @@ const MainSection = () => {
     }
   };
 
-  const navigationHandler = (page: number) => {
-    setPage(page);
-    document.querySelector('#image_1')?.scrollIntoView({
-      behavior: 'smooth',
-    });
+  useEffect(() => {
+    fetchImages();
+  }, [imageCount]);
+  const handelInfiniteScroll = async () => {
+    try {
+      if (
+        window.innerHeight + document.documentElement.scrollTop + 1 >=
+        document.documentElement.scrollHeight
+      ) {
+        setIsLoading(true);
+        setImageCount((prev) => prev + 12);
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
-    fetchImages();
-  }, [page]);
+    window.addEventListener('scroll', handelInfiniteScroll);
+    return () => window.removeEventListener('scroll', handelInfiniteScroll);
+  }, []);
 
   return (
     <div className='dark:bg-black dark:h-screen '>
@@ -135,25 +144,6 @@ const MainSection = () => {
           ) : null}
         </div>
       )}
-
-      <div className='flex justify-center dark:bg-black py-4 '>
-        {page > 1 && (
-          <button
-            onClick={() => setPage(page - 1)}
-            className=' p-1 px-2 bg-violet-500 text-white w-fit rounded-md'
-          >
-            Previous
-          </button>
-        )}
-        {page < totalPages && (
-          <button
-            onClick={() => setPage(page + 1)}
-            className='p-1 px-2 mx-6 bg-violet-500 text-white w-fit rounded-md'
-          >
-            Next
-          </button>
-        )}
-      </div>
       <BackToTopButton />
     </div>
   );
