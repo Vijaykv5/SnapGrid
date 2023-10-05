@@ -1,6 +1,6 @@
 import dotenv from 'dotenv';
 import React, { useEffect, useRef, useState } from 'react';
-
+import NoImagesFound from './components/NoImagesFound/NoImagesFound';
 import ShimmerLoading from './components/ShimmerLoading/ShimmerLoading';
 import BackToTopButton from './components/menu/BackToTopButton';
 import Header from './components/menu/Header';
@@ -79,7 +79,7 @@ const MainSection = () => {
     <div className='dark:bg-black dark:h-screen '>
       <Header />
       <div className='flex flex-col justify-center items-center'>
-        <div className='text-violet-500 dark:bg-black text-center font-bold text-5xl py-16 md:text-7xl w-full '>
+        <div className='text-violet-500 dark:bg-black text-center font-bold text-5xl py-8 md:text-7xl w-full '>
           Snap Grid
         </div>
       </div>
@@ -120,18 +120,19 @@ const MainSection = () => {
             </div>
           )}
 
-          <div className=' dark:bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5'>
-            {images &&
-              images.map((image, index) => {
-                return (
-                  <ImageCard
-                    key={image?.id}
-                    url={image?.urls?.small}
-                    download={image?.urls?.full}
-                  />
-                );
-              })}
-          </div>
+          {images.length > 0 ? (
+            <div className='dark:bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5'>
+              {images.map((image, index) => (
+                <ImageCard
+                  key={image?.id}
+                  url={image?.urls?.small}
+                  download={image?.urls?.full}
+                />
+              ))}
+            </div>
+          ) : searchPerformed ? (
+            <NoImagesFound />
+          ) : null}
         </div>
       )}
 
