@@ -1,4 +1,4 @@
-const ShimmerLoading = () => {
+const ShimmerLoading: React.FC = () => {
   return (
     <div className='animate-pulse dark:bg-black dark:h-screen'>
       <div className='relative'>

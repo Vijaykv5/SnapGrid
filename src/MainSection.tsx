@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import React, { Link, useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import ShimmerLoading from './components/ShimmerLoading/ShimmerLoading';
 import BackToTopButton from './components/menu/BackToTopButton';
@@ -13,20 +13,20 @@ const Image_count = 28;
 dotenv.config();
 
 const MainSection = () => {
-  const searchInput = useRef(null);
-  const [images, setImages] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [bannerImage, setBannerImage] = useState(null);
-  const [linkInfo, setlinkInfo] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-  const [searchPerformed, setSearchPerformed] = useState(false);
+  const searchInput = useRef<any>(null);
+  const [images, setImages] = useState<any[]>([]);
+  const [page, setPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [bannerImage, setBannerImage] = useState<string | null>(null);
+  const [linkInfo, setlinkInfo] = useState<any>({});
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [searchPerformed, setSearchPerformed] = useState<boolean>(false);
 
   const fetchImages = async () => {
     try {
       setIsLoading(true);
       const data = await fetch(
-        `${API_URL}?query=${searchInput.current.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`
+        `${API_URL}?query=${searchInput.current?.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`
       );
       const json = await data.json();
       setImages(json?.results);
@@ -37,11 +37,10 @@ const MainSection = () => {
     }
   };
 
-  const handleClick = (e) => {
+  const handleClick = (e: any) => {
     e.preventDefault();
-    // console.log(searchInput.current.value);
     const titleArray = links.map((obj) => obj.title);
-    if (titleArray.indexOf(searchInput.current.value) === -1) {
+    if (titleArray.indexOf(searchInput.current?.value) === -1) {
       setBannerImage(null);
     }
     images != null ? (
@@ -51,7 +50,7 @@ const MainSection = () => {
     );
     setPage(1);
   };
-  const handleSelection = (selectionIndex) => {
+  const handleSelection = (selectionIndex: number) => {
     const selectedLink = links[selectionIndex];
     if (selectedLink) {
       searchInput.current.value = selectedLink.title;
@@ -65,9 +64,9 @@ const MainSection = () => {
     }
   };
 
-  const navigationHandler = (page) => {
+  const navigationHandler = (page: number) => {
     setPage(page);
-    document.querySelector('#image_1').scrollIntoView({
+    document.querySelector('#image_1')?.scrollIntoView({
       behavior: 'smooth',
     });
   };

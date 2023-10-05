@@ -1,4 +1,10 @@
-export const links = [
+interface Link {
+  url: string;
+  title: string;
+  description: string;
+}
+
+export const links: Link[] = [
   {
     url: 'https://images.unsplash.com/photo-1475070929565-c985b496cb9f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80',
     title: 'Nature',

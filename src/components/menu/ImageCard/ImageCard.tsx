@@ -1,21 +1,31 @@
-const ImageCard = ({ url, download, id }) => {
+import React from 'react';
+
+interface ImageCardProps {
+  url: string | undefined;
+  download: string | undefined;
+  id?: string;
+}
+
+const ImageCard: React.FC<ImageCardProps> = ({ url, download, id }) => {
   // Function to Download Image
   const downloadImage = async () => {
     try {
-      const response = await fetch(download);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
+      if (download) {
+        const response = await fetch(download);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const blob = await response.blob();
+        const img = URL.createObjectURL(blob);
+
+        const link = document.createElement('a');
+        link.href = img;
+        link.download = generateDownloadString();
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
       }
-
-      const blob = await response.blob();
-      const img = URL.createObjectURL(blob);
-
-      const link = document.createElement('a');
-      link.href = img;
-      link.download = generateDownloadString();
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
     } catch (error) {
       console.error('Error downloading image:', error);
     }
@@ -48,7 +58,7 @@ const ImageCard = ({ url, download, id }) => {
             downloadImage();
           }}
         >
-          <i class='fa fa-download fa-beat-fade fa-lg'></i>
+          <i className='fa fa-download fa-beat-fade fa-lg'></i>
         </button>
       </div>
     </div>
