@@ -86,7 +86,7 @@ const MainSection = () => {
       <div className='text-center m-0'>
         <form className=' dark:bg-black m-0 py-8' onSubmit={handleClick}>
           <input
-            className='md:w-96 sm:w-50 h-15 border dark:bg-black dark:text-white border-violet-500 hover:border-violet-500 bg-gray-100 rounded-xl p-2 px-4  '
+            className='md:w-96 sm:w-50 h-15 dark:bg-black dark:text-white border-violet-500 hover:border-violet-500 bg-gray-100 rounded-xl p-2 px-4 border-2 focus:dark:drop-shadow-[0px_0px_16px_rgba(132,92,246,1)]'
             placeholder='Search here ...'
             ref={searchInput}
           />
