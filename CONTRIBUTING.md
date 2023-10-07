@@ -62,7 +62,7 @@ Please consider contributing to one of the following features by checking the bo
 - [x] **Responsive Design for Related Issues**
   - _Description:_ Ensure that the application's related issues section has a responsive design that adapts to different screen sizes and devices.
 
-* [ ] **Feature: Dark Mode**
+* [x] **Feature: Dark Mode**
 
   - **Description:** Implement a dark mode theme for our application. Dark mode provides an alternative color scheme that's easier on the eyes in low-light environments. This feature enhances the user experience and aligns with current design trends.
 
