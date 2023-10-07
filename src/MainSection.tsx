@@ -1,5 +1,7 @@
 import dotenv from 'dotenv';
 import React, { useEffect, useRef, useState } from 'react';
+
+import InputSelect from './components/InputSelect/InputSelect';
 import NoImagesFound from './components/NoImagesFound/NoImagesFound';
 import ShimmerLoading from './components/ShimmerLoading/ShimmerLoading';
 import BackToTopButton from './components/menu/BackToTopButton';
@@ -7,6 +9,16 @@ import Header from './components/menu/Header';
 import ImageCard from './components/menu/ImageCard/ImageCard';
 import SelectionMenu from './components/menu/SelectionMenu';
 import { links } from './utils/links';
+
+type OptionsTypes = {
+  value: string;
+  label: string;
+};
+
+type InputType = {
+  value: string;
+  label: string;
+} | null;
 
 const API_URL = 'https://api.unsplash.com/search/photos';
 const Image_count = 28;
@@ -21,12 +33,14 @@ const MainSection = () => {
   const [linkInfo, setlinkInfo] = useState<any>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchPerformed, setSearchPerformed] = useState<boolean>(false);
+  const [inputValue, setInputValue] = useState<InputType | null>(null);
+  const [activeSearch, setActiveSearch] = useState<string | null >(null);
 
   const fetchImages = async () => {
     try {
       setIsLoading(true);
       const data = await fetch(
-        `${API_URL}?query=${searchInput.current?.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`
+        `${API_URL}?query=${inputValue?.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`
       );
       const json = await data.json();
       setImages(json?.results);
@@ -40,7 +54,7 @@ const MainSection = () => {
   const handleClick = (e: any) => {
     e.preventDefault();
     const titleArray = links.map((obj) => obj.title);
-    if (titleArray.indexOf(searchInput.current?.value) === -1) {
+    if (titleArray.indexOf(activeSearch || "") === -1) {
       setBannerImage(null);
     }
     images != null ? (
@@ -53,7 +67,11 @@ const MainSection = () => {
   const handleSelection = (selectionIndex: number) => {
     const selectedLink = links[selectionIndex];
     if (selectedLink) {
-      searchInput.current.value = selectedLink.title;
+      // searchInput.current.value = selectedLink.title;
+      setInputValue({
+        value: selectedLink.title,
+        label: selectedLink.title.toUpperCase(),
+      });
       fetchImages();
       setPage(1);
       setBannerImage(selectedLink.url);
@@ -62,6 +80,10 @@ const MainSection = () => {
     } else {
       setBannerImage(null);
     }
+  };
+
+  const handleSelectChange = (value: InputType): void => {
+    setInputValue(value);
   };
 
   const navigationHandler = (page: number) => {
@@ -75,6 +97,21 @@ const MainSection = () => {
     fetchImages();
   }, [page]);
 
+  useEffect(() => {
+    if (inputValue?.value) {
+      setActiveSearch(inputValue.value);
+    }
+  }, [inputValue]);
+
+  
+  const options: OptionsTypes[] = links?.map((link) => {
+    let option = {
+      value: link.title,
+      label: link.title.toUpperCase(),
+    };
+    return option;
+  });
+
   return (
     <div className='dark:bg-black dark:h-screen '>
       <Header />
@@ -84,11 +121,13 @@ const MainSection = () => {
         </div>
       </div>
       <div className='text-center m-0'>
-        <form className=' dark:bg-black m-0 py-8' onSubmit={handleClick}>
-          <input
-            className='md:w-96 sm:w-50 h-15 dark:bg-black dark:text-white border-violet-500 hover:border-violet-500 bg-gray-100 rounded-xl p-2 px-4 border-2 focus:dark:drop-shadow-[0px_0px_16px_rgba(132,92,246,1)]'
-            placeholder='Search here ...'
-            ref={searchInput}
+        <form
+          className=' dark:bg-black m-0 py-8 w-[100%] max-w-[400px] mx-auto'
+          onSubmit={handleClick}
+        >
+          <InputSelect
+            options={options}
+            handleSelectChange={handleSelectChange}
           />
         </form>
       </div>
