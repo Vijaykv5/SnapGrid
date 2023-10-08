@@ -11,7 +11,7 @@ const SelectionMenu: React.FC<SelectionMenuProps> = ({
 }) => {
   const [active, setActive] = useState(-1);
   return (
-    <div className='flex justify-center overflow-x-scroll md:overflow-x-hidden menu-container '>
+    <div className='hide-scrollbar flex md:justify-center overflow-x-scroll md:overflow-x-hidden menu-container '>
       {links.map((value, index) => (
         <button
           key={value.title}
@@ -19,9 +19,9 @@ const SelectionMenu: React.FC<SelectionMenuProps> = ({
             handleSelection(index);
             setActive((active) => (active = index));
           }}
-          className={`text-white bg-violet-500 p-1 px-2 rounded-md ml-3 dark:bg-transparent dark:text-violet-300 dark:border-2 dark:border-violet-500 hover:dark:bg-violet-500 hover:dark:text-white ${
+          className={`text-white bg-violet-500 p-1 px-2 rounded-md dark:bg-transparent dark:text-violet-300 dark:border-2 dark:border-violet-500 hover:dark:bg-violet-500 hover:dark:text-white ${
             active === index ? 'dark:bg-violet-500 dark:text-white' : ''
-          }`}
+          } ${index !== 0 ? 'ml-3' : ''}`}
         >
           {value.title}
         </button>

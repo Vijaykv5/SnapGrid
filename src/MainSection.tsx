@@ -76,7 +76,7 @@ const MainSection = () => {
   }, [page]);
 
   return (
-    <div className='dark:bg-black dark:h-screen '>
+    <div className='dark:bg-black dark:h-screen h-full'>
       <Header />
       <div className='flex flex-col justify-center items-center'>
         <div className='text-violet-500 dark:bg-black text-center font-bold text-5xl py-8 md:text-7xl w-full '>
@@ -93,7 +93,7 @@ const MainSection = () => {
         </form>
       </div>
       <div className='dark:bg-black m-0'>
-        <div className=' dark:bg-black py-5 m-0 mx-auto md:max-w-screen-lg'>
+        <div className=' dark:bg-black p-5 m-0 mx-auto md:max-w-screen-lg'>
           <SelectionMenu links={links} handleSelection={handleSelection} />
         </div>
       </div>
