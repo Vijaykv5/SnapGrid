@@ -11,7 +11,7 @@ const SelectionMenu: React.FC<SelectionMenuProps> = ({
 }) => {
   const [active, setActive] = useState(-1);
   return (
-    <div className='hide-scrollbar flex justify-center overflow-x-scroll md:overflow-x-hidden menu-container flex-wrap'>
+    <div className='hide-scrollbar flex justify-center overflow-x-scroll md:overflow-x-hidden menu-container flex-wrap '>
       {links.map((value, index) => (
         <button
           key={value.title}
