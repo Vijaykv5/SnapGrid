@@ -2,13 +2,13 @@ import dotenv from 'dotenv';
 import React, { useEffect, useRef, useState } from 'react';
 
 import NoImagesFound from './components/NoImagesFound/NoImagesFound';
+import Noresults from './components/Noresults';
 import ShimmerLoading from './components/ShimmerLoading/ShimmerLoading';
 import BackToTopButton from './components/menu/BackToTopButton';
 import Header from './components/menu/Header';
 import ImageCard from './components/menu/ImageCard/ImageCard';
 import SelectionMenu from './components/menu/SelectionMenu';
 import { links } from './utils/links';
-import Noresults from './components/Noresults';
 
 const API_URL = 'https://api.unsplash.com/search/photos';
 dotenv.config();
@@ -17,7 +17,6 @@ const MainSection = () => {
   const searchInput = useRef<any>(null);
   const [images, setImages] = useState<any[]>([]);
   const [imageCount, setImageCount] = useState<number>(28);
-  const [totalPages, setTotalPages] = useState<number>(0);
   const [bannerImage, setBannerImage] = useState<string | null>(null);
   const [linkInfo, setlinkInfo] = useState<any>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -35,11 +34,6 @@ const MainSection = () => {
     } catch (error) {
       console.log(error);
     }
-    if (images.length == 0 && searchInput.current?.value.length!=0) {
-      setError(true);
-     } else {
-      setError(false)
-     }
   };
 
   const handleClick = (e: any) => {
@@ -135,9 +129,10 @@ const MainSection = () => {
             </div>
           )}
 
-          {error && <Noresults/>}
-          <div className=" dark:bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5">
-            {!error && images &&
+          {error && <Noresults />}
+          <div className=' dark:bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5'>
+            {!error &&
+              images &&
               images.map((image, index) => {
                 return (
                   <ImageCard
