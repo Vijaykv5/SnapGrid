@@ -8,6 +8,7 @@ import Header from './components/menu/Header';
 import ImageCard from './components/menu/ImageCard/ImageCard';
 import SelectionMenu from './components/menu/SelectionMenu';
 import { links } from './utils/links';
+import Noresults from './components/Noresults';
 
 const API_URL = 'https://api.unsplash.com/search/photos';
 dotenv.config();
@@ -21,7 +22,7 @@ const MainSection = () => {
   const [linkInfo, setlinkInfo] = useState<any>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchPerformed, setSearchPerformed] = useState<boolean>(false);
-
+  const [error, setError] = useState(false);
   const fetchImages = async () => {
     try {
       setIsLoading(true);
@@ -34,6 +35,11 @@ const MainSection = () => {
     } catch (error) {
       console.log(error);
     }
+    if (images.length == 0 && searchInput.current?.value.length!=0) {
+      setError(true);
+     } else {
+      setError(false)
+     }
   };
 
   const handleClick = (e: any) => {
@@ -42,11 +48,12 @@ const MainSection = () => {
     if (titleArray.indexOf(searchInput.current?.value) === -1) {
       setBannerImage(null);
     }
-    images != null ? (
-      fetchImages()
-    ) : (
-      <div className='font-bold text-black'>Error</div>
-    );
+    // images != null ? (
+    //   fetchImages()
+    // ) : (
+    //   <div className='font-bold text-black'>Error</div>
+    // );
+    fetchImages();
   };
   const handleSelection = (selectionIndex: number) => {
     const selectedLink = links[selectionIndex];
@@ -84,7 +91,7 @@ const MainSection = () => {
   }, []);
 
   return (
-    <div className='dark:bg-black dark:h-screen '>
+    <div className='dark:bg-black dark:h-screen h-full'>
       <Header />
       <div className='flex flex-col justify-center items-center'>
         <div className='text-violet-500 dark:bg-black text-center font-bold text-5xl py-8 md:text-7xl w-full '>
@@ -101,7 +108,7 @@ const MainSection = () => {
         </form>
       </div>
       <div className='dark:bg-black m-0'>
-        <div className=' dark:bg-black py-5 m-0 mx-auto md:max-w-screen-lg'>
+        <div className=' dark:bg-black p-5 m-0 mx-auto md:max-w-screen-lg'>
           <SelectionMenu links={links} handleSelection={handleSelection} />
         </div>
       </div>
@@ -110,37 +117,37 @@ const MainSection = () => {
       ) : (
         <div>
           {bannerImage && (
-            <div className='flex justify-between dark:bg-black pr-5'>
-              <div className='top-10 left-0 p-4 dark:text-white max-w-2xl'>
-                <h1 className='top-15 font-bold text-left pt-20 px-20 text-5xl'>
+            <div className='flex justify-between dark:bg-black pr-5 xs:px-5 xs:flex-col-reverse xs:mb-6'>
+              <div className='top-10 left-0 p-4 dark:text-white max-w-2xl xs:p-0'>
+                <h1 className='top-15 font-bold text-left pt-20 px-20 text-5xl xs:p-0'>
                   {linkInfo?.title}
                 </h1>
                 <div
-                  className='px-20 font-light dark:text-slate-200 pt-5'
+                  className='px-20 font-light dark:text-slate-200 pt-5 xs:px-0'
                   dangerouslySetInnerHTML={{ __html: linkInfo?.description }}
                 />
               </div>
               <img
                 src={bannerImage}
                 alt='Banner'
-                className='w-3/6 h-90 shadow-md rounded-lg '
+                className='w-3/6 h-90 shadow-md rounded-lg xs:w-full xs:mb-6'
               />
             </div>
           )}
 
-          {images.length > 0 ? (
-            <div className='dark:bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5'>
-              {images.map((image, index) => (
-                <ImageCard
-                  key={image?.id}
-                  url={image?.urls?.small}
-                  download={image?.urls?.full}
-                />
-              ))}
-            </div>
-          ) : searchPerformed ? (
-            <NoImagesFound />
-          ) : null}
+          {error && <Noresults/>}
+          <div className=" dark:bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5">
+            {!error && images &&
+              images.map((image, index) => {
+                return (
+                  <ImageCard
+                    key={image?.id}
+                    url={image?.urls?.small}
+                    download={image?.urls?.full}
+                  />
+                );
+              })}
+          </div>
         </div>
       )}
       <BackToTopButton />
