@@ -36,6 +36,7 @@ const MainSection = () => {
   const [inputValue, setInputValue] = useState<InputType | null>(null);
   const [activeSearch, setActiveSearch] = useState<string | null >(null);
 
+
   const fetchImages = async () => {
     try {
       setIsLoading(true);
@@ -104,10 +105,10 @@ const MainSection = () => {
   }, [inputValue]);
 
   
-  const options: OptionsTypes[] = links?.map((link) => {
+  const options:OptionsTypes[] = links?.map((link) => {
     let option = {
-      value: link.title,
-      label: link.title.toUpperCase(),
+      value: link.title.toLowerCase(),
+      label: link.title.toLocaleLowerCase(),
     };
     return option;
   });
