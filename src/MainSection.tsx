@@ -21,7 +21,7 @@ const MainSection = () => {
   const [linkInfo, setlinkInfo] = useState<any>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchPerformed, setSearchPerformed] = useState<boolean>(false);
-
+  const [error, setError] = useState(false);
   const fetchImages = async () => {
     try {
       setIsLoading(true);
@@ -35,6 +35,11 @@ const MainSection = () => {
     } catch (error) {
       console.log(error);
     }
+    if (images.length == 0 && searchInput.current?.value.length!=0) {
+      setError(true);
+     } else {
+      setError(false)
+     }
   };
 
   const handleClick = (e: any) => {
@@ -43,11 +48,13 @@ const MainSection = () => {
     if (titleArray.indexOf(searchInput.current?.value) === -1) {
       setBannerImage(null);
     }
-    images != null ? (
-      fetchImages()
-    ) : (
-      <div className='font-bold text-black'>Error</div>
-    );
+    // images != null ? (
+    //   fetchImages()
+    // ) : (
+    //   <div className='font-bold text-black'>Error</div>
+    // );
+    fetchImages();
+    setPage(1);
     setPage(1);
   };
   const handleSelection = (selectionIndex: number) => {
@@ -120,19 +127,19 @@ const MainSection = () => {
             </div>
           )}
 
-          {images.length > 0 ? (
-            <div className='dark:bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5'>
-              {images.map((image, index) => (
-                <ImageCard
-                  key={image?.id}
-                  url={image?.urls?.small}
-                  download={image?.urls?.full}
-                />
-              ))}
-            </div>
-          ) : searchPerformed ? (
-            <NoImagesFound />
-          ) : null}
+          {error && <Noresults/>}
+          <div className=" dark:bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5">
+            {!error && images &&
+              images.map((image, index) => {
+                return (
+                  <ImageCard
+                    key={image?.id}
+                    url={image?.urls?.small}
+                    download={image?.urls?.full}
+                  />
+                );
+              })}
+          </div>
         </div>
       )}
 
