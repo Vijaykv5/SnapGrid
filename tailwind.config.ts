@@ -6,6 +6,9 @@ module.exports = {
       backdropBlur: {
         xs : '1.5px',
       },
+      screens: {
+        'xs': {'max': '639px'},
+      },
       height: {
         '128': '37rem',
       },

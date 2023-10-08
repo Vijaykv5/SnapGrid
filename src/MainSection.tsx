@@ -102,20 +102,20 @@ const MainSection = () => {
       ) : (
         <div>
           {bannerImage && (
-            <div className='flex justify-between dark:bg-black pr-5'>
-              <div className='top-10 left-0 p-4 dark:text-white max-w-2xl'>
-                <h1 className='top-15 font-bold text-left pt-20 px-20 text-5xl'>
+            <div className='flex justify-between dark:bg-black pr-5 xs:px-5 xs:flex-col-reverse xs:mb-6'>
+              <div className='top-10 left-0 p-4 dark:text-white max-w-2xl xs:p-0'>
+                <h1 className='top-15 font-bold text-left pt-20 px-20 text-5xl xs:p-0'>
                   {linkInfo?.title}
                 </h1>
                 <div
-                  className='px-20 font-light dark:text-slate-200 pt-5'
+                  className='px-20 font-light dark:text-slate-200 pt-5 xs:px-0'
                   dangerouslySetInnerHTML={{ __html: linkInfo?.description }}
                 />
               </div>
               <img
                 src={bannerImage}
                 alt='Banner'
-                className='w-3/6 h-90 shadow-md rounded-lg '
+                className='w-3/6 h-90 shadow-md rounded-lg xs:w-full xs:mb-6'
               />
             </div>
           )}
