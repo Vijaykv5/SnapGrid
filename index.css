@@ -4,11 +4,44 @@
 
 /* Hide scrollbar for Chrome, Safari, and Opera */
 .hide-scrollbar::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 /* Hide scrollbar for Firefox */
 .hide-scrollbar {
-    scrollbar-width: none;
-    -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+::selection {
+  background: #13ff00;
+  color: black;
+}
+
+/* BROWSER SCROLLBAR */
+:root {
+  --primary: black;
+  --secondary: #8b5cf6;
+  /* --secondary: #8f8f8f; */
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondary) var(--primary);
+}
+
+/* Chrome, Edge, and Safari */
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: var(--primary);
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--secondary);
+  border-radius: 50px;
+  border: 3px solid var(--secondary);
 }

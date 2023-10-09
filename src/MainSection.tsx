@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 import React, { useEffect, useRef, useState } from 'react';
+
 import NoImagesFound from './components/NoImagesFound/NoImagesFound';
+import Noresults from './components/Noresults';
 import ShimmerLoading from './components/ShimmerLoading/ShimmerLoading';
 import BackToTopButton from './components/menu/BackToTopButton';
 import Header from './components/menu/Header';
@@ -35,11 +37,11 @@ const MainSection = () => {
     } catch (error) {
       console.log(error);
     }
-    if (images.length == 0 && searchInput.current?.value.length!=0) {
+    if (images.length == 0 && searchInput.current?.value.length != 0) {
       setError(true);
-     } else {
-      setError(false)
-     }
+    } else {
+      setError(false);
+    }
   };
 
   const handleClick = (e: any) => {
@@ -127,9 +129,10 @@ const MainSection = () => {
             </div>
           )}
 
-          {error && <Noresults/>}
-          <div className=" dark:bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5">
-            {!error && images &&
+          {error && <Noresults />}
+          <div className=' dark:bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5'>
+            {!error &&
+              images &&
               images.map((image, index) => {
                 return (
                   <ImageCard
