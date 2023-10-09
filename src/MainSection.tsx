@@ -7,6 +7,7 @@ import Header from './components/menu/Header';
 import ImageCard from './components/menu/ImageCard/ImageCard';
 import SelectionMenu from './components/menu/SelectionMenu';
 import { links } from './utils/links';
+import Noresults from './components/Noresults';
 
 const API_URL = 'https://api.unsplash.com/search/photos';
 const Image_count = 28;
@@ -127,7 +128,7 @@ const MainSection = () => {
             </div>
           )}
 
-          {error && <Noresults/>}
+          {error && <Noresults />}
           <div className=" dark:bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5">
             {!error && images &&
               images.map((image, index) => {
