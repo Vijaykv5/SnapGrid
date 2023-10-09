@@ -100,7 +100,7 @@ const MainSection = () => {
         </form>
       </div>
       <div className='dark:bg-black m-0'>
-        <div className=' dark:bg-black p-5 m-0 mx-auto md:max-w-screen-lg'>
+        <div className=' dark:bg-black p-5 m-0 mx-auto md:max-w-screen-xl'>
           <SelectionMenu links={links} handleSelection={handleSelection} />
         </div>
       </div>
