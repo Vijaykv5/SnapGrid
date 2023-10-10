@@ -7,6 +7,7 @@ import Header from './components/menu/Header';
 import ImageCard from './components/menu/ImageCard/ImageCard';
 import SelectionMenu from './components/menu/SelectionMenu';
 import { links } from './utils/links';
+import Noresults from './components/Noresults';
 
 const API_URL = 'https://api.unsplash.com/search/photos';
 const Image_count = 28;
@@ -22,20 +23,25 @@ const MainSection = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchPerformed, setSearchPerformed] = useState<boolean>(false);
   const [error, setError] = useState(false);
+
   const fetchImages = async () => {
+    let results = [];
     try {
       setIsLoading(true);
       const data = await fetch(
         `${API_URL}?query=${searchInput.current?.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`
       );
       const json = await data.json();
-      setImages(json?.results);
+      results = json?.results;
+
+      setImages(results);
       setTotalPages(json?.total_pages);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
-    if (images.length == 0 && searchInput.current?.value.length!=0) {
+
+    if (results.length == 0 && searchInput.current?.value.length!=0) {
       setError(true);
      } else {
       setError(false)
@@ -56,7 +62,10 @@ const MainSection = () => {
     fetchImages();
     setPage(1);
     setPage(1);
+
+    updateQueryParams(String(searchInput.current?.value),1);
   };
+
   const handleSelection = (selectionIndex: number) => {
     const selectedLink = links[selectionIndex];
     if (selectedLink) {
@@ -66,6 +75,8 @@ const MainSection = () => {
       setBannerImage(selectedLink.url);
       setlinkInfo(selectedLink);
       setSearchPerformed(true);
+
+      updateQueryParams(String(searchInput.current?.value),1);
     } else {
       setBannerImage(null);
     }
@@ -81,6 +92,45 @@ const MainSection = () => {
   useEffect(() => {
     fetchImages();
   }, [page]);
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(window.location.search);
+
+    try {
+      const s = queryParams.get('search');
+      const p = Number(queryParams.get('page')) && Number(queryParams.get('page')) > 0 ? Number(queryParams.get('page')) : 1;
+      
+      console.log(s,p);
+
+      searchInput.current.value = s;
+      setPage(p);
+
+      const titleArray = links.map((obj) => obj.title);
+      const index = titleArray.indexOf(String(s)) ;
+      if (index === -1) {
+        setBannerImage(null);
+      } else {
+        const selectedLink = links[index];
+        setBannerImage(selectedLink.url);
+        setlinkInfo(selectedLink);
+        setSearchPerformed(true);
+      }
+
+      if (s) fetchImages();
+    } catch (error) {
+      console.log(error);
+    }
+  },[])
+
+
+  const updateQueryParams = (search:string,page:number) => {
+    const currentUrl = window.location.href;
+    const newParams = new URLSearchParams(window.location.search);
+    newParams.set('search', search);
+    newParams.set('page', String(page));
+    const newUrl = `${currentUrl.split('?')[0]}?${newParams.toString()}`;
+    window.history.pushState({}, '', newUrl);
+  }
 
   return (
     <div className='dark:bg-black dark:h-screen h-full'>
@@ -146,7 +196,12 @@ const MainSection = () => {
       <div className='flex justify-center dark:bg-black py-4 '>
         {page > 1 && (
           <button
-            onClick={() => setPage(page - 1)}
+            onClick={
+              () => {
+                updateQueryParams(searchInput.current?.value,page-1);
+                setPage(page - 1);
+              }
+            }
             className=' p-1 px-2 bg-violet-500 text-white w-fit rounded-md'
           >
             Previous
@@ -154,7 +209,12 @@ const MainSection = () => {
         )}
         {page < totalPages && (
           <button
-            onClick={() => setPage(page + 1)}
+          onClick={
+            () => {
+              updateQueryParams(searchInput.current?.value,page+1);
+              setPage(page + 1);
+            }
+          }
             className='p-1 px-2 mx-6 bg-violet-500 text-white w-fit rounded-md'
           >
             Next
