@@ -39,7 +39,7 @@ export default function HomePage() {
             images spanning various categories, from nature to architecture.
           </p>
           <div>
-            <Link to={'/main'}>
+            <Link to={'/search'}>
               <button
                 style={{
                   background:
