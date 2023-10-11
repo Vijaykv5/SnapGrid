@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
 import rocket from '../components/assets/RocketLaunch.png';
 import bg from '../components/assets/bg.png';
 import nft from '../components/assets/nft.png';
@@ -14,13 +13,13 @@ export default function HomePage() {
         background:
           'linear-gradient(31.67deg, rgba(3, 14, 21, 0.96) -2.58%, #05121B 70.47%)',
       }}
-      className='w-full'
+      className='h-screen'
     >
       <Navbar />
 
       <div className='relative lg:flex-row pt-12 md:pt-20 space-y-14 lg:space-y-0  px-6 flex flex-col-reverse lg:px-20 py-8 justify-between'>
         <div className='hidden lg:block absolute top-0 right-0'>
-          <img src={bg} className='h-screen' />
+          <img src={bg} className='h-48 w-80' />
         </div>
         {/* headline and subhead... */}
         <div className='flex flex-col space-y-10  '>
