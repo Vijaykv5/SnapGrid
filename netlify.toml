@@ -1,8 +1,8 @@
+[build]
+  command = "npm run build"
+  publish = "dist/"
+  base = "/"
 [[redirects]]
   from = "/*"
   to = "/"
   status = 200
-[build]
-  command = "npm run build"
-  publish = "dist/"
-  base = "dist/"
