@@ -2,12 +2,13 @@ import React from 'react';
 
 import user from '../components/assets/User.png';
 import cam from '../components/assets/cam.png';
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
   return (
     <nav className='py-8 px-12 flex items-center justify-between'>
       <div className='flex items-center'>
-        <img src={cam} alt='cam.png' className='w-12 lg:w-[4.5rem]' />
+      <Link to={'/'}><img src={cam} alt='cam.png' className='w-12 lg:w-[4.5rem] cursor-pointer' /></Link>
         <p className='text-2xl lg:text-[32px] text-[#FFFFFF] font-semibold'>
           SnapGrid
         </p>
