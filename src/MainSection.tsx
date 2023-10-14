@@ -23,6 +23,7 @@ const MainSection = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchPerformed, setSearchPerformed] = useState<boolean>(false);
   const [error, setError] = useState(false);
+  const [active, setActive] = useState<number>(-1);
 
   const fetchImages = async () => {
     let results = [];
@@ -51,8 +52,17 @@ const MainSection = () => {
   const handleClick = (e: any) => {
     e.preventDefault();
     const titleArray = links.map((obj) => obj.title);
-    if (titleArray.indexOf(searchInput.current?.value) === -1) {
+    const index = titleArray.indexOf(searchInput.current?.value);
+    if (index === -1) {
       setBannerImage(null);
+      setActive(-1);
+    }
+    else {
+      setActive(index)
+      const selectedLink = links[index]
+      setBannerImage(selectedLink.url);
+      setlinkInfo(selectedLink);
+      setSearchPerformed(true);
     }
     // images != null ? (
     //   fetchImages()
@@ -151,7 +161,7 @@ const MainSection = () => {
       </div>
       <div className='dark:bg-black m-0'>
         <div className=' dark:bg-black p-5 m-0 mx-auto md:max-w-screen-xl'>
-          <SelectionMenu links={links} handleSelection={handleSelection} />
+          <SelectionMenu links={links} handleSelection={handleSelection} active={active} setActive={setActive}/>
         </div>
       </div>
       {isLoading && !bannerImage && searchPerformed ? (
