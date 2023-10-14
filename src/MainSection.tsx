@@ -1,13 +1,15 @@
 import dotenv from 'dotenv';
 import React, { useEffect, useRef, useState } from 'react';
+import InfiniteScroll from 'react-infinite-scroll-component';
+
 import NoImagesFound from './components/NoImagesFound/NoImagesFound';
+import Noresults from './components/Noresults';
 import ShimmerLoading from './components/ShimmerLoading/ShimmerLoading';
 import BackToTopButton from './components/menu/BackToTopButton';
 import Header from './components/menu/Header';
 import ImageCard from './components/menu/ImageCard/ImageCard';
 import SelectionMenu from './components/menu/SelectionMenu';
 import { links } from './utils/links';
-import Noresults from './components/Noresults';
 
 const API_URL = 'https://api.unsplash.com/search/photos';
 const Image_count = 28;
@@ -17,12 +19,12 @@ const MainSection = () => {
   const searchInput = useRef<any>(null);
   const [images, setImages] = useState<any[]>([]);
   const [page, setPage] = useState<number>(1);
-  const [totalPages, setTotalPages] = useState<number>(0);
   const [bannerImage, setBannerImage] = useState<string | null>(null);
   const [linkInfo, setlinkInfo] = useState<any>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [searchPerformed, setSearchPerformed] = useState<boolean>(false);
   const [error, setError] = useState(false);
+  const [lastPage, setLastPage] = useState(false);
 
   const fetchImages = async () => {
     let results = [];
@@ -34,18 +36,44 @@ const MainSection = () => {
       const json = await data.json();
       results = json?.results;
 
+      if (results < 28) setLastPage(true);
+
       setImages(results);
-      setTotalPages(json?.total_pages);
       setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
 
-    if (results.length == 0 && searchInput.current?.value.length!=0) {
+    if (results.length == 0 && searchInput.current?.value.length != 0) {
       setError(true);
-     } else {
-      setError(false)
-     }
+    } else {
+      setError(false);
+    }
+  };
+
+  const fetchMore = async () => {
+    let results = [];
+    try {
+      setIsLoading(true);
+      const data = await fetch(
+        `${API_URL}?query=${searchInput.current?.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`
+      );
+      const json = await data.json();
+      results = json?.results;
+
+      if (results < 28) setLastPage(true);
+
+      setImages(images.concat(results));
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+
+    if (results.length == 0 && searchInput.current?.value.length != 0) {
+      setError(true);
+    } else {
+      setError(false);
+    }
   };
 
   const handleClick = (e: any) => {
@@ -63,7 +91,7 @@ const MainSection = () => {
     setPage(1);
     setPage(1);
 
-    updateQueryParams(String(searchInput.current?.value),1);
+    updateQueryParams(String(searchInput.current?.value), 1);
   };
 
   const handleSelection = (selectionIndex: number) => {
@@ -76,21 +104,21 @@ const MainSection = () => {
       setlinkInfo(selectedLink);
       setSearchPerformed(true);
 
-      updateQueryParams(String(searchInput.current?.value),1);
+      updateQueryParams(String(searchInput.current?.value), 1);
     } else {
       setBannerImage(null);
     }
   };
 
-  const navigationHandler = (page: number) => {
-    setPage(page);
-    document.querySelector('#image_1')?.scrollIntoView({
-      behavior: 'smooth',
-    });
-  };
+  // const navigationHandler = (page: number) => {
+  //   setPage(page);
+  //   document.querySelector('#image_1')?.scrollIntoView({
+  //     behavior: 'smooth',
+  //   });
+  // };
 
   useEffect(() => {
-    fetchImages();
+    fetchMore();
   }, [page]);
 
   useEffect(() => {
@@ -98,15 +126,18 @@ const MainSection = () => {
 
     try {
       const s = queryParams.get('search');
-      const p = Number(queryParams.get('page')) && Number(queryParams.get('page')) > 0 ? Number(queryParams.get('page')) : 1;
-      
-      console.log(s,p);
+      const p =
+        Number(queryParams.get('page')) && Number(queryParams.get('page')) > 0
+          ? Number(queryParams.get('page'))
+          : 1;
+
+      console.log(s, p);
 
       searchInput.current.value = s;
       setPage(p);
 
       const titleArray = links.map((obj) => obj.title);
-      const index = titleArray.indexOf(String(s)) ;
+      const index = titleArray.indexOf(String(s));
       if (index === -1) {
         setBannerImage(null);
       } else {
@@ -120,17 +151,16 @@ const MainSection = () => {
     } catch (error) {
       console.log(error);
     }
-  },[])
+  }, []);
 
-
-  const updateQueryParams = (search:string,page:number) => {
+  const updateQueryParams = (search: string, page: number) => {
     const currentUrl = window.location.href;
     const newParams = new URLSearchParams(window.location.search);
     newParams.set('search', search);
     newParams.set('page', String(page));
     const newUrl = `${currentUrl.split('?')[0]}?${newParams.toString()}`;
     window.history.pushState({}, '', newUrl);
-  }
+  };
 
   return (
     <div className='dark:bg-black dark:h-screen h-full'>
@@ -178,30 +208,57 @@ const MainSection = () => {
           )}
 
           {error && <Noresults />}
-          <div className=" dark:bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5">
-            {!error && images &&
-              images.map((image, index) => {
-                return (
-                  <ImageCard
-                    key={image?.id}
-                    url={image?.urls?.small}
-                    download={image?.urls?.full}
-                  />
-                );
-              })}
-          </div>
+          <InfiniteScroll
+            dataLength={images.length}
+            next={() => setPage(page + 1)}
+            hasMore={lastPage}
+            className=' dark:bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5'
+            loader={
+              <>
+                <div role='status' className='flex justify-between'>
+                  <svg
+                    aria-hidden='true'
+                    className='inline w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-purple-600'
+                    viewBox='0 0 100 101'
+                    fill='none'
+                    xmlns='http://www.w3.org/2000/svg'
+                  >
+                    <path
+                      d='M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z'
+                      fill='currentColor'
+                    />
+                    <path
+                      d='M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z'
+                      fill='currentFill'
+                    />
+                  </svg>
+                  <span className='sr-only'>Loading...</span>
+                </div>
+              </>
+            }
+          >
+              {!error &&
+                images &&
+                images.map((image, index) => {
+                  return (
+                    <ImageCard
+                      key={image?.id}
+                      url={image?.urls?.small}
+                      download={image?.urls?.full}
+                    />
+                  );
+                })}
+          </InfiniteScroll>
         </div>
       )}
 
-      <div className='flex justify-center dark:bg-black py-4 '>
+      {/* <div className='flex justify-center dark:bg-black py-4 '>
         {page > 1 && (
           <button
-            onClick={
-              () => {
-                updateQueryParams(searchInput.current?.value,page-1);
-                setPage(page - 1);
-              }
-            }
+            onClick={() => {
+              updateQueryParams(searchInput.current?.value, page - 1);
+              setPage(page - 1);
+            }}
             className=' p-1 px-2 bg-violet-500 text-white w-fit rounded-md'
           >
             Previous
@@ -209,18 +266,16 @@ const MainSection = () => {
         )}
         {page < totalPages && (
           <button
-          onClick={
-            () => {
-              updateQueryParams(searchInput.current?.value,page+1);
+            onClick={() => {
+              updateQueryParams(searchInput.current?.value, page + 1);
               setPage(page + 1);
-            }
-          }
+            }}
             className='p-1 px-2 mx-6 bg-violet-500 text-white w-fit rounded-md'
           >
             Next
           </button>
         )}
-      </div>
+      </div> */}
       <BackToTopButton />
     </div>
   );
