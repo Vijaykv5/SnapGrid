@@ -5,8 +5,9 @@ const DarkModeButton: React.FC = () => {
   const [theme, setTheme] = useState<string | null>(null);
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-color-scheme: light)').matches) {
-      setTheme('dark');
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+      setTheme(storedTheme);
     } else {
       setTheme('light');
     }
@@ -18,17 +19,18 @@ const DarkModeButton: React.FC = () => {
     } else {
       document.documentElement.classList.remove('dark');
     }
+    localStorage.setItem('theme', theme); 
   }, [theme]);
 
   const handleThemeSwitch = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
+    setTheme((prevTheme) => (prevTheme === 'dark' ? 'light' : 'dark'));
   };
 
   return (
     <>
       <button
         onClick={handleThemeSwitch}
-        className=' shadow-black text-white bg-violet-500 rounded-3xl dark:text-black h-12 w-auto my-auto px-2 py-0'
+        className='shadow-black text-white bg-violet-500 rounded-3xl dark:text-black h-12 w-auto my-auto px-2 py-0'
       >
         {theme === 'dark' ? (
           <MdOutlineLightMode size={'2rem'} />

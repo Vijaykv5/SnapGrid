@@ -1,13 +1,14 @@
 import dotenv from 'dotenv';
 import React, { useEffect, useRef, useState } from 'react';
+
 import NoImagesFound from './components/NoImagesFound/NoImagesFound';
+import Noresults from './components/Noresults';
 import ShimmerLoading from './components/ShimmerLoading/ShimmerLoading';
 import BackToTopButton from './components/menu/BackToTopButton';
 import Header from './components/menu/Header';
 import ImageCard from './components/menu/ImageCard/ImageCard';
 import SelectionMenu from './components/menu/SelectionMenu';
 import { links } from './utils/links';
-import Noresults from './components/Noresults';
 
 const API_URL = 'https://api.unsplash.com/search/photos';
 const Image_count = 28;
@@ -42,11 +43,11 @@ const MainSection = () => {
       console.log(error);
     }
 
-    if (results.length == 0 && searchInput.current?.value.length!=0) {
+    if (results.length == 0 && searchInput.current?.value.length != 0) {
       setError(true);
-     } else {
-      setError(false)
-     }
+    } else {
+      setError(false);
+    }
   };
 
   const handleClick = (e: any) => {
@@ -56,10 +57,9 @@ const MainSection = () => {
     if (index === -1) {
       setBannerImage(null);
       setActive(-1);
-    }
-    else {
-      setActive(index)
-      const selectedLink = links[index]
+    } else {
+      setActive(index);
+      const selectedLink = links[index];
       setBannerImage(selectedLink.url);
       setlinkInfo(selectedLink);
       setSearchPerformed(true);
@@ -73,7 +73,7 @@ const MainSection = () => {
     setPage(1);
     setPage(1);
 
-    updateQueryParams(String(searchInput.current?.value),1);
+    updateQueryParams(String(searchInput.current?.value), 1);
   };
 
   const handleSelection = (selectionIndex: number) => {
@@ -86,7 +86,7 @@ const MainSection = () => {
       setlinkInfo(selectedLink);
       setSearchPerformed(true);
 
-      updateQueryParams(String(searchInput.current?.value),1);
+      updateQueryParams(String(searchInput.current?.value), 1);
     } else {
       setBannerImage(null);
     }
@@ -108,15 +108,18 @@ const MainSection = () => {
 
     try {
       const s = queryParams.get('search');
-      const p = Number(queryParams.get('page')) && Number(queryParams.get('page')) > 0 ? Number(queryParams.get('page')) : 1;
-      
-      console.log(s,p);
+      const p =
+        Number(queryParams.get('page')) && Number(queryParams.get('page')) > 0
+          ? Number(queryParams.get('page'))
+          : 1;
+
+      console.log(s, p);
 
       searchInput.current.value = s;
       setPage(p);
 
       const titleArray = links.map((obj) => obj.title);
-      const index = titleArray.indexOf(String(s)) ;
+      const index = titleArray.indexOf(String(s));
       if (index === -1) {
         setBannerImage(null);
       } else {
@@ -130,17 +133,16 @@ const MainSection = () => {
     } catch (error) {
       console.log(error);
     }
-  },[])
+  }, []);
 
-
-  const updateQueryParams = (search:string,page:number) => {
+  const updateQueryParams = (search: string, page: number) => {
     const currentUrl = window.location.href;
     const newParams = new URLSearchParams(window.location.search);
     newParams.set('search', search);
     newParams.set('page', String(page));
     const newUrl = `${currentUrl.split('?')[0]}?${newParams.toString()}`;
     window.history.pushState({}, '', newUrl);
-  }
+  };
 
   return (
     <div className='dark:bg-black dark:h-screen h-full'>
@@ -161,7 +163,12 @@ const MainSection = () => {
       </div>
       <div className='dark:bg-black m-0'>
         <div className=' dark:bg-black p-5 m-0 mx-auto md:max-w-screen-xl'>
-          <SelectionMenu links={links} handleSelection={handleSelection} active={active} setActive={setActive}/>
+          <SelectionMenu
+            links={links}
+            handleSelection={handleSelection}
+            active={active}
+            setActive={setActive}
+          />
         </div>
       </div>
       {isLoading && !bannerImage && searchPerformed ? (
@@ -188,8 +195,9 @@ const MainSection = () => {
           )}
 
           {error && <Noresults />}
-          <div className=" dark:bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5">
-            {!error && images &&
+          <div className=' dark:bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5'>
+            {!error &&
+              images &&
               images.map((image, index) => {
                 return (
                   <ImageCard
@@ -206,12 +214,10 @@ const MainSection = () => {
       <div className='flex justify-center dark:bg-black py-4 '>
         {page > 1 && (
           <button
-            onClick={
-              () => {
-                updateQueryParams(searchInput.current?.value,page-1);
-                setPage(page - 1);
-              }
-            }
+            onClick={() => {
+              updateQueryParams(searchInput.current?.value, page - 1);
+              setPage(page - 1);
+            }}
             className=' p-1 px-2 bg-violet-500 text-white w-fit rounded-md'
           >
             Previous
@@ -219,12 +225,10 @@ const MainSection = () => {
         )}
         {page < totalPages && (
           <button
-          onClick={
-            () => {
-              updateQueryParams(searchInput.current?.value,page+1);
+            onClick={() => {
+              updateQueryParams(searchInput.current?.value, page + 1);
               setPage(page + 1);
-            }
-          }
+            }}
             className='p-1 px-2 mx-6 bg-violet-500 text-white w-fit rounded-md'
           >
             Next
