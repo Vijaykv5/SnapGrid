@@ -11,6 +11,7 @@ import ImageCard from './components/menu/ImageCard/ImageCard';
 import SelectionMenu from './components/menu/SelectionMenu';
 import { links } from './utils/links';
 
+
 const API_URL = 'https://api.unsplash.com/search/photos';
 const Image_count = 28;
 dotenv.config();
@@ -80,8 +81,17 @@ const MainSection = () => {
   const handleClick = (e: any) => {
     e.preventDefault();
     const titleArray = links.map((obj) => obj.title);
-    if (titleArray.indexOf(searchInput.current?.value) === -1) {
+    const index = titleArray.indexOf(searchInput.current?.value);
+    if (index === -1) {
       setBannerImage(null);
+      setActive(-1);
+    }
+    else {
+      setActive(index)
+      const selectedLink = links[index]
+      setBannerImage(selectedLink.url);
+      setlinkInfo(selectedLink);
+      setSearchPerformed(true);
     }
     // images != null ? (
     //   fetchImages()
@@ -182,7 +192,7 @@ const MainSection = () => {
       </div>
       <div className='dark:bg-black m-0'>
         <div className=' dark:bg-black p-5 m-0 mx-auto md:max-w-screen-xl'>
-          <SelectionMenu links={links} handleSelection={handleSelection} />
+          <SelectionMenu links={links} handleSelection={handleSelection} active={active} setActive={setActive}/>
         </div>
       </div>
       {isLoading && !bannerImage && searchPerformed ? (
