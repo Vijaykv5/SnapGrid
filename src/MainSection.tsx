@@ -43,11 +43,11 @@ const MainSection = () => {
       console.log(error);
     }
 
-    if (results.length == 0 && searchInput.current?.value.length != 0) {
-      setError(true);
-    } else {
-      setError(false);
-    }
+    // if (results.length == 0 && searchInput.current?.value.length != 0) {
+    //   setError(true);
+    // } else {
+    //   setError(false);
+    // }
   };
 
   const handleClick = (e: any) => {

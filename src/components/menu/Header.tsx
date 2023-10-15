@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
   return (
-    <div className='dark:z-10 dark:shadow-gray-500 dark:shadow-sm dark:bg-slate-950 shadow-md px-10 h-13 justify-between dark:text-white flex w-full '>
+    <div className='dark:z-10 dark:shadow-gray-500 dark:shadow-sm dark:bg-slate-950 shadow-md px-10 h-13 justify-between dark:text-white flex w-full sticky top-0'>
       <Link to={"/"}>
       <img
         src='https://i.ibb.co/gSSxMS4/Image-1-removebg-preview.png'
