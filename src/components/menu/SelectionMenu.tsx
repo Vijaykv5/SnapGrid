@@ -3,13 +3,16 @@ import React, { useState } from 'react';
 interface SelectionMenuProps {
   links: { title: string }[];
   handleSelection: (index: number) => void;
+  active: number;
+  setActive: React.Dispatch<React.SetStateAction<number>>
 }
 
 const SelectionMenu: React.FC<SelectionMenuProps> = ({
   links,
   handleSelection,
+  active,
+  setActive
 }) => {
-  const [active, setActive] = useState(-1);
   return (
     <div className='hide-scrollbar flex md:justify-center overflow-x-scroll md:overflow-x-hidden menu-container '>
       {links.map((value, index) => (
