@@ -10,6 +10,7 @@ import Header from './components/menu/Header';
 import ImageCard from './components/menu/ImageCard/ImageCard';
 import SelectionMenu from './components/menu/SelectionMenu';
 import { links } from './utils/links';
+import { faSearchLocation } from '@fortawesome/free-solid-svg-icons';
 
 
 const API_URL = 'https://api.unsplash.com/search/photos';
@@ -78,7 +79,7 @@ const MainSection = () => {
     }
   };
 
-  const handleClick = (e: any) => {
+  const searchHandler = (e: any) => {
     e.preventDefault();
     const titleArray = links.map((obj) => obj.title);
     const index = titleArray.indexOf(searchInput.current?.value);
@@ -182,17 +183,18 @@ const MainSection = () => {
         </div>
       </div>
       <div className='text-center m-0'>
-        <form className=' dark:bg-black m-0 py-8' onSubmit={handleClick}>
+        <form className=' dark:bg-black m-0 py-8' onSubmit={searchHandler}>
           <input
             className='md:w-96 sm:w-50 h-15 dark:bg-black dark:text-white border-violet-500 hover:border-violet-500 bg-gray-100 rounded-xl p-2 px-4 border-2 focus:dark:drop-shadow-[0px_0px_16px_rgba(132,92,246,1)]'
             placeholder='Search here ...'
+            onChange={searchHandler}
             ref={searchInput}
           />
         </form>
       </div>
       <div className='dark:bg-black m-0'>
         <div className=' dark:bg-black p-5 m-0 mx-auto md:max-w-screen-xl'>
-          <SelectionMenu links={links} handleSelection={handleSelection} active={active} setActive={setActive}/>
+          <SelectionMenu links={links} handleSelection={handleSelection} active={active} setActive={setActive} />
         </div>
       </div>
       {isLoading && !bannerImage && searchPerformed ? (
@@ -225,20 +227,20 @@ const MainSection = () => {
             hasMore={lastPage}
             className=' dark:bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5'
             loader={
-            <></>
+              <></>
             }
           >
-              {!error &&
-                images &&
-                images.map((image, index) => {
-                  return (
-                    <ImageCard
-                      key={image?.id}
-                      url={image?.urls?.small}
-                      download={image?.urls?.full}
-                    />
-                  );
-                })}
+            {!error &&
+              images &&
+              images.map((image, index) => {
+                return (
+                  <ImageCard
+                    key={image?.id}
+                    url={image?.urls?.small}
+                    download={image?.urls?.full}
+                  />
+                );
+              })}
           </InfiniteScroll>
         </div>
       )}
