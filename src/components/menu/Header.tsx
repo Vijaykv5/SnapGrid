@@ -1,11 +1,32 @@
-import React from 'react';
-
-import DarkModeButton from './DarkModeButton';
+import React,{useState,useEffect} from 'react';
 import { Link } from 'react-router-dom';
 
+
+
+import DarkModeButton from './DarkModeButton';
+
+
 const Header: React.FC = () => {
+      const [scrolled, setScrolled] = React.useState(false);
+      const handleScroll = () => {
+        const offset = window.scrollY;
+        if (offset > 800) {
+          setScrolled(true);
+        } else {
+          setScrolled(false);
+        }
+      };
+
+      useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+      });
+      let navbarClasses = ['navbar'];
+      if (scrolled) {
+        navbarClasses.push('scrolled');
+      }
+
   return (
-    <div className='dark:z-10 dark:shadow-gray-500 dark:shadow-sm dark:bg-slate-950 shadow-md px-10 h-13 justify-between dark:text-white flex w-full '>
+    <div className={`dark:z-10 dark:shadow-gray-500 dark:shadow-sm dark:bg-slate-950 shadow-md px-10 h-13 justify-between dark:text-white flex w-full  z-[999] ${navbarClasses.join(" ")}`}>
       <Link to={"/"}>
       <img
         src='https://i.ibb.co/gSSxMS4/Image-1-removebg-preview.png'
