@@ -38,6 +38,7 @@
     "@types/react-dom": "^18.2.9",
     "dotenv": "^16.1.4",
     "react": "^18.2.0",
+    "react-code-blocks": "^0.1.4",
     "react-dom": "^18.2.0",
     "react-icons": "^4.11.0",
     "react-infinite-scroll-component": "^6.1.0",
