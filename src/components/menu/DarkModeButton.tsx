@@ -2,10 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { MdDarkMode, MdOutlineLightMode } from 'react-icons/md';
 
 const DarkModeButton: React.FC = () => {
-  const [theme, setTheme] = useState<string | null>(null);
+  const defaultTheme: string | null =localStorage.getItem("theme");
+  const [theme, setTheme] =  defaultTheme ?  useState<string | null>(defaultTheme) : useState<string | null>(null) ;
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+    if(localStorage.getItem("theme")==='dark'){
+      setTheme('dark');
+    }
+    else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
       setTheme('dark');
     } else {
       setTheme('light');
@@ -14,8 +18,10 @@ const DarkModeButton: React.FC = () => {
 
   useEffect(() => {
     if (theme === 'dark') {
+      localStorage.setItem("theme","dark")
       document.documentElement.classList.add('dark');
     } else {
+      localStorage.setItem("theme","light")
       document.documentElement.classList.remove('dark');
     }
   }, [theme]);
