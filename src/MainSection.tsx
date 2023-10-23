@@ -11,7 +11,6 @@ import ImageCard from './components/menu/ImageCard/ImageCard';
 import SelectionMenu from './components/menu/SelectionMenu';
 import { links } from './utils/links';
 
-
 const API_URL = 'https://api.unsplash.com/search/photos';
 const Image_count = 28;
 dotenv.config();
@@ -71,7 +70,7 @@ const MainSection = () => {
       console.log(error);
     }
 
-    if (results.length == 0 && searchInput.current?.value.length != 0) {
+    if (results?.length == 0 && searchInput.current?.value.length != 0) {
       setError(true);
     } else {
       setError(false);
@@ -85,10 +84,9 @@ const MainSection = () => {
     if (index === -1) {
       setBannerImage(null);
       setActive(-1);
-    }
-    else {
-      setActive(index)
-      const selectedLink = links[index]
+    } else {
+      setActive(index);
+      const selectedLink = links[index];
       setBannerImage(selectedLink.url);
       setlinkInfo(selectedLink);
       setSearchPerformed(true);
@@ -192,7 +190,12 @@ const MainSection = () => {
       </div>
       <div className='dark:bg-black m-0'>
         <div className=' dark:bg-black p-5 m-0 mx-auto md:max-w-screen-xl'>
-          <SelectionMenu links={links} handleSelection={handleSelection} active={active} setActive={setActive}/>
+          <SelectionMenu
+            links={links}
+            handleSelection={handleSelection}
+            active={active}
+            setActive={setActive}
+          />
         </div>
       </div>
       {isLoading && !bannerImage && searchPerformed ? (
@@ -224,21 +227,20 @@ const MainSection = () => {
             next={() => setPage(page + 1)}
             hasMore={lastPage}
             className=' dark:bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5'
-            loader={
-            <></>
-            }
+            loader={<></>}
           >
-              {!error &&
-                images &&
-                images.map((image, index) => {
-                  return (
-                    <ImageCard
-                      key={image?.id}
-                      url={image?.urls?.small}
-                      download={image?.urls?.full}
-                    />
-                  );
-                })}
+            {!error &&
+              images &&
+              images.map((image, index) => {
+                return (
+                  <ImageCard
+                    key={image?.id}
+                    url={image?.urls?.small}
+                    download={image?.urls?.full}
+                    ImageId={image?.id}
+                  />
+                );
+              })}
           </InfiniteScroll>
         </div>
       )}
