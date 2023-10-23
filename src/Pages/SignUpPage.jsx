@@ -10,7 +10,7 @@ function SignUpPage() {
             <div class="flex sm:h-screen  xs:h-screen  flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
                 <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-white">
                     <img className='w-[4.5rem]' src={cam} alt='cam.png' />
-                    Flowbite
+                    SnapGrid
                 </a>
                 <div class="w-full  rounded-lg shadow border md:mt-0 sm:max-w-md xl:p-0 bg-gray-800 border-gray-700">
                     <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -24,7 +24,7 @@ function SignUpPage() {
                             </div>
                             <div>
                                 <label for="email" class="block mb-2 text-sm font-medium text-white">Your email</label>
-                                <input type="email" name="email" id="email" class="bg-gray-50 sm:text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 " placeholder="name@company.com" required />
+                                <input type="email" name="email" id="email" class="bg-gray-50 sm:text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 " placeholder="name@example.com" required />
                             </div>
                             <div>
                                 <label for="password" class="block mb-2 text-sm font-medium text-white"> Password</label>
