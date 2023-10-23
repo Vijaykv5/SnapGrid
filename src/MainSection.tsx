@@ -27,7 +27,7 @@ const MainSection = () => {
   const [error, setError] = useState(false);
   const [lastPage, setLastPage] = useState(false);
   const [active, setActive] = useState<number>(-1);
-
+  console.log(process.env.REACT_APP_UNSPLASH_API_KEY)
   const fetchImages = async () => {
     let results = [];
     try {
@@ -46,7 +46,7 @@ const MainSection = () => {
       console.log(error);
     }
 
-    if (results.length == 0 && searchInput.current?.value.length != 0) {
+    if (results?.length == 0 && searchInput.current?.value.length != 0) {
       setError(true);
     } else {
       setError(false);
@@ -71,7 +71,7 @@ const MainSection = () => {
       console.log(error);
     }
 
-    if (results.length == 0 && searchInput.current?.value.length != 0) {
+    if (results?.length == 0 && searchInput.current?.value?.length != 0) {
       setError(true);
     } else {
       setError(false);
@@ -192,7 +192,7 @@ const MainSection = () => {
       </div>
       <div className='dark:bg-black m-0'>
         <div className=' dark:bg-black p-5 m-0 mx-auto md:max-w-screen-xl'>
-          <SelectionMenu links={links} handleSelection={handleSelection} active={active} setActive={setActive}/>
+          <SelectionMenu links={links} handleSelection={handleSelection} active={active} setActive={setActive} />
         </div>
       </div>
       {isLoading && !bannerImage && searchPerformed ? (
@@ -220,25 +220,25 @@ const MainSection = () => {
 
           {error && <Noresults />}
           <InfiniteScroll
-            dataLength={images.length}
+            dataLength={images?.length}
             next={() => setPage(page + 1)}
             hasMore={lastPage}
             className=' dark:bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5'
             loader={
-            <></>
+              <></>
             }
           >
-              {!error &&
-                images &&
-                images.map((image, index) => {
-                  return (
-                    <ImageCard
-                      key={image?.id}
-                      url={image?.urls?.small}
-                      download={image?.urls?.full}
-                    />
-                  );
-                })}
+            {!error &&
+              images &&
+              images.map((image, index) => {
+                return (
+                  <ImageCard
+                    key={image?.id}
+                    url={image?.urls?.small}
+                    download={image?.urls?.full}
+                  />
+                );
+              })}
           </InfiniteScroll>
         </div>
       )}
