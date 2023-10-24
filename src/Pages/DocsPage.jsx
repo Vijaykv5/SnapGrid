@@ -63,7 +63,7 @@ export default function DocsPage() {
             />
           </div>
           <div className="text-lg md:text-xl">
-            <span className='text-[#6F4FF2] font-bold'>Step 6:</span> Install the dependencies using npm install. 
+            <span className='text-[#6F4FF2] font-bold'>Step 6:</span> Install the necessary dependencies using npm install. 
             <CopyBlock 
               text={`npm install`} 
               showLineNumbers={false} 
@@ -84,7 +84,7 @@ export default function DocsPage() {
             Make sure to replace "your-unsplash-api-key" with your actual API access key obtained from the Unsplash Developer Dashboard.
           </div>
           <div className="text-lg md:text-xl">
-            <span className='text-[#6F4FF2] font-bold'>Step 7:</span> Start the local server using npm start.
+            <span className='text-[#6F4FF2] font-bold'>Step 8:</span> Start the local server using npm start.
             <CopyBlock 
               text={`npm start`} 
               showLineNumbers={false}
@@ -94,7 +94,7 @@ export default function DocsPage() {
             />
           </div>
           <div className="text-lg md:text-xl">
-            <span className='text-[#6F4FF2] font-bold'>Step 8:</span> Create a new branch and start working on the issue.
+            <span className='text-[#6F4FF2] font-bold'>Step 9:</span> Create a new branch and start working on the issue.
             <CopyBlock 
               text={`git branch -b <branch name>
 git checkout <branch name>`} 
@@ -105,7 +105,7 @@ git checkout <branch name>`}
             />
           </div>
           <div className="text-lg md:text-xl">
-            <span className='text-[#6F4FF2] font-bold'>Step 9:</span> Stage the changes on the new branch. 
+            <span className='text-[#6F4FF2] font-bold'>Step 10:</span> Stage the changes on the new branch. 
             <CopyBlock 
               text={`git add <files to stage>`} 
               showLineNumbers={false} 
@@ -115,7 +115,7 @@ git checkout <branch name>`}
             />
           </div>
           <div className="text-lg md:text-xl">
-            <span className='text-[#6F4FF2] font-bold'>Step 10:</span> Commit the changes on the new branch. 
+            <span className='text-[#6F4FF2] font-bold'>Step 11:</span> Commit the changes on the new branch. 
             <CopyBlock 
               text={`git commit -m "<commit message>"`} 
               showLineNumbers={false} 
@@ -125,7 +125,7 @@ git checkout <branch name>`}
             />
           </div>
           <div className="text-lg md:text-xl">
-            <span className='text-[#6F4FF2] font-bold'>Step 11:</span> Push the changes to remote repository. 
+            <span className='text-[#6F4FF2] font-bold'>Step 12:</span> Push the changes to remote repository. 
             <CopyBlock
               text={`git push origin <branch name>`} 
               showLineNumbers={false} 
@@ -135,15 +135,15 @@ git checkout <branch name>`}
             />
           </div>
           <div className="text-lg md:text-xl">
-            <span className='text-[#6F4FF2] font-bold'>Step 12:</span> Create a pull request by clicking on Compare & pull request button. 
+            <span className='text-[#6F4FF2] font-bold'>Step 13:</span> Create a pull request by clicking on Compare & pull request button. 
             <img src={pr} alt='fork' className="mx-auto mt-6 d-block"/>
           </div>
           <div className="text-lg md:text-xl">
-            <span className='text-[#6F4FF2] font-bold'>Step 13:</span> Wait for your changes to be merged. 
+            <span className='text-[#6F4FF2] font-bold'>Step 14:</span> Wait for your changes to be merged. 
           </div>
         </div>
         <div className="text-3xl">
-          Congratulations, you have successfully contributed to the project! 🎉
+          Congratulations, you have successfully contributed to the SnapGrid! 🎉
         </div>
       </div>
     </div>
