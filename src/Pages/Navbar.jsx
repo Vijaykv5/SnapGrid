@@ -15,7 +15,7 @@ export default function Navbar() {
       </div>
       <div className='hidden md:block'>
         <ul className='flex space-x-10 text-[16px] text-[#FFFFFF] items-center'>
-          <li className='cursor-pointer font-semibold text-lg'>Docs</li>
+          <Link to={'/docs'}><li className='cursor-pointer font-semibold text-lg'>Docs</li></Link>
           <a href='https://github.com/Vijaykv5/SnapGrid' target='_blank'><li className='cursor-pointer font-semibold text-lg'>Github</li></a>
           <li>
             <button
