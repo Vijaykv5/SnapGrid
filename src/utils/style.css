@@ -1,0 +1,46 @@
+.home__image{
+    transform: translateX(-20%);
+    opacity: 0;
+    filter: blur(70px);
+}
+.home__image2{
+    transform: translateX(-120%);
+    opacity: 0;
+    filter: blur(70px);
+}
+
+.slide__in{
+    animation: slideIn 0.6s ease-in-out forwards;
+    opacity: 1;
+    filter: blur(0);
+}
+.slide__in2{
+    animation: slideIn 0.7s ease-in-out forwards;
+    opacity: 1;
+    filter: blur(0);
+}
+.slide__in3{
+    animation: slideIn 0.8s ease-in-out forwards;
+    opacity: 1;
+    filter: blur(0);
+}
+
+
+@keyframes slideIn {
+    0%{
+        transform: translateX(-10%);
+        opacity: 0;
+    }
+    60%{
+        transform: translateX(2%);
+        opacity: 1;
+    }
+    90%{
+        transform: translateX(-1%);
+        opacity: 1;
+    }
+    100%{
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
