@@ -36,7 +36,7 @@ const MainSection = () => {
         `${API_URL}?query=${searchInput.current?.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`
       );
       const json = await data.json();
-      results = json?.results;
+      results = (json.results)?json.results:[];
 
       if (results < 28) setLastPage(true);
 
@@ -61,7 +61,7 @@ const MainSection = () => {
         `${API_URL}?query=${searchInput.current?.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`
       );
       const json = await data.json();
-      results = json?.results;
+      results = (json.results)?json.results:[];
 
       if (results < 28) setLastPage(true);
 
