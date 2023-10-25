@@ -52,7 +52,7 @@ export default function HomePage() {
         background:
           'linear-gradient(31.67deg, rgba(3, 14, 21, 0.96) -2.58%, #05121B 70.47%)',
       }}
-      className='h-screen'
+      className='h-screen overflow-y-scroll'
     >
       <Navbar />
 
