@@ -6,7 +6,7 @@ const Footer = () => {
     <footer>
         <div className="mainfooter">
             <div className="firstfoter">
-                <p className='footerbold'>ph.</p>
+                <p className='footerbold'>Snap Grid</p>
                 <p>Projectshut is an open source web app that enables users to freely 
                 publish their projects and create user profiles within the platform. </p>
 
