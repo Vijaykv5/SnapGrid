@@ -20,8 +20,8 @@ export default function HomePage() {
   // Multiple Ref to animate multiple elements [II]
   useEffect(() => {
     if (isVisible) {
-      ref2.current.classList.add('slide__in2');
       ref.current.classList.add('slide__in');
+      ref2.current.classList.add('slide__in2');
       ref3.current.classList.add('slide__in3');
     } else {
       ref.current.classList.remove('slide__in');
@@ -50,15 +50,11 @@ export default function HomePage() {
           <div className='flex flex-col items-center justify-center w-full'>
             <h1
               ref={ref}
-              className='inline-block font-medium text-center text-transparent md:text-7xl text-5xl lg:text-8xl balance bg-gradient-to-r from-white to-neutral-400 bg-clip-text lg:max-w-[900px] md:max-w-[700px] w-4/5 sm:max-w-full m-0'
+              className='inline-block font-medium text-transparent sm:text-6xl md:text-7xl text-5xl lg:text-8xl text-center bg-gradient-to-r from-white to-neutral-400 bg-clip-text w-4/5 m-0'
             >
-              Discover
-            </h1>
-            <h1
-              ref={ref}
-              className='inline-block font-medium text-center text-transparent md:text-7xl text-5xl lg:text-8xl balance bg-gradient-to-r from-white to-neutral-400 bg-clip-text lg:max-w-[900px] md:max-w-[700px] w-4/5 sm:max-w-full m-0'
-            >
-              Explore & Share
+              <span className='inline'>Discover </span>
+              <span className='inline'> Explore </span>
+              <span className='block'>& Share</span>
             </h1>
           </div>
 
