@@ -11,13 +11,15 @@ import ImageCard from './components/menu/ImageCard/ImageCard';
 import SelectionMenu from './components/menu/SelectionMenu';
 import { links } from './utils/links';
 
-
 const API_URL = 'https://api.unsplash.com/search/photos';
 const Image_count = 28;
 dotenv.config();
 
 const MainSection = () => {
   const searchInput = useRef<any>(null);
+  const FavouriteList: string[] = JSON.parse(
+    localStorage.getItem('UserFavourite') ?? '[]'
+  );
   const [images, setImages] = useState<any[]>([]);
   const [page, setPage] = useState<number>(1);
   const [bannerImage, setBannerImage] = useState<string | null>(null);
@@ -27,6 +29,24 @@ const MainSection = () => {
   const [error, setError] = useState(false);
   const [lastPage, setLastPage] = useState(false);
   const [active, setActive] = useState<number>(-1);
+  const [filter, setFilter] = useState<string>('');
+
+  const filterImage = () => {
+    if (filter === 'Favourite') {
+      setImages(images.filter((image) => FavouriteList.includes(image?.id)));
+    } else {
+      fetchImages();
+    }
+  };
+
+  const updateQueryParams = (search: string, page: number) => {
+    const currentUrl = window.location.href;
+    const newParams = new URLSearchParams(window.location.search);
+    newParams.set('search', search);
+    newParams.set('page', String(page));
+    const newUrl = `${currentUrl.split('?')[0]}?${newParams.toString()}`;
+    window.history.pushState({}, '', newUrl);
+  };
 
   const fetchImages = async () => {
     let results = [];
@@ -41,6 +61,11 @@ const MainSection = () => {
       if (results < 28) setLastPage(true);
 
       setImages(results);
+
+      if (filter === 'Favourite') {
+        filterImage();
+      }
+
       setIsLoading(false);
     } catch (error) {
       console.log(error);
@@ -66,12 +91,17 @@ const MainSection = () => {
       if (results < 28) setLastPage(true);
 
       setImages(images.concat(results));
+
+      if (filter === 'Favourite') {
+        filterImage();
+      }
+
       setIsLoading(false);
     } catch (error) {
       console.log(error);
     }
 
-    if (results.length == 0 && searchInput.current?.value.length != 0) {
+    if (results?.length == 0 && searchInput.current?.value.length != 0) {
       setError(true);
     } else {
       setError(false);
@@ -85,10 +115,9 @@ const MainSection = () => {
     if (index === -1) {
       setBannerImage(null);
       setActive(-1);
-    }
-    else {
-      setActive(index)
-      const selectedLink = links[index]
+    } else {
+      setActive(index);
+      const selectedLink = links[index];
       setBannerImage(selectedLink.url);
       setlinkInfo(selectedLink);
       setSearchPerformed(true);
@@ -133,6 +162,13 @@ const MainSection = () => {
   }, [page]);
 
   useEffect(() => {
+    filterImage();
+  }, [filter]);
+  useEffect(() => {
+    setFilter('');
+  }, [bannerImage]);
+
+  useEffect(() => {
     const queryParams = new URLSearchParams(window.location.search);
 
     try {
@@ -164,15 +200,6 @@ const MainSection = () => {
     }
   }, []);
 
-  const updateQueryParams = (search: string, page: number) => {
-    const currentUrl = window.location.href;
-    const newParams = new URLSearchParams(window.location.search);
-    newParams.set('search', search);
-    newParams.set('page', String(page));
-    const newUrl = `${currentUrl.split('?')[0]}?${newParams.toString()}`;
-    window.history.pushState({}, '', newUrl);
-  };
-
   return (
     <div className='dark:bg-black dark:h-screen h-full'>
       <Header />
@@ -190,9 +217,36 @@ const MainSection = () => {
           />
         </form>
       </div>
-      <div className='dark:bg-black m-0'>
+      <div className='dark:bg-black m-0 flex flex-wrap'>
         <div className=' dark:bg-black p-5 m-0 mx-auto md:max-w-screen-xl'>
-          <SelectionMenu links={links} handleSelection={handleSelection} active={active} setActive={setActive}/>
+          <SelectionMenu
+            links={links}
+            handleSelection={handleSelection}
+            active={active}
+            setActive={setActive}
+          />
+        </div>
+        <div className='dark:bg-black p-5 m-0 mx-auto md:max-w-screen-xl'>
+          <button
+            onClick={() => setFilter('')}
+            className={`rounded-l-lg border p-2 border-r-0  dark:text-black ${
+              !filter
+                ? 'bg-black dark:bg-white text-white dark:text-black'
+                : 'bg-white dark:bg-black text-black dark:text-white'
+            }`}
+          >
+            All
+          </button>
+          <button
+            onClick={() => setFilter('Favourite')}
+            className={`rounded-r-lg border p-2 border-l-0 ${
+              filter === 'Favourite'
+                ? 'bg-black dark:bg-white text-white dark:text-black'
+                : 'bg-white dark:bg-black text-black dark:text-white'
+            }`}
+          >
+            Favourite
+          </button>
         </div>
       </div>
       {isLoading && !bannerImage && searchPerformed ? (
@@ -223,22 +277,57 @@ const MainSection = () => {
             dataLength={images.length}
             next={() => setPage(page + 1)}
             hasMore={lastPage}
-            className=' dark:bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5'
-            loader={
-            <></>
-            }
+            className='dark:bg-black grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 p-5'
+            loader={<></>}
           >
-              {!error &&
-                images &&
+            {!error &&
+              images &&
+              images.map((image, index) => {
+                return (
+                  <ImageCard
+                    key={image?.id}
+                    url={image?.urls?.small}
+                    download={image?.urls?.full}
+                    ImageId={image?.id}
+                  />
+                );
+              })}
+            {/* {filter === 'Favourite' ? (
+              !error &&
+              images &&
+              FavouriteList.some((element) =>
+                images.map(({ id }) => id).includes(element)
+              ) &&
+              FavouriteList.length !== 0 ? (
                 images.map((image, index) => {
-                  return (
-                    <ImageCard
-                      key={image?.id}
-                      url={image?.urls?.small}
-                      download={image?.urls?.full}
-                    />
-                  );
-                })}
+                  if (FavouriteList.includes(image.id)) {
+                    return (
+                      <ImageCard
+                        key={image?.id}
+                        url={image?.urls?.small}
+                        download={image?.urls?.full}
+                        ImageId={image?.id}
+                      />
+                    );
+                  }
+                })
+              ) : (
+                <NoImagesFound />
+              )
+            ) : (
+              !error &&
+              images &&
+              images.map((image, index) => {
+                return (
+                  <ImageCard
+                    key={image?.id}
+                    url={image?.urls?.small}
+                    download={image?.urls?.full}
+                    ImageId={image?.id}
+                  />
+                );
+              })
+            )} */}
           </InfiniteScroll>
         </div>
       )}
