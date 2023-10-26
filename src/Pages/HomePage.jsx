@@ -55,7 +55,6 @@ export default function HomePage() {
       className='h-screen overflow-y-scroll'
     >
       <Navbar />
-
       <div  className=' relative lg:flex-row pt-12 md:pt-20 space-y-14 lg:space-y-0  px-6 flex flex-col-reverse lg:px-20 py-8 justify-between'>
         <div className='hidden lg:block absolute top-0 right-0'>
           <img src={bg} className='h-48 w-80' />
