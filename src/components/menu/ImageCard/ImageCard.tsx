@@ -1,12 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface ImageCardProps {
   url: string | undefined;
   download: string | undefined;
-  id?: string;
+  ImageId?: string;
 }
 
-const ImageCard: React.FC<ImageCardProps> = ({ url, download, id }) => {
+const ImageCard: React.FC<ImageCardProps> = ({ url, download, ImageId }) => {
+  // State that Track The Favourite List
+  const [favouriteList, setFavouriteList] = useState<string[]>(
+    JSON.parse(localStorage.getItem('UserFavourite') ?? '[]')
+  );
+
   // Function to Download Image
   const downloadImage = async () => {
     try {
@@ -31,6 +36,18 @@ const ImageCard: React.FC<ImageCardProps> = ({ url, download, id }) => {
     }
   };
 
+  // Function to Toggle Image ID from Favourite List
+  const ToggleFavList = (id: string) => {
+    let FavList = JSON.parse(localStorage.getItem('UserFavourite') ?? '[]');
+    if (FavList.includes(id)) {
+      FavList = FavList.filter((imageId: string) => imageId != id);
+    } else {
+      FavList.push(id);
+    }
+    localStorage.setItem('UserFavourite', JSON.stringify(FavList));
+    setFavouriteList(JSON.parse(localStorage.getItem('UserFavourite') ?? '[]'));
+  };
+
   // Function to generate random 8-digit number
   const generateRandomNumber = () => {
     const randomNumber = Math.floor(10000000 + Math.random() * 90000000);
@@ -47,7 +64,7 @@ const ImageCard: React.FC<ImageCardProps> = ({ url, download, id }) => {
     <div className='relative group w-full md:w-80 h-72 rounded-md overflow-hidden shadow-lg hover:shadow-md transform transition-transform hover:scale-105'>
       <img
         src={url}
-        id={id}
+        id={ImageId}
         alt='Image'
         className='w-full h-full object-cover transform hover:scale-105 duration-200'
       />
@@ -60,6 +77,30 @@ const ImageCard: React.FC<ImageCardProps> = ({ url, download, id }) => {
         >
           <i className='fa fa-download fa-beat-fade fa-lg'></i>
         </button>
+        <button
+          title={`${
+            favouriteList.includes(ImageId ?? '')
+              ? 'Unlike Image'
+              : 'Like Image'
+          }`}
+          className='cursor-pointer bg-violet-500 text-white font-bold py-2 px-4 mx-2 rounded-md'
+          onClick={() => ToggleFavList(ImageId ?? '')}
+        >
+          <i
+            className={`fa fa-regular fa-heart fa-beat-fade fa-lg 
+            ${favouriteList.includes(ImageId ?? '') ? 'text-rose-500' : ' '}`}
+          ></i>
+        </button>
+      </div>
+      <div className='absolute inset-0 flex items-end justify-end group-hover:hidden'>
+        <i
+          className={`fa fa-regular fa-heart fa-lg m-4 
+            ${
+              favouriteList.includes(ImageId ?? '')
+                ? 'text-rose-500'
+                : 'opacity-0'
+            }`}
+        ></i>
       </div>
     </div>
   );
