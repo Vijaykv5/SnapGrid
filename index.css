@@ -45,3 +45,77 @@
   border-radius: 50px;
   border: 3px solid var(--secondary);
 }
+
+footer{
+  color: white;
+
+}
+.mainfooter{
+  display: flex;
+  flex-direction: row;
+justify-content:flex-start;
+align-items: center;
+gap: 25px;
+  margin-left: 3%;
+  /* margin-right: 3%; */
+  font-size: 18px;
+}
+.firstfoter{
+  width: 50%;
+
+}
+
+.secondfooter{
+  width: 20%;
+}
+
+.footerbold{
+  font-size: 22px;
+  font-weight: 900;
+  margin-bottom: 4%;
+}
+
+.secmain{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2%;
+  margin-bottom: 2%;
+}
+.footerbtn{
+  background-color: white;
+  color: black;
+  font-weight: 700;
+  border-radius: 10px;
+  width: 120px;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 2px;
+  gap: 10px;
+}
+
+.forth{
+  display: flex;
+  justify-content: end;
+  
+}
+.logofooter{
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+  margin-top: 2%;
+}
+
+@media (max-width:900) {
+  .mainfooter{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

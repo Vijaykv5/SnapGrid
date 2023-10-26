@@ -8,6 +8,7 @@ import rectangle from '../components/assets/rectangle.png';
 import Navbar from './Navbar';
 import '../utils/style.css';
 
+import Footer from './Footer';
 
 export default function HomePage() {
 
@@ -105,6 +106,8 @@ export default function HomePage() {
       <div className=''>
         <img src={rectangle} className='' />
       </div>
+
+<Footer/>
     </div>
   );
 }
