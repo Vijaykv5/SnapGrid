@@ -11,57 +11,40 @@ import '../utils/style.css';
 import Navbar from './Navbar';
 
 export default function HomePage() {
-  // Animation in home Page
-  const [isVisible, setIsVisible] = useState(false);
-  const ref = useRef(null);
-  const ref2 = useRef(null);
-  const ref3 = useRef(null);
+  const [loaded, setLoaded] = useState(false);
+  const containerRef = useRef();
+  const handleLoad = () => {
+    setLoaded(true);
+  };
 
-  // Multiple Ref to animate multiple elements [II]
   useEffect(() => {
-    if (isVisible) {
-      ref.current.classList.add('slide__in');
-      ref2.current.classList.add('slide__in2');
-      ref3.current.classList.add('slide__in3');
-    } else {
-      ref.current.classList.remove('slide__in');
-      ref2.current.classList.remove('slide__in2');
-      ref3.current.classList.remove('slide__in3');
-    }
-  });
-
-  // Intersection Observer [I]
-  useEffect(() => {
-    const observer = new IntersectionObserver(([entry]) => {
-      setIsVisible(entry.isIntersecting);
-      console.log(entry.isIntersecting);
-    });
-    observer.observe(ref.current);
-    return () => observer.disconnect();
+    window.addEventListener('load', handleLoad);
+    return () => {
+      window.removeEventListener('load', handleLoad);
+    };
   }, []);
 
   return (
     <div className='flex flex-col max-h-screen min-h-screen overflow-auto bg-gradient-to-r from-slate-950 to-gray-900'>
       <Navbar />
 
-      <div className='relative px-6 py-8 pt-12 grow'>
+      <div
+        ref={containerRef}
+        className={`${
+          loaded ? 'opacity-100' : 'opacity-0'
+        } fade-in relative px-6 py-8 pt-12 grow`}
+      >
         {/* headline and subhead... */}
         <div className='flex flex-col items-center space-y-6 grow'>
           <div className='flex flex-col items-center justify-center w-full'>
-            <h1
-              ref={ref}
-              className='inline-block font-medium text-transparent sm:text-6xl md:text-7xl text-5xl lg:text-8xl text-center bg-gradient-to-r from-white to-neutral-400 bg-clip-text w-4/5 m-0'
-            >
+            <h1 className='inline-block w-4/5 m-0 text-5xl font-medium text-center text-transparent sm:text-6xl md:text-7xl lg:text-8xl bg-gradient-to-r from-white to-neutral-400 bg-clip-text'>
               <span className='inline'>Discover </span>
               <span className='inline'> Explore </span>
               <span className='block'>& Share</span>
             </h1>
           </div>
 
-          <p
-            ref={ref2}
-            className='w-4/5 max-w-2xl leading-8 text-center text-md text-neutral-400 md:text-xl'
-          >
+          <p className='w-4/5 max-w-2xl leading-8 text-center text-md text-neutral-400 md:text-xl'>
             <span className='font-normal text-center text-white'>
               SnapGrid simplifies image discovery and downloads
             </span>
@@ -92,7 +75,7 @@ export default function HomePage() {
             />
           </div>
 
-          <Link to={'/search'} ref={ref3}>
+          <Link to={'/search'}>
             <button className='flex items-center px-10 py-3 transition duration-300 bg-violet-800 text-neutral-200 hover:text-neutral-100 hover:bg-violet-600 rounded-2xl '>
               <img className='pr-3 ' src={rocket} alt='' />
               Explore Now!
