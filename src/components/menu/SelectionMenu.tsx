@@ -22,7 +22,7 @@ const SelectionMenu: React.FC<SelectionMenuProps> = ({
             handleSelection(index);
             setActive((active) => (active = index));
           }}
-          className={`text-white bg-violet-500 p-1 px-2 rounded-md dark:bg-transparent dark:text-violet-300 dark:border-2 dark:border-violet-500 hover:dark:bg-violet-500 hover:dark:text-white ${
+          className={`text-white bg-violet-500 p-1 px-2 rounded-md hover:bg-violet-600 dark:bg-transparent dark:text-violet-300 dark:border-2 dark:border-violet-500 hover:dark:bg-violet-500 hover:dark:text-white ${
             active === index ? 'dark:bg-violet-500 dark:text-white' : ''
           } ${index !== 0 ? 'ml-3' : ''}`}
         >
