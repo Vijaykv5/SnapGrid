@@ -42,12 +42,12 @@ export default function Navbar() {
         </div>
       </nav>
 
-      <div className={`common  ${visibility ? "visible__navbar__drawer" : "hidden__navbar__drawer"}` }>
+      <div className={`common  ${visibility ? "visible__navbar__drawer" : "hidden__navbar__drawer"} drawer__container ` }>
                 <div className={`flex justify-evenly items-center flex-col ${visibility? "visible__drawer__container" : "hidden__drawer__container" } `}>
-                    <a href='/docs' className=' font-bold text-white text-2xl m-5'>Docs</a>
-                    <a href='https://github.com/Vijaykv5/SnapGrid' className='font-bold text-white text-2xl '>Github</a>
+                    <a href='/docs' className=' font-bold text-white text-2xl m-2'>Docs</a>
+                    <a href='https://github.com/Vijaykv5/SnapGrid' className='font-bold text-white text-2xl m-2 '>Github</a>
                     <button
-                        className='rounded-[1.25rem] px-8 py-2 flex items-center font-semibold text-white m-5 '
+                        className='rounded-[1.25rem] px-8 py-2 flex items-center font-semibold text-white m-2 '
                         style={{
                           background: 'linear-gradient(270deg, #6F4FF2 0%, #6F4FF2 100%)',
                         }}

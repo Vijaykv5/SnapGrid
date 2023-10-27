@@ -2,6 +2,7 @@
     transform: translateX(-20%);
     opacity: 0;
     filter: blur(70px);
+
 }
 .home__image2{
     transform: translateX(-120%);
@@ -23,6 +24,14 @@
     animation: slideIn 0.8s ease-in-out forwards;
     opacity: 1;
     filter: blur(0);
+}
+@media only screen and (min-width:698px){
+    .hamburger{
+        display: none;
+    }   
+    .drawer__container{
+        display: none;
+    }
 }
 
 
