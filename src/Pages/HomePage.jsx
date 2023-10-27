@@ -62,7 +62,6 @@ export default function HomePage() {
             ref={ref2}
             className='w-4/5 max-w-2xl leading-8 text-center text-md text-neutral-400 md:text-xl'
           >
-            Used by some of the world's largest companies,{' '}
             <span className='font-normal text-center text-white'>
               SnapGrid simplifies image discovery and downloads
             </span>
