@@ -7,6 +7,7 @@ interface ImageCardProps {
 }
 
 const ImageCard: React.FC<ImageCardProps> = ({ url, download, ImageId }) => {
+  console.log(url);
   // State that Track The Favourite List
   const [favouriteList, setFavouriteList] = useState<string[]>(
     JSON.parse(localStorage.getItem('UserFavourite') ?? '[]')
