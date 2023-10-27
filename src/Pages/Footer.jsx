@@ -10,11 +10,6 @@ const Footer = () => {
                 <p>Projectshut is an open source web app that enables users to freely 
                 publish their projects and create user profiles within the platform. </p>
 
-                <div className="logofooter">
-                <i class="fa fa-twitter"></i>
-                    <i class="fa fa-github"></i>
-                    <i class="fa fa-linkedin"></i>
-                </div>
             </div>
 
             <div className="secondfooter">
@@ -29,9 +24,9 @@ const Footer = () => {
             <div className="forth">
 
             <div className="footerbtn">
-            <i class="fa fa-github"></i>  <button>Star us 🌟</button>
+           <a href="https://github.com/Vijaykv5/SnapGrid"><button><i class="fa fa-github"></i> Star us 🌟</button></a>
             </div>
-
+ 
             </div>
         </div>
 

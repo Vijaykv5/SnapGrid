@@ -102,20 +102,51 @@ gap: 25px;
   justify-content: end;
   
 }
-.logofooter{
-  display: flex;
-  flex-direction: row;
-  justify-content: start;
-  align-items: center;
-  gap: 10px;
-  margin-top: 2%;
-}
 
-@media (max-width:900) {
+
+@media (max-width:913) {
   .mainfooter{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    gap: 15;
   }
+
+  .firstfoter{
+    width: 100%;
+  padding-bottom: 3%;
+  }
+  
+  .secondfooter{
+    width: 100%;
+  }
+  .third{
+    width: 100%;
+
+  }
+  .forth{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+
+  }
+  footer{
+   min-height: 85vh;
+  
+  }
+ 
+}
+
+@media (width:912px) {
+  footer{
+    min-height: 90vh;
+   
+   }
+}
+@media (width:1280px) {
+  footer{
+    min-height: 40%;
+   
+   }
 }
