@@ -8,7 +8,7 @@ export default function Navbar() {
   return (
     <nav className='py-8 px-12 flex items-center justify-between'>
       <div className='flex items-center'>
-      <Link to={'/'}><img src={cam} alt='cam.png' className='w-12 lg:w-[4.5rem] cursor-pointer' /></Link>
+        <Link to={'/'}><img src={cam} alt='cam.png' className='w-12 lg:w-[4.5rem] cursor-pointer' /></Link>
         <p className='text-2xl lg:text-[32px] text-[#FFFFFF] font-semibold'>
           SnapGrid
         </p>
@@ -18,15 +18,17 @@ export default function Navbar() {
           <Link to={'/docs'}><li className='cursor-pointer font-semibold text-lg'>Docs</li></Link>
           <a href='https://github.com/Vijaykv5/SnapGrid' target='_blank'><li className='cursor-pointer font-semibold text-lg'>Github</li></a>
           <li>
-            <button
-              className='rounded-[1.25rem] px-8 py-2 flex items-center font-semibold'
-              style={{
-                background: 'linear-gradient(270deg, #6F4FF2 0%, #6F4FF2 100%)',
-              }}
-            >
-              <img src={user} className='pr-3 font-semibold text-lg' alt='user.png' />
-              Sign Up
-            </button>
+            <Link to="/signUp">
+              <button
+                className='rounded-[1.25rem] px-8 py-2 flex items-center font-semibold'
+                style={{
+                  background: 'linear-gradient(270deg, #6F4FF2 0%, #6F4FF2 100%)',
+                }}
+              >
+                <img src={user} className='pr-3 font-semibold text-lg' alt='user.png' />
+                Sign Up
+              </button>
+            </Link>
           </li>
         </ul>
       </div>
