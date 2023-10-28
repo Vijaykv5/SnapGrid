@@ -6,9 +6,8 @@ const Footer = () => {
     <footer>
         <div className="mainfooter">
             <div className="firstfoter">
-                <p className='footerbold'>Snap Grid</p>
-                <p>Projectshut is an open source web app that enables users to freely 
-                publish their projects and create user profiles within the platform. </p>
+                <p className='footerbold'>Snapgrid</p>
+                <p>SnapGrid serves as a multifaceted online tool that streamlines the process of finding and obtaining images.</p>
 
             </div>
 

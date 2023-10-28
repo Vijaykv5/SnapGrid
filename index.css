@@ -137,6 +137,12 @@ gap: 25px;
   }
  
 }
+@media (max-width:760px) {
+  footer{
+    min-height: 80vh;
+   
+   }
+}
 
 @media (width:912px) {
   footer{
@@ -147,6 +153,12 @@ gap: 25px;
 @media (width:1280px) {
   footer{
     min-height: 40%;
+   
+   }
+}
+@media (min-width:1300px) {
+  footer{
+    min-height: 50%;
    
    }
 }
