@@ -25,6 +25,19 @@
     opacity: 1;
     filter: blur(0);
 }
+
+.slide__in4 {
+    animation: slideIn 0.9s ease-in-out forwards;
+    opacity: 1;
+    filter: blur(0);
+}
+
+.slide__in5 {
+    animation: slideIn 1s ease-in-out forwards;
+    opacity: 1;
+    filter: blur(0);
+}
+
 @media only screen and (min-width:698px){
     .hamburger{
         display: none;
