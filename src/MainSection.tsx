@@ -219,7 +219,7 @@ const MainSection = () => {
         </form>
       </div>
       <div className='dark:bg-black m-0 flex flex-wrap'>
-        <div className=' dark:bg-black p-5 m-0 mx-auto md:max-w-screen-xl'>
+        <div className=' dark:bg-black p-5 m-0 mx-auto md:max-w-screen-xl overflow-x-scroll hide-scrollbar'>
           <SelectionMenu
             links={links}
             handleSelection={handleSelection}
