@@ -1,36 +1,41 @@
-.hidden__navbar__drawer {
-  height: 0vh;
-  width: 100%;
-  transition: height 1s ease-out;
+
+
+.hidden__navbar__drawer{
+    height: 0vh;
+    width: 100%;
+    transition: height 1s ease-out;
 }
 
-.visible__navbar__drawer {
-  display: flex;
-  height: 20vh;
-  width: 100%;
 
-  flex-direction: column;
-  transition: height 0.5s;
+.visible__navbar__drawer{
+    display: flex;
+    height: 20vh;
+    width: 100%;
+
+    flex-direction: column;
+    transition: height  0.5s;
 }
-.hidden__drawer__container {
-  display: none;
-  transition: 1s;
+.hidden__drawer__container{
+    display: none;
+    transition: 1s;
 }
-.visible__drawer__container {
-  display: flex;
-  transition: 1s;
+.visible__drawer__container{
+    display: flex;
+    transition: 1s;
+    
 }
-.hamburger_1 {
-  transition: 1s;
+.hamburger_1{
+    transition: 1s;
 }
-.hamburger__1 {
-  transition: 1s;
-  transform: rotate(45deg) translateX(3px);
+.hamburger__1{
+    transition: 1s;
+    transform: rotate(45deg) translateX(3px) ;
 }
-.hamburger__2 {
-  transition: 1s;
-  transform: rotate(-45deg) translateX(8px) translateY(-5px);
+.hamburger__2{
+    transition: 1s;
+    transform: rotate(-45deg)  translateX(8px) translateY(-5px) ;
+    
 }
-.hamburger__3 {
-  visibility: hidden;
+.hamburger__3{
+   visibility: hidden;
 }
