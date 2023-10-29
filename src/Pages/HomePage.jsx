@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 import rocket from '../components/assets/RocketLaunch.png';
 import bg from '../components/assets/bg.png';
 import nft from '../components/assets/nft.png';
-import rectangle from '../components/assets/rectangle.png';
 import Navbar from './Navbar';
+import Footer from '../components/footer/Footer'
 import '../utils/style.css';
 
 
@@ -55,7 +55,7 @@ export default function HomePage() {
       className='h-screen overflow-y-scroll'
     >
       <Navbar />
-      <div  className=' relative lg:flex-row pt-12 md:pt-20 space-y-14 lg:space-y-0  px-6 flex flex-col-reverse lg:px-20 py-8 xs:py-0 justify-between'>
+      <div  className=' relative lg:flex-row pt-12 mb-20 md:pt-20 space-y-14 lg:space-y-0  px-6 flex flex-col-reverse lg:px-20 py-8 xs:py-0 justify-between'>
         <div className='hidden lg:block absolute top-0 right-0'>
           <img src={bg} className='h-48 w-80' />
         </div>
@@ -101,9 +101,7 @@ export default function HomePage() {
           />
         </div>
       </div>
-      <div className=''>
-        <img src={rectangle} className='' />
-      </div>
+      <Footer />
     </div>
   );
 }
