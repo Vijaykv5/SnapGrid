@@ -32,7 +32,7 @@ function LoginPage() {
                                     background: 'linear-gradient(270deg, #6F4FF2 0%, #6F4FF2 100%)',
                                 }}>Login</button>
                             <p className="text-sm font-light text-gray-400">
-                                Don't Have account? <Link to="/signup"
+                                Don't Have account? <Link to="/signUp"
                                     className="font-medium hover:underline text-primary-500"
                                 >
 
