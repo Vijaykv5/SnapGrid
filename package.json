@@ -32,6 +32,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@headlessui/react": "^1.7.17",
     "@types/jest": "^29.5.5",
     "@types/node": "^20.8.2",
     "@types/react": "^18.2.24",
@@ -43,7 +44,8 @@
     "react-icons": "^4.11.0",
     "react-infinite-scroll-component": "^6.1.0",
     "react-lottie": "^1.2.3",
-    "react-router-dom": "^6.16.0",
+    "react-router-dom": "^6.17.0",
+    "react-share": "^4.4.1",
     "typescript": "^5.2.2"
   },
   "overrides": {

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link, Outlet } from 'react-router-dom';
 
 interface ImageCardProps {
   url: string | undefined;
@@ -91,6 +92,13 @@ const ImageCard: React.FC<ImageCardProps> = ({ url, download, ImageId }) => {
             ${favouriteList.includes(ImageId ?? '') ? 'text-rose-500' : ' '}`}
           ></i>
         </button>
+        <Link
+          to={`/search/${ImageId}`}
+          title='Share Image'
+          className='cursor-pointer bg-violet-500 text-white font-bold py-2 px-4 mx-2 rounded-md'
+        >
+          <i className='fa fa-solid fa-share fa-lg'></i>
+        </Link>
       </div>
       <div className='absolute inset-0 flex items-end justify-end group-hover:hidden'>
         <i

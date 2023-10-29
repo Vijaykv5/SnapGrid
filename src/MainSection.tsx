@@ -1,6 +1,7 @@
 import dotenv from 'dotenv';
 import React, { useEffect, useRef, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import { Outlet } from 'react-router-dom';
 
 import NoImagesFound from './components/NoImagesFound/NoImagesFound';
 import Noresults from './components/Noresults';
@@ -56,7 +57,7 @@ const MainSection = () => {
         `${API_URL}?query=${searchInput.current?.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`
       );
       const json = await data.json();
-      results = (json.results)?json.results:[];
+      results = json.results ? json.results : [];
 
       if (results < 28) setLastPage(true);
 
@@ -86,7 +87,7 @@ const MainSection = () => {
         `${API_URL}?query=${searchInput.current?.value}&page=${page}&per_page=${Image_count}&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`
       );
       const json = await data.json();
-      results = (json.results)?json.results:[];
+      results = json.results ? json.results : [];
 
       if (results < 28) setLastPage(true);
 
@@ -331,7 +332,7 @@ const MainSection = () => {
           </InfiniteScroll>
         </div>
       )}
-
+      <Outlet />
       {/* <div className='flex justify-center dark:bg-black py-4 '>
         {page > 1 && (
           <button

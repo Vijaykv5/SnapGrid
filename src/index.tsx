@@ -1,24 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
 import MainSection from './MainSection';
-import HomePage from './Pages/HomePage';
 import DocsPage from './Pages/DocsPage';
-import { BrowserRouter } from 'react-router-dom';
-import { Route, Routes } from "react-router-dom";
+import HomePage from './Pages/HomePage';
+import ShareImageModal from './components/menu/ShareImageModal';
 
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <HomePage />,
+  },
+  {
+    path: '/docs',
+    element: <DocsPage />,
+  },
+  {
+    path: '/search',
+    element: <MainSection />,
+    children: [
+      {
+        path: ':ImageId',
+        element: <ShareImageModal />,
+      },
+    ],
+  },
+]);
 
 const App: React.FC = () => {
-  return (
-    <BrowserRouter>
-    <Routes>
-    <Route path="/" element={<HomePage />} />
-    <Route path="/search" element={<MainSection />} />
-    <Route path="/docs" element={<DocsPage />}/>
-      
-      </Routes>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={router} />;
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root')!);
