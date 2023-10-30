@@ -27,6 +27,8 @@ export default function Navbar() {
           <ul className='flex space-x-10 text-[16px] text-[#FFFFFF] items-center'>
             <Link to={'/docs'}><li className='cursor-pointer font-semibold text-lg'>Docs</li></Link>
             <a href='https://github.com/Vijaykv5/SnapGrid' target='_blank'><li className='cursor-pointer font-semibold text-lg'>Github</li></a>
+
+            <a href='https://docs.google.com/forms/d/e/1FAIpQLSe-VgXKRQ0ydlC_96d3GF9M45InjN7c4Bj6BA3tjmbvq0JSXw/viewform?vc=0&c=0&w=1&flr=0' target='_blank'><li className='cursor-pointer font-semibold text-lg'>Feedback</li></a>
             <li>
               <button
                 className='rounded-[1.25rem] px-8 py-2 flex items-center font-semibold'
