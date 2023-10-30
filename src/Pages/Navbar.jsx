@@ -28,33 +28,37 @@ export default function Navbar() {
             <Link to={'/docs'}><li className='cursor-pointer font-semibold text-lg'>Docs</li></Link>
             <a href='https://github.com/Vijaykv5/SnapGrid' target='_blank'><li className='cursor-pointer font-semibold text-lg'>Github</li></a>
             <li>
-              <button
-                className='rounded-[1.25rem] px-8 py-2 flex items-center font-semibold'
-                style={{
-                  background: 'linear-gradient(270deg, #6F4FF2 0%, #6F4FF2 100%)',
-                }}
-              >
-                <img src={user} className='pr-3 font-semibold text-lg' alt='user.png' />
-                Sign Up
-              </button>
+              <Link to='/signup'>
+                <button
+                  className='rounded-[1.25rem] px-8 py-2 flex items-center font-semibold'
+                  style={{
+                    background: 'linear-gradient(270deg, #6F4FF2 0%, #6F4FF2 100%)',
+                  }}
+                >
+                  <img src={user} className='pr-3 font-semibold text-lg' alt='user.png' />
+                  Sign Up
+                </button>
+              </Link>
             </li>
           </ul>
         </div>
       </nav>
 
-      <div className={`common  ${visibility ? "visible__navbar__drawer" : "hidden__navbar__drawer"} drawer__container ` }>
-                <div className={`flex justify-evenly items-center flex-col ${visibility? "visible__drawer__container" : "hidden__drawer__container" } `}>
-                    <a href='/docs' className=' font-bold text-white text-2xl m-2'>Docs</a>
-                    <a href='https://github.com/Vijaykv5/SnapGrid' className='font-bold text-white text-2xl m-2 '>Github</a>
-                    <button
-                        className='rounded-[1.25rem] px-8 py-2 flex items-center font-semibold text-white m-2 '
-                        style={{
-                          background: 'linear-gradient(270deg, #6F4FF2 0%, #6F4FF2 100%)',
-                        }}
-                      >
-                        <img src={user} className='pr-3 font-semibold text-lg' alt='user.png' />
-                        Sign Up
-                    </button>
+      <div className={`common  ${visibility ? "visible__navbar__drawer" : "hidden__navbar__drawer"} drawer__container `}>
+        <div className={`flex justify-evenly items-center flex-col ${visibility ? "visible__drawer__container" : "hidden__drawer__container"} `}>
+          <a href='/docs' className=' font-bold text-white text-2xl m-2'>Docs</a>
+          <a href='https://github.com/Vijaykv5/SnapGrid' className='font-bold text-white text-2xl m-2 '>Github</a>
+          <Link to='/signup'>
+            <button
+              className='rounded-[1.25rem] px-8 py-2 flex items-center font-semibold text-white m-2 '
+              style={{
+                background: 'linear-gradient(270deg, #6F4FF2 0%, #6F4FF2 100%)',
+              }}
+            >
+              <img src={user} className='pr-3 font-semibold text-lg' alt='user.png' />
+              Sign Up
+            </button>
+          </Link>
                 </div>
       </div>
               
