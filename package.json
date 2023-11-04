@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "format": "prettier --write \"src/**/*.js\"",
-    "start": "parcel index.html",
+    "start": "parcel public/index.html",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "parcel build index.html"
   },
@@ -12,6 +12,8 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@parcel/packager-raw-url": "^2.9.3",
+    "@parcel/transformer-webmanifest": "^2.9.3",
     "@trivago/prettier-plugin-sort-imports": "^4.2.0",
     "buffer": "^6.0.3",
     "crypto-browserify": "^3.12.0",
