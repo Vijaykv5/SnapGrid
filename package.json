@@ -6,7 +6,7 @@
     "format": "prettier --write \"src/**/*.js\"",
     "start": "parcel public/index.html",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "parcel build index.html"
+    "build": "parcel build public/index.html"
   },
   "keywords": [],
   "author": "",
