@@ -56,7 +56,7 @@ export default function DocsPage() {
           <div className="text-lg md:text-xl xs:text-sm">
             <span className='text-[#6F4FF2] font-bold'>Step 5:</span> Pull the latest changes from the upstream<br/> repository to your keep your local copy up-to-date. 
             <CopyBlock 
-              text={`git pull origin main`} 
+              text={`git pull origin master`} 
               showLineNumbers={false} 
               language='bash'
               codeBlock 
