@@ -30,6 +30,7 @@ const MainSection = () => {
   const [lastPage, setLastPage] = useState(false);
   const [active, setActive] = useState<number>(-1);
   const [filter, setFilter] = useState<string>('');
+  const [searchTerm, setSearchTerm] = useState('')
 
   const filterImage = () => {
     if (filter === 'Favourite') {
@@ -200,6 +201,15 @@ const MainSection = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      console.log(searchTerm)
+      fetchImages();
+    }, 1000)
+
+    return () => clearTimeout(delayDebounceFn)
+  }, [searchTerm])
+
   return (
     <div className='dark:bg-black dark:h-screen h-full'>
       <Header />
@@ -211,8 +221,8 @@ const MainSection = () => {
       <div className='text-center m-0'>
         <form className=' dark:bg-black m-0 py-8' onSubmit={handleClick}>
           <input
-            className='md:w-96 sm:w-50 h-15 dark:bg-black dark:text-white border-violet-500 hover:border-violet-500 bg-gray-100 rounded-xl p-2 px-4 border-2 focus:dark:drop-shadow-[0px_0px_16px_rgba(132,92,246,1)]'
-            placeholder='Search here ...'
+            className='md:w-96 sm:w-50 h-15 dark:bg-black dark:text-white border-violet-500 hover:border-violet-500 bg-gray-100 rounded-xl p-2 px-4 border-2 focus:dark:drop-shadow-[0px_0px_16px_rgba(132,92,246,1)] live-search-field' autoComplete='off'
+            placeholder='Search here ...' onChange={(e) => setSearchTerm(e.target.value)}
             ref={searchInput}
           />
         </form>
