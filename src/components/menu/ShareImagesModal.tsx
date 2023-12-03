@@ -32,7 +32,7 @@ const ShareImageModal = () => {
   const [isCopied, setIsCopied] = useState(false);
   const [imageData, setImageData] = useState<ImageData>({
     id: '',
-    urls: { full: '' },
+    urls: { full: ''  },
   });
 
   const navigate = useNavigate();
@@ -59,7 +59,7 @@ const ShareImageModal = () => {
       .then((data) => setImageData(data))
       .catch((err) => console.log(err));
   }, []);
-  console.log(imageData);
+
   return (
     <Transition appear show={isOpen} as={Fragment}>
       <Dialog as='div' className='relative z-10' onClose={closeModal}>
@@ -144,6 +144,7 @@ const ShareImageModal = () => {
                   <EmailShareButton url={imageData?.urls?.full}>
                     <EmailIcon className='rounded-full p-2' />
                   </EmailShareButton>
+              
                 </div>
               </Dialog.Panel>
             </Transition.Child>

@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import ShareImageModal from '../ShareImagesModal';
+
 
 interface ImageCardProps {
   url: string | undefined;
@@ -7,59 +9,73 @@ interface ImageCardProps {
   ImageId?: string;
 }
 
+interface AuthorData {
+  username: string;
+  name: string;
+  portfolio_url: string | null;
+}
+
 const ImageCard: React.FC<ImageCardProps> = ({ url, download, ImageId }) => {
-  // State that Track The Favourite List
   const [favouriteList, setFavouriteList] = useState<string[]>(
     JSON.parse(localStorage.getItem('UserFavourite') ?? '[]')
   );
 
-  // Function to Download Image
-  const downloadImage = async () => {
-    try {
-      if (download) {
-        const response = await fetch(download);
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
+  const [authorData, setAuthorData] = useState<AuthorData>({
+    username: '',
+    name: '',
+    portfolio_url: null,
+  });
 
-        const blob = await response.blob();
-        const img = URL.createObjectURL(blob);
+  const [isShareModalOpen, setShareModalOpen] = useState(false);
 
-        const link = document.createElement('a');
-        link.href = img;
-        link.download = generateDownloadString();
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-      }
-    } catch (error) {
-      console.error('Error downloading image:', error);
-    }
-  };
-
-  // Function to Toggle Image ID from Favourite List
-  const ToggleFavList = (id: string) => {
-    let FavList = JSON.parse(localStorage.getItem('UserFavourite') ?? '[]');
-    if (FavList.includes(id)) {
-      FavList = FavList.filter((imageId: string) => imageId != id);
+  const toggleFavList = (id: string) => {
+    let favList = JSON.parse(localStorage.getItem('UserFavourite') ?? '[]');
+    if (favList.includes(id)) {
+      favList = favList.filter((imageId: string) => imageId !== id);
     } else {
-      FavList.push(id);
+      favList.push(id);
     }
-    localStorage.setItem('UserFavourite', JSON.stringify(FavList));
+    localStorage.setItem('UserFavourite', JSON.stringify(favList));
     setFavouriteList(JSON.parse(localStorage.getItem('UserFavourite') ?? '[]'));
   };
 
-  // Function to generate random 8-digit number
   const generateRandomNumber = () => {
     const randomNumber = Math.floor(10000000 + Math.random() * 90000000);
     return randomNumber.toString();
   };
 
-  // Function for generating download string
   const generateDownloadString = () => {
     const randomNumber = generateRandomNumber();
     return `Image-Searcher-${randomNumber}.png`;
   };
+
+  const fetchAuthorData = async () => {
+    try {
+      const response = await fetch(
+        `https://api.unsplash.com/photos/${ImageId}/?client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`
+      );
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      setAuthorData({
+        username: data.user.username,
+        name: data.user.name,
+        portfolio_url: data.user.portfolio_url,
+      });
+    } catch (error) {
+      console.error('Error fetching author data:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAuthorData();
+  }, [ImageId]);
+
+  function downloadImage() {
+    throw new Error('Function not implemented.');
+  }
 
   return (
     <div className='relative group w-full md:w-80 h-72 rounded-md overflow-hidden shadow-lg hover:shadow-md transform transition-transform hover:scale-105'>
@@ -73,6 +89,7 @@ const ImageCard: React.FC<ImageCardProps> = ({ url, download, ImageId }) => {
         <button
           className='cursor-pointer bg-violet-500 text-white font-bold py-2 px-4 rounded-md'
           onClick={() => {
+            // Function to Download Image
             downloadImage();
           }}
         >
@@ -85,30 +102,62 @@ const ImageCard: React.FC<ImageCardProps> = ({ url, download, ImageId }) => {
               : 'Like Image'
           }`}
           className='cursor-pointer bg-violet-500 text-white font-bold py-2 px-4 mx-2 rounded-md'
-          onClick={() => ToggleFavList(ImageId ?? '')}
+          onClick={() => toggleFavList(ImageId ?? '')}
         >
           <i
-            className={`fa fa-regular fa-heart fa-beat-fade fa-lg 
-            ${favouriteList.includes(ImageId ?? '') ? 'text-rose-500' : ' '}`}
+            className={`fa fa-regular fa-heart fa-beat-fade fa-lg ${
+              favouriteList.includes(ImageId ?? '') ? 'text-rose-500' : ''
+            }`}
           ></i>
         </button>
-        <Link
-          to={`/search/${ImageId}`}
+        <button
           title='Share Image'
           className='cursor-pointer bg-violet-500 text-white font-bold py-2 px-4 mx-2 rounded-md'
+          onClick={() => setShareModalOpen(true)}
         >
           <i className='fa fa-solid fa-share fa-lg'></i>
-        </Link>
+        </button>
       </div>
       <div className='absolute inset-0 flex items-end justify-end group-hover:hidden'>
         <i
-          className={`fa fa-regular fa-heart fa-lg m-4 
-            ${
-              favouriteList.includes(ImageId ?? '')
-                ? 'text-rose-500'
-                : 'opacity-0'
-            }`}
+          className={`fa fa-regular fa-heart fa-lg m-4 ${
+            favouriteList.includes(ImageId ?? '') ? 'text-rose-500' : 'opacity-0'
+          }`}
         ></i>
+      </div>
+
+      {isShareModalOpen && (
+        <ShareImageModal
+          // isOpen={isShareModalOpen}
+          // closeModal={() => setShareModalOpen(false)}
+          // imageId={ImageId}
+        />
+      )}
+
+      {/* Display author information */}
+      <div className='absolute inset-0 flex items-start justify-start p-4 text-left'>
+        <p className='text-md text-black'>
+          Photo by{' '}
+          <a
+            href={authorData.portfolio_url || '#'}
+            target='_blank'
+            rel='noopener noreferrer'
+            className='text-black  underline'
+          >
+            {authorData.name || authorData.username}
+          </a>{' '}
+          on Unsplash
+        </p>
+        <button
+          className='mt-2 text-bold-500 text-blue-900 underline hover:text-blue-700 cursor-pointer'
+          onClick={() => {
+            if (authorData.portfolio_url) {
+              window.open(authorData.portfolio_url, '_blank');
+            }
+          }}
+        >
+          View Profile
+        </button>
       </div>
     </div>
   );
