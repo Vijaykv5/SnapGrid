@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ShareImageModal from '../ShareImagesModal';
 
-
 interface ImageCardProps {
   url: string | undefined;
   download: string | undefined;
@@ -127,29 +126,25 @@ const ImageCard: React.FC<ImageCardProps> = ({ url, download, ImageId }) => {
       </div>
 
       {isShareModalOpen && (
-        <ShareImageModal
-          // isOpen={isShareModalOpen}
-          // closeModal={() => setShareModalOpen(false)}
-          // imageId={ImageId}
-        />
+        <ShareImageModal />
       )}
 
       {/* Display author information */}
-      <div className='absolute inset-0 flex items-start justify-start p-4 text-left'>
-        <p className='text-md text-black'>
+      <div className='absolute inset-0 flex flex-col items-start justify-end p-4 text-left bg-black bg-opacity-50 text-white'>
+        <p className='text-sm'>
           Photo by{' '}
           <a
             href={authorData.portfolio_url || '#'}
             target='_blank'
             rel='noopener noreferrer'
-            className='text-black  underline'
+            className=''
           >
             {authorData.name || authorData.username}
           </a>{' '}
           on Unsplash
         </p>
         <button
-          className='mt-2 text-bold-500 text-blue-900 underline hover:text-blue-700 cursor-pointer'
+          className='mt-2  text-bold-500 hover:text-blue-700 cursor-pointer'
           onClick={() => {
             if (authorData.portfolio_url) {
               window.open(authorData.portfolio_url, '_blank');
