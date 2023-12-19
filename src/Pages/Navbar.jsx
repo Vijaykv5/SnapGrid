@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import user from '../components/assets/User.png';
 import cam from '../components/assets/cam.png';
 import { Link } from 'react-router-dom';
-import HamburgerMenu from '@/components/menu/HamburgerMenu';
+import HamburgerMenu from '../components/menu/HamburgerMenu';
 import '../utils/drawer.css';
 import { getAuth, signOut } from 'firebase/auth';
 import { app } from '../firebase.js';

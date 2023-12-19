@@ -2,7 +2,6 @@ import dotenv from 'dotenv';
 import React, { useEffect, useRef, useState } from 'react';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { Outlet } from 'react-router-dom';
-
 import Noresults from './components/Noresults';
 import ShimmerLoading from './components/ShimmerLoading/ShimmerLoading';
 import BackToTopButton from './components/menu/BackToTopButton';
