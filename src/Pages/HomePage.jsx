@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect,useState,useRef } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import rocket from '../components/assets/RocketLaunch.png';
 import bg from '../components/assets/bg.png';
@@ -7,7 +7,10 @@ import nft from '../components/assets/nft.png';
 import Navbar from './Navbar';
 import Footer from '../components/footer/Footer'
 import '../utils/style.css';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { app } from '../firebase';
 
+const auth = getAuth(app);
 
 export default function HomePage() {
 
@@ -18,16 +21,31 @@ export default function HomePage() {
   const ref3 = useRef(null);
   const ref4 = useRef(null);
 
+  // User Data State 
+  const [userData, setUserData] = useState({})
+
+
+  // User Data
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (data) => {
+        setUserData(() => {
+          return data;
+        })
+    })
+
+    return () => unsubscribe();
+  }, [])
+
 
   // Multiple Ref to animate multiple elements [II]
   useEffect(() => {
-    if(isVisible){
+    if (isVisible) {
       ref2.current.classList.add('slide__in2');
       ref.current.classList.add('slide__in');
       ref3.current.classList.add('slide__in3');
       ref4.current.classList.add('slide__in');
     }
-    else{
+    else {
       ref.current.classList.remove('slide__in');
       ref2.current.classList.remove('slide__in2');
       ref3.current.classList.remove('slide__in3');
@@ -38,13 +56,13 @@ export default function HomePage() {
 
   // Intersection Observer [I]
   useEffect(() => {
-    const observer= new IntersectionObserver(([entry])=>{
+    const observer = new IntersectionObserver(([entry]) => {
       setIsVisible(entry.isIntersecting);
       console.log(entry.isIntersecting);
     })
     observer.observe(ref.current);
-    return ()=> observer.disconnect();
-},[]);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div
@@ -54,13 +72,13 @@ export default function HomePage() {
       }}
       className='h-screen overflow-y-scroll'
     >
-      <Navbar />
-      <div  className=' relative lg:flex-row pt-12 mb-20 md:pt-20 space-y-14 lg:space-y-0  px-6 flex flex-col-reverse lg:px-20 py-8 xs:py-0 justify-between'>
+      <Navbar userData={userData} />
+      <div className=' relative lg:flex-row pt-12 mb-20 md:pt-20 space-y-14 lg:space-y-0  px-6 flex flex-col-reverse lg:px-20 py-8 xs:py-0 justify-between'>
         <div className='hidden lg:block absolute top-0 right-0'>
           <img src={bg} className='h-48 w-80' />
         </div>
         {/* headline and subhead... */}
-        <div  className='flex flex-col space-y-10  '>
+        <div className='flex flex-col space-y-10  '>
           <div className='home__image' ref={ref}>
             <h1 className='text-[#FFFFFF] text-4xl md:text-6xl lg:text-7xl font-semibold'>
               Discover.Explore.
@@ -69,7 +87,7 @@ export default function HomePage() {
               Share.
             </p>
           </div>
-          <p  ref={ref2} className='home__image text-[#FFFFFF]  text-lg md:text-xl leading-8 max-w-2xl'>
+          <p ref={ref2} className='home__image text-[#FFFFFF]  text-lg md:text-xl leading-8 max-w-2xl'>
             <span className='text-[#6F4FF2] font-normal '>SnapGrid</span> is a
             versatile web platform that simplifies image discovery and
             downloads. Users can effortlessly find and acquire high-quality
@@ -84,7 +102,7 @@ export default function HomePage() {
                 }}
                 className='rounded-2xl px-10 py-3 flex items-center text-[#FFFFFF]'
               >
-                <img  className='pr-3 ' src={rocket} alt='' />
+                <img className='pr-3 ' src={rocket} alt='' />
                 Explore
               </button>
             </Link>
@@ -94,7 +112,7 @@ export default function HomePage() {
         {/* Image ... */}
         <div className='home__image' ref={ref4}>
           <img
-            
+
             src={nft}
             className='max-w-xs md:max-w-md lg:max-w-sm'
             alt='img.png'

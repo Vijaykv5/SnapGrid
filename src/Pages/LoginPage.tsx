@@ -1,10 +1,40 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import cam from '../components/assets/cam.png';
 import { Link } from 'react-router-dom';
+import { app } from '../firebase.js';
+import { signInWithEmailAndPassword, getAuth } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
+
+const auth = getAuth(app);
+
 function LoginPage() {
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+    // For LoginData
+    const [loginData, setLoginData] = useState({ username: "", email: "", password: ""});
+    // For Page Navigation
+    const navigate = useNavigate()
+    
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setLoginData((prevLoginData) => ({
+            ...prevLoginData,
+            [e.target.name]: e.target.value,
+        }));
     }
+    // For Saving User Data
+    const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        
+        const {username, email, password} = loginData;   
+        
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            localStorage.setItem('username', username);
+            navigate('/');
+        } catch (error) {
+            error ? alert('Invalid Credentials!') : null
+        }
+
+    }
+    
     return (
         <section className="bg-gray-900 w-full h-max">
             <div className="flex sm:h-screen  xs:h-screen  flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -20,11 +50,11 @@ function LoginPage() {
                         <form className="space-y-4 md:space-y-6" onSubmit={handleSubmit}>
                             <div>
                                 <label className="block mb-2 text-sm font-medium text-white">Your email</label>
-                                <input type="email" name="email" id="email" className="bg-gray-50 sm:text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 " placeholder="name@example.com" required />
+                                <input type="email" name="email" id="email" className="bg-gray-50 sm:text-sm rounded-lg focus:border-blue-500 block w-full p-2.5 bg-gray-700 border-gray-600 placeholder-gray-400 text-white focus:ring-blue-500 " placeholder="name@example.com" onChange={handleChange} required />
                             </div>
                             <div>
                                 <label className="block mb-2 text-sm font-medium text-white"> Password</label>
-                                <input type="password" name="confirm-password" id="confirm-password" placeholder="••••••••" className="bg-gray-50 sm:text-sm rounded-lg  block w-full p-2.5 bg-gray-700 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" required />
+                                <input type="password" name="password" id="confirm-password" placeholder="••••••••" className="bg-gray-50 sm:text-sm rounded-lg  block w-full p-2.5 bg-gray-700 placeholder-gray-400 text-white focus:ring-blue-500 focus:border-blue-500" onChange={handleChange} required />
                             </div>
                             <button type="submit" className="text-white  focus:ring-4  font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 
                             w-full "

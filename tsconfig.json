@@ -17,6 +17,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/index.tsx", "src/MainSection.js", "src/components/menu/BackToTopButton.js", "src/components/menu/DarkModeButton.js", "src/components/menu/Header.js", "src/components/menu/SelectionMenu.tsx", "src/components/ShimmerLoading/ShimmerLoading.js", "src/components/menu/ImageCard/ImageCard.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/index.tsx", "src/MainSection.js", "src/components/menu/BackToTopButton.js", "src/components/menu/DarkModeButton.js", "src/components/menu/Header.js", "src/components/menu/SelectionMenu.tsx", "src/components/ShimmerLoading/ShimmerLoading.js", "src/components/menu/ImageCard/ImageCard.js", "src/Pages/SignUpPage.tsx"],
   "exclude": ["node_modules"]
 }
