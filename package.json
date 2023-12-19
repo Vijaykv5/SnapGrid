@@ -53,14 +53,5 @@
     "react-lottie": {
       "react": "^0.14.7 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0"
     }
-  },
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Jaun-Raza/SnapGrid.git"
-  },
-  "bugs": {
-    "url": "https://github.com/Jaun-Raza/SnapGrid/issues"
-  },
-  "homepage": "https://github.com/Jaun-Raza/SnapGrid#readme"
+  }
 }
