@@ -76,18 +76,18 @@ export default function HomePage() {
             images spanning various categories, from nature to architecture.
           </p>
           <div ref={ref3} className='home__image'>
-            <Link to={'/search'}>
-              <button
-                style={{
-                  background:
-                    'linear-gradient(270deg, #6F4FF2 0%, #6F4FF2 100%)',
-                }}
-                className='rounded-2xl px-10 py-3 flex items-center text-[#FFFFFF]'
-              >
-                <img  className='pr-3 ' src={rocket} alt='' />
-                Explore
-              </button>
-            </Link>
+           
+              <div style={{
+  background: 'linear-gradient(270deg, #6F4FF2 0%, #6F4FF2 100%)',
+}} className='rounded-2xl px-10 py-3 flex items-center text-[#FFFFFF] w-40'>
+  <a href='/search' className='flex items-center'>
+    <img className='pr-3' src={rocket} alt='' />
+    Explore
+  </a>
+</div>
+
+              
+            
           </div>
         </div>
 

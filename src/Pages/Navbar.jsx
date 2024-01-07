@@ -17,10 +17,14 @@ export default function Navbar() {
     <div className='flex flex-col'>
       <nav className='py-8 px-12 flex items-center justify-between'>
         <div className='flex items-center'>
-        <Link to={'/'}><img src={cam} alt='cam.png' className='w-12 lg:w-[4.5rem] cursor-pointer' /></Link>
-          <p className='text-2xl lg:text-[32px] text-[#FFFFFF] font-semibold'>
+        <Link to={'/'}>
+          <div className='flex'>
+            <img src={cam} alt='cam.png' className='w-12 lg:w-[4.5rem] cursor-pointer' />
+          <p className='text-2xl  p-2  lg:text-[32px] text-[#FFFFFF] font-semibold'>
             SnapGrid
           </p>
+          </div>
+          </Link>
         </div>
         <HamburgerMenu  onClick={clickHandler} visibility={visibility} />
         <div className='hidden md:block'>

@@ -84,7 +84,7 @@ export default function Footer() {
       </div>
 
       <div ref={ref5} className="text-center py-4 text-white">
-        <p>&copy; SnapGrid 2023 All rights reserved</p>
+        <p>&copy; SnapGrid 2024 All rights reserved</p>
       </div>
 
     </footer>
